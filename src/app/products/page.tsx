@@ -58,9 +58,22 @@ export default function ProductsPage() {
           {PRODUCTS.map((product) => (
             <div
               key={product.id}
-              className="card group hover:border-green/40 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+              className="card group hover:border-green/40 hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden"
             >
               <div>
+                {/* Product Image */}
+                {product.images?.[0] && (
+                  <div className="relative h-44 -mx-6 -mt-6 mb-4 overflow-hidden bg-gray-100">
+                    <img
+                      src={product.images[0]}
+                      alt={product.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy/40 via-transparent to-transparent opacity-60" />
+                  </div>
+                )}
+
                 {/* Badges */}
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">

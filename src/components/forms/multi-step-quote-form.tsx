@@ -500,9 +500,6 @@ export default function MultiStepQuoteForm() {
               >
                 Where should we send your quote?
               </h3>
-              <p className="text-gray-500 text-sm">
-                Justin George will review your submission and provide an honest, obligation-free assessment.
-              </p>
             </div>
 
             {errors.form && (

@@ -75,6 +75,8 @@ export default function DomesticSectorPage() {
         description="Expert residential electrical services tailored for Canberra homes. From rooftop solar and EV charging to safety upgrades and home renovations."
         primaryCtaText="Request Home Quote"
         primaryCtaHref="/quote?property=house"
+        imageSrc="/images/hero/hero-solar-home.jpg"
+        imageAlt="Modern residential solar home in Canberra"
       />
 
       <section className="section-padding bg-off-white">

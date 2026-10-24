@@ -75,6 +75,8 @@ export default function CommercialSectorPage() {
         description="Reliable electrical engineering for commercial enterprises, retail tenancies, and property managers. Minimise downtime, cut power expenses, and maintain full workplace safety compliance."
         primaryCtaText="Request Commercial Quote"
         primaryCtaHref="/quote?property=commercial"
+        imageSrc="/images/services/commercial-solar.jpg"
+        imageAlt="Commercial Rooftop Solar and Power Solutions Canberra"
       />
 
       <section className="section-padding bg-off-white">

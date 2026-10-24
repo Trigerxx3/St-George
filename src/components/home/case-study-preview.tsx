@@ -1,28 +1,30 @@
-import { ArrowRight, MapPin, Sun } from "lucide-react";
+import { ArrowRight, MapPin, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 
-/* ─── Placeholder case studies ─── */
 const CASE_STUDIES = [
   {
-    title: "Solar + Battery Install",
-    location: "Canberra, ACT",
+    title: "10kW Solar + Tesla Powerwall 3",
+    location: "Gungahlin, ACT",
     service: "Solar & Battery",
-    description: "6.6kW solar system with 10kWh battery storage for a family home in Canberra.",
+    description: "23x Jinko N-Type panels paired with Tesla Powerwall 3 for full whole-home blackout resilience.",
     slug: "canberra-solar-battery",
+    image: "/images/hero/hero-solar-home.jpg",
   },
   {
-    title: "Commercial EV Charging",
-    location: "Queanbeyan, NSW",
-    service: "EV Chargers",
-    description: "Multi-bay EV charging station installation for a commercial car park.",
-    slug: "queanbeyan-ev-charging",
+    title: "Commercial 30kW Solar Array",
+    location: "Hume, ACT",
+    service: "Commercial Solar",
+    description: "Heavy-duty commercial rooftop solar system offsetting warehouse daytime power usage.",
+    slug: "hume-commercial-solar",
+    image: "/images/services/commercial-solar.jpg",
   },
   {
-    title: "Switchboard Upgrade",
+    title: "Clipsal RCBO Switchboard Modernisation",
     location: "Belconnen, ACT",
-    service: "Electrical",
-    description: "Full switchboard upgrade with safety switch installation for an older home.",
+    service: "Electrical Safety",
+    description: "Replaced 1970s rewirable ceramic fuses with individual life-saving RCBO safety switches.",
     slug: "belconnen-switchboard",
+    image: "/images/services/switchboard.jpg",
   },
 ];
 
@@ -34,20 +36,20 @@ export default function CaseStudyPreview() {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
           <div>
             <h2
-              className="text-3xl sm:text-4xl text-navy mb-2"
+              className="text-3xl sm:text-4xl text-navy mb-2 font-bold"
               style={{ fontFamily: "var(--font-heading)" }}
             >
-              Our <span className="text-green">Projects</span>
+              Recent Canberra <span className="text-green">Projects</span>
             </h2>
-            <p className="text-gray-500 max-w-md">
-              See what we've delivered for homes and businesses across the ACT.
+            <p className="text-gray-500 max-w-md text-sm sm:text-base">
+              Verified installations delivered for homes and commercial facilities across the ACT.
             </p>
           </div>
           <Link
             href="/gallery"
             className="inline-flex items-center gap-2 text-green font-semibold text-sm hover:text-green-dark transition-colors group"
           >
-            View Full Gallery
+            View Full Project Gallery
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
@@ -57,35 +59,47 @@ export default function CaseStudyPreview() {
           {CASE_STUDIES.map((study) => (
             <div
               key={study.slug}
-              className="bg-white rounded-xl border border-gray-100 overflow-hidden card-hover group"
+              className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col justify-between"
             >
-              {/* Image placeholder */}
-              <div className="placeholder-image aspect-video bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center relative">
-                <div className="text-center text-gray-400">
-                  <Sun size={32} strokeWidth={1} className="mx-auto mb-2 opacity-40" />
-                  <p className="text-xs">[Before / After Photo]</p>
+              <div>
+                {/* Real project photo */}
+                <div className="aspect-[16/10] overflow-hidden relative bg-navy/5">
+                  <img
+                    src={study.image}
+                    alt={study.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  {/* Service badge */}
+                  <span className="absolute top-3 left-3 bg-navy/85 backdrop-blur-md text-white text-[11px] font-semibold px-3 py-1 rounded-full border border-white/20">
+                    {study.service}
+                  </span>
                 </div>
-                {/* Service badge */}
-                <span className="absolute top-3 left-3 bg-navy/80 text-white text-xs font-semibold px-3 py-1 rounded-full backdrop-blur-sm">
-                  {study.service}
-                </span>
+
+                <div className="p-6">
+                  <div className="flex items-center gap-1.5 text-xs text-gray-400 mb-2 font-medium">
+                    <MapPin size={13} className="text-green" />
+                    <span>{study.location}</span>
+                  </div>
+                  <h3
+                    className="text-xl text-navy mb-2 font-bold group-hover:text-green transition-colors"
+                    style={{ fontFamily: "var(--font-heading)" }}
+                  >
+                    {study.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                    {study.description}
+                  </p>
+                </div>
               </div>
 
-              <div className="p-5">
-                <h3
-                  className="text-lg text-navy mb-1 group-hover:text-green transition-colors"
-                  style={{ fontFamily: "var(--font-heading)" }}
+              <div className="px-6 pb-6 pt-2">
+                <Link
+                  href="/gallery"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-green hover:underline"
                 >
-                  {study.title}
-                </h3>
-                <p className="flex items-center gap-1 text-xs text-gray-400 mb-3">
-                  <MapPin size={12} />
-                  {study.location}
-                </p>
-                <p className="text-sm text-gray-500 leading-relaxed">
-                  {study.description}
-                </p>
-                <p className="text-[10px] text-gray-300 mt-2">[PLACEHOLDER]</p>
+                  <span>Explore Case Study</span>
+                  <ArrowRight size={13} />
+                </Link>
               </div>
             </div>
           ))}

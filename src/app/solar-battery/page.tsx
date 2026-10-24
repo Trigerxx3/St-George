@@ -132,6 +132,8 @@ export default function SolarBatteryPage() {
         description="High-performance solar panel and battery storage installations engineered for Canberra's climate. Cut energy bills, achieve energy independence, and claim available government rebates."
         primaryCtaText="Get a Free Solar Quote"
         primaryCtaHref="/quote?service=solar-battery"
+        imageSrc="/images/hero/hero-solar-home.jpg"
+        imageAlt="Residential Solar & Battery Installation Canberra"
       />
 
       <ServiceFeatures

@@ -132,6 +132,8 @@ export default function EVChargersPage() {
         description="Fast, safe, and smart EV charger installations for residential and commercial properties. Licensed electrical installation for Tesla, BYD, Ocular, Zappi, and all electric vehicles."
         primaryCtaText="Request EV Charger Quote"
         primaryCtaHref="/quote?service=ev-chargers"
+        imageSrc="/images/services/ev-charger.jpg"
+        imageAlt="Smart EV Wallbox Charger Installation Canberra"
       />
 
       <ServiceFeatures

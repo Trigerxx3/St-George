@@ -129,11 +129,22 @@ export default async function PackageDetailPage({ params }: Props) {
               </div>
             </div>
 
-            {/* Right Sticky Card: Quote & Call Box */}
-            <div className="lg:col-span-4 bg-navy text-white p-6 sm:p-8 rounded-2xl sticky top-28 shadow-xl">
-              <span className="inline-block text-xs font-bold text-green-light uppercase tracking-wider mb-2">
-                Get a Fixed Upfront Quote
-              </span>
+            {/* Right Sticky Card: Image + Quote Box */}
+            <div className="lg:col-span-4 space-y-6 lg:sticky lg:top-28">
+              {pkg.image && (
+                <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-200 aspect-video bg-gray-100">
+                  <img
+                    src={pkg.image}
+                    alt={pkg.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              )}
+
+              <div className="bg-navy text-white p-6 sm:p-8 rounded-2xl shadow-xl">
+                <span className="inline-block text-xs font-bold text-green-light uppercase tracking-wider mb-2">
+                  Get a Fixed Upfront Quote
+                </span>
               <h3
                 className="text-2xl text-white mb-2"
                 style={{ fontFamily: "var(--font-heading)" }}
@@ -172,6 +183,7 @@ export default async function PackageDetailPage({ params }: Props) {
               </div>
             </div>
           </div>
+        </div>
         </div>
 
         {/* Other Packages */}

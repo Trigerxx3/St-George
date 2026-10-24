@@ -44,7 +44,7 @@ export const PRODUCTS: ProductItem[] = [
     shortDesc: "High-efficiency N-Type panel with industry-leading low temperature coefficient and superior low-light performance.",
     description:
       "The Jinko Solar Tiger Neo 440W utilizes advanced SMBB (Super Multi Busbar) and N-Type TOPCon technology. It offers outstanding resistance to PID (Potential Induced Degradation) and delivers superior output in low light conditions such as Canberra's overcast winter mornings.",
-    images: ["/images/products/jinko-panel.webp"],
+    images: ["/images/hero/hero-solar-home.jpg"],
     specs: {
       "Rated Power": "440W",
       "Cell Type": "N-Type Monocrystalline",
@@ -68,7 +68,7 @@ export const PRODUCTS: ProductItem[] = [
     shortDesc: "Ultra-durable dual-glass N-Type solar panel engineered for 30+ year lifespan and superior fire rating.",
     description:
       "Trina Solar Vertex S+ delivers premium 435W performance with robust 1.6+1.6mm dual-glass structure. Dual-glass construction provides superior mechanical load capacity and chemical resistance against harsh environmental factors.",
-    images: ["/images/products/trina-panel.webp"],
+    images: ["/images/hero/hero-solar-home.jpg"],
     specs: {
       "Rated Power": "435W",
       "Cell Type": "N-Type i-TOPCon",
@@ -94,7 +94,7 @@ export const PRODUCTS: ProductItem[] = [
     shortDesc: "All-in-one home battery with integrated solar inverter, 11.5kW continuous backup power, and seamless app control.",
     description:
       "Tesla Powerwall 3 combines a 13.5kWh lithium-ion battery with an integrated high-efficiency solar inverter supporting up to six solar inputs. With 11.5kW of continuous power output, it can start and run heavy whole-home appliances including ducted heat pumps, electric ovens, and EV chargers during grid blackouts.",
-    images: ["/images/products/tesla-powerwall3.webp"],
+    images: ["/images/services/battery-storage.jpg"],
     specs: {
       "Usable Capacity": "13.5 kWh",
       "Continuous Power": "11.5 kW Backup / On-Grid",
@@ -118,7 +118,7 @@ export const PRODUCTS: ProductItem[] = [
     shortDesc: "Flexible, high-voltage LFP battery with stackable 3.2kWh modules and 100% usable energy.",
     description:
       "Sungrow's high-voltage LFP (Lithium Iron Phosphate) home battery is modular, allowing easy capacity upgrades from 9.6kWh up to 19.2kWh. Designed with cobalt-free prismatic cells, it pairs seamlessly with Sungrow hybrid inverters for seamless 20ms blackout changeover.",
-    images: ["/images/products/sungrow-battery.webp"],
+    images: ["/images/services/battery-storage.jpg"],
     specs: {
       "Capacity Range": "9.6 kWh to 19.2 kWh (3 to 6 modules)",
       "Battery Chemistry": "Lithium Iron Phosphate (LFP) Cobalt-Free",
@@ -142,7 +142,7 @@ export const PRODUCTS: ProductItem[] = [
     shortDesc: "Austrian-engineered single-phase hybrid inverter with built-in PV Point emergency power socket.",
     description:
       "Fronius Primo GEN24 Plus is the benchmark in residential hybrid inverters. Featuring integrated active cooling technology, multi-flow technology for simultaneous battery charging and appliance power, and open interfaces for smart home automation.",
-    images: ["/images/products/fronius-inverter.webp"],
+    images: ["/images/services/battery-storage.jpg"],
     specs: {
       "Power Classes": "3.0kW / 5.0kW / 6.0kW / 8.0kW / 10.0kW",
       "MPPT Trackers": "2 independent MPPTs + 1 Battery Input",
@@ -164,7 +164,7 @@ export const PRODUCTS: ProductItem[] = [
     shortDesc: "Cost-effective, highly reliable hybrid inverter with iSolarCloud smartphone app and fast backup switch.",
     description:
       "Sungrow hybrid inverters combine solar and battery management in a compact, sleek chassis. Features built-in PID recovery, fast backup power switchover, and intuitive smart energy monitoring via iSolarCloud.",
-    images: ["/images/products/sungrow-inverter.webp"],
+    images: ["/images/services/battery-storage.jpg"],
     specs: {
       Options: "5kW Single Phase (SH5.0RS) / 10kW Three Phase (SH10RT)",
       "Max DC Input Voltage": "600V (Single Phase) / 1000V (Three Phase)",
@@ -186,7 +186,7 @@ export const PRODUCTS: ProductItem[] = [
     shortDesc: "Sleek 22kW fast charger with Wi-Fi connectivity, power sharing, and 7.3m lightweight cable.",
     description:
       "The Tesla Gen 3 Wall Connector is the gold standard for Tesla owners and all Type-2 compatible electric vehicles. It can deliver up to 22kW on three-phase or 7.4kW on single-phase connections, featuring power-sharing across up to 6 units on a single electrical feed.",
-    images: ["/images/products/tesla-charger.webp"],
+    images: ["/images/services/ev-charger.jpg"],
     specs: {
       "Max Charging Speed": "Up to 22 kW (3-phase 32A) or 7.4 kW (1-phase 32A)",
       "Cable Length": "7.3 metres lightweight cable with Type 2 plug",
@@ -207,7 +207,7 @@ export const PRODUCTS: ProductItem[] = [
     shortDesc: "Intelligent solar EV charger that lets you charge 100% on self-generated free solar power.",
     description:
       "Myenergi Zappi is the leading eco-smart EV charger. Featuring Eco and Eco+ modes that constantly match charging amperage to your solar panel export surplus, ensuring zero peak grid power is drawn while charging your EV.",
-    images: ["/images/products/zappi-charger.webp"],
+    images: ["/images/services/ev-charger.jpg"],
     specs: {
       Output: "7.4 kW (1-Phase) or 22 kW (3-Phase)",
       Modes: "Fast, Eco (Mix Solar/Grid), Eco+ (100% Solar Only)",
@@ -230,7 +230,7 @@ export const PRODUCTS: ProductItem[] = [
     shortDesc: "Premium Australian residential switchboard system featuring slimline combination safety switches.",
     description:
       "Clipsal Resi9 provides complete circuit-by-circuit life safety protection. Each circuit is protected by an individual RCBO, ensuring an electrical trip in a toaster or kettle won't plunge the whole house into darkness.",
-    images: ["/images/products/clipsal-board.webp"],
+    images: ["/images/services/switchboard.jpg"],
     specs: {
       Breakers: "Compact 1-Module RCBO (Overload + Earth Leakage)",
       Enclosure: "Flame retardant, UV-stabilized flush/surface mount",
@@ -252,7 +252,7 @@ export const PRODUCTS: ProductItem[] = [
     shortDesc: "Energy-efficient 10W dimmable LED downlights with selectable warm, cool, and daylight colour temperatures.",
     description:
       "Durable, flicker-free LED downlights engineered for residential and commercial ceilings. With IC-4 insulation abutment rating, these downlights can be safely covered by roof insulation with zero fire risk.",
-    images: ["/images/products/sal-downlight.webp"],
+    images: ["/images/services/commercial-solar.jpg"],
     specs: {
       Wattage: "10W (replaces 75W halogen)",
       "Colour Temperature": "Tri-Colour selectable (3000K / 4000K / 5700K)",
@@ -294,6 +294,7 @@ export const PACKAGES: PackageItem[] = [
     rebateEligible: true,
     warrantySummary: "25-Year Panel Warranty · 10-Year Inverter Warranty · 10-Year Workmanship Guarantee",
     featured: true,
+    image: "/images/hero/hero-solar-home.jpg",
   },
   {
     id: "pkg-10kw-powerwall",
@@ -323,6 +324,7 @@ export const PACKAGES: PackageItem[] = [
     rebateEligible: true,
     warrantySummary: "25-Year Panels · 10-Year Tesla Battery · 10-Year Workmanship",
     featured: true,
+    image: "/images/services/battery-storage.jpg",
   },
   {
     id: "pkg-solar-ev-smart",
@@ -351,6 +353,7 @@ export const PACKAGES: PackageItem[] = [
     rebateEligible: true,
     warrantySummary: "25-Year Panels · 10-Year Inverter · 3-Year Charger · 10-Year Workmanship",
     featured: true,
+    image: "/images/services/ev-charger.jpg",
   },
   {
     id: "pkg-commercial-30kw",
@@ -379,5 +382,6 @@ export const PACKAGES: PackageItem[] = [
     rebateEligible: true,
     warrantySummary: "25-Year Commercial Panel Warranty · 10-Year Commercial Inverter",
     featured: false,
+    image: "/images/services/commercial-solar.jpg",
   },
 ];

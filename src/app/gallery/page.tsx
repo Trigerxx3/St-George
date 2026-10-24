@@ -24,6 +24,7 @@ interface Project {
   system: string;
   description: string;
   results: string[];
+  image: string;
   clientQuote?: string;
   clientName?: string;
 }
@@ -43,6 +44,7 @@ const PROJECTS: Project[] = [
       "Full whole-home EPS backup powering ducted heating during storms",
       "Financed via the ACT Sustainable Household Scheme 0% loan",
     ],
+    image: "/images/hero/hero-solar-home.jpg",
     clientQuote: "Justin was fantastic from the first measure to the final app handover. Our power bill dropped by over 85% in the first quarter.",
     clientName: "Mark & Sandra T.",
   },
@@ -60,6 +62,7 @@ const PROJECTS: Project[] = [
       "Dynamic load balancing prevents exceeding commercial maximum demand",
       "Full EvoEnergy network approval handled seamlessly",
     ],
+    image: "/images/services/ev-charger.jpg",
     clientQuote: "Professional electrical engineering from start to finish. Zero disruption to our business operations.",
     clientName: "David L., Fleet Operations",
   },
@@ -77,23 +80,25 @@ const PROJECTS: Project[] = [
       "Sub-millisecond trip protection against electric shocks",
       "Official ACT Certificate of Compliance lodged with Access Canberra",
     ],
+    image: "/images/services/switchboard.jpg",
     clientQuote: "Peace of mind knowing our older home is now completely safe for our children. Neat and tidy work.",
     clientName: "Elena R.",
   },
   {
     id: "proj-4",
-    title: "6.6kW Essential Solar Array",
+    title: "6.6kW Essential Solar Array & Storage",
     category: "solar",
     categoryLabel: "Solar & Battery",
     suburb: "Tuggeranong, ACT",
-    system: "15x Trina Dual-Glass 435W Panels + 5kW Inverter",
+    system: "15x Trina Dual-Glass 435W Panels + SolaX Hybrid Inverter",
     description:
-      "Clean rooftop solar installation optimized for winter morning sun angles in south Canberra. Wi-Fi monitoring configured for live smartphone tracking.",
+      "Clean rooftop solar and battery installation optimized for winter morning sun angles in south Canberra. Real-time smartphone monitoring configured.",
     results: [
       "Generates approximately 26 kWh of clean energy per day",
       "Upfront Federal STC discount applied directly at point of sale",
       "Payback period calculated at under 3.8 years",
     ],
+    image: "/images/services/battery-storage.jpg",
     clientQuote: "Justin provided an honest quote without any pushy sales tactics. Highly recommend St George Electrical.",
     clientName: "Peter K.",
   },
@@ -111,6 +116,7 @@ const PROJECTS: Project[] = [
       "Offsets daytime compressor and machinery power consumption",
       "Eligible for immediate business tax depreciation",
     ],
+    image: "/images/services/commercial-solar.jpg",
     clientQuote: "St George delivered the project on time and within budget. The warehouse is brighter and our energy costs plunged.",
     clientName: "Andrew B., Facility Manager",
   },
@@ -128,6 +134,7 @@ const PROJECTS: Project[] = [
       "Weatherproof outdoor installation with neat concealed conduit",
       "Integrated CT clamps prevent home main switch overload",
     ],
+    image: "/images/services/ev-charger.jpg",
     clientQuote: "Charging my car on pure solar feels incredible. Great advice and meticulous electrical installation.",
     clientName: "Simon G.",
   },
@@ -187,66 +194,76 @@ export default function GalleryPage() {
           {filteredProjects.map((proj) => (
             <div
               key={proj.id}
-              className="card bg-white hover:border-green/40 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+              className="card bg-white hover:border-green/40 hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden p-0"
             >
-              <div>
-                {/* Header info */}
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-bold text-green uppercase tracking-wider">
-                    {proj.categoryLabel}
-                  </span>
-                  <span className="text-xs text-gray-400 flex items-center gap-1 font-medium">
-                    <MapPin size={13} className="text-gray-400" /> {proj.suburb}
-                  </span>
-                </div>
-
-                <h3
-                  className="text-xl font-bold text-navy mb-2"
-                  style={{ fontFamily: "var(--font-heading)" }}
-                >
-                  {proj.title}
-                </h3>
-
-                <div className="inline-block px-2.5 py-1 bg-off-white text-navy font-mono text-xs rounded-md mb-4 border border-gray-100 font-semibold">
-                  {proj.system}
-                </div>
-
-                <p className="text-gray-600 text-xs sm:text-sm leading-relaxed mb-5">
-                  {proj.description}
-                </p>
-
-                {/* Outcomes list */}
-                <div className="mb-5 space-y-2">
-                  <span className="text-xs font-bold text-navy uppercase tracking-wider block">
-                    Key Outcomes:
-                  </span>
-                  <ul className="space-y-1.5 text-xs text-gray-700">
-                    {proj.results.map((r, rIdx) => (
-                      <li key={rIdx} className="flex items-start gap-2">
-                        <CheckCircle2 size={14} className="text-green flex-shrink-0 mt-0.5" />
-                        <span>{r}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              {/* Image banner */}
+              <div className="relative aspect-[16/10] w-full overflow-hidden bg-navy/5">
+                <img
+                  src={proj.image}
+                  alt={proj.title}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                />
+                <span className="absolute top-3 left-3 bg-navy/85 backdrop-blur-md text-white text-[11px] font-semibold px-3 py-1 rounded-full border border-white/20">
+                  {proj.categoryLabel}
+                </span>
               </div>
 
-              {/* Review callout */}
-              {proj.clientQuote && (
-                <div className="pt-4 border-t border-gray-100 bg-off-white/50 -mx-6 -mb-6 p-5 rounded-b-xl">
-                  <div className="flex items-center gap-1 text-orange mb-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={12} fill="currentColor" />
-                    ))}
+              <div className="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs text-gray-400 flex items-center gap-1 font-medium">
+                      <MapPin size={13} className="text-green" /> {proj.suburb}
+                    </span>
                   </div>
-                  <p className="text-xs text-gray-600 italic mb-1.5">
-                    &ldquo;{proj.clientQuote}&rdquo;
+
+                  <h3
+                    className="text-xl font-bold text-navy mb-2"
+                    style={{ fontFamily: "var(--font-heading)" }}
+                  >
+                    {proj.title}
+                  </h3>
+
+                  <div className="inline-block px-2.5 py-1 bg-off-white text-navy font-mono text-xs rounded-md mb-3 border border-gray-100 font-semibold">
+                    {proj.system}
+                  </div>
+
+                  <p className="text-gray-600 text-xs sm:text-sm leading-relaxed mb-4">
+                    {proj.description}
                   </p>
-                  <span className="text-[11px] font-bold text-navy block">
-                    — {proj.clientName}
-                  </span>
+
+                  {/* Outcomes list */}
+                  <div className="mb-4 space-y-1.5">
+                    <span className="text-[11px] font-bold text-navy uppercase tracking-wider block">
+                      Key Outcomes:
+                    </span>
+                    <ul className="space-y-1 text-xs text-gray-700">
+                      {proj.results.map((r, rIdx) => (
+                        <li key={rIdx} className="flex items-start gap-1.5">
+                          <CheckCircle2 size={13} className="text-green flex-shrink-0 mt-0.5" />
+                          <span>{r}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-              )}
+
+                {/* Review callout */}
+                {proj.clientQuote && (
+                  <div className="pt-3 border-t border-gray-100 bg-off-white/60 -mx-6 -mb-6 p-4 rounded-b-xl mt-4">
+                    <div className="flex items-center gap-1 text-orange mb-1">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} size={11} fill="currentColor" />
+                      ))}
+                    </div>
+                    <p className="text-[11px] text-gray-600 italic mb-1">
+                      &ldquo;{proj.clientQuote}&rdquo;
+                    </p>
+                    <span className="text-[10px] font-bold text-navy block">
+                      — {proj.clientName}
+                    </span>
+                  </div>
+                )}
+              </div>
             </div>
           ))}
         </div>

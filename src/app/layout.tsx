@@ -1,31 +1,9 @@
 import type { Metadata } from "next";
-import { Barlow_Condensed, Inter, Dancing_Script } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/layout/site-header";
 import SiteFooter from "@/components/layout/site-footer";
 import MobileFloatingBar from "@/components/layout/mobile-floating-bar";
 import { BUSINESS } from "@/lib/constants";
-
-const barlowCondensed = Barlow_Condensed({
-  variable: "--font-barlow-condensed",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  display: "swap",
-});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
-
-const dancingScript = Dancing_Script({
-  variable: "--font-dancing-script",
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://stgeorgeelectrical.com.au"),
@@ -107,10 +85,7 @@ const localBusinessSchema = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${barlowCondensed.variable} ${inter.variable} ${dancingScript.variable} h-full`}
-    >
+    <html lang="en" className="h-full">
       <head>
         <script
           type="application/ld+json"

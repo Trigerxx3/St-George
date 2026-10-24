@@ -127,6 +127,8 @@ export default function ElectricalPage() {
         description="Comprehensive electrical contracting for homes, businesses, and industrial facilities. From switchboard upgrades and renovations to fault finding and compliance testing."
         primaryCtaText="Book an Electrician"
         primaryCtaHref="/booking"
+        imageSrc="/images/services/switchboard.jpg"
+        imageAlt="Modern switchboard and electrical safety switches Canberra"
       />
 
       <ServiceFeatures

@@ -117,12 +117,26 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Right Credentials Box */}
-            <div className="lg:col-span-5 bg-navy text-white rounded-2xl p-8 shadow-xl space-y-6">
-              <h3
-                className="text-2xl text-white font-bold"
-                style={{ fontFamily: "var(--font-heading)" }}
-              >
+            {/* Right Credentials Box & Installation Showcase */}
+            <div className="lg:col-span-5 space-y-6">
+              <div className="relative rounded-2xl overflow-hidden shadow-xl aspect-video bg-navy group">
+                <img
+                  src="/images/services/battery-storage.jpg"
+                  alt="Justin George installation quality - St George Electrical"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent flex items-end p-5">
+                  <span className="text-xs font-semibold text-white bg-green/90 px-3.5 py-1.5 rounded-full backdrop-blur-sm shadow-sm">
+                    Canberra Solar &amp; Battery Specialists
+                  </span>
+                </div>
+              </div>
+
+              <div className="bg-navy text-white rounded-2xl p-8 shadow-xl space-y-6">
+                <h3
+                  className="text-2xl text-white font-bold"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
                 Contractor Credentials
               </h3>
 
@@ -155,7 +169,8 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
       <ServiceCTA />
     </div>

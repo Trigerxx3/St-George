@@ -35,15 +35,27 @@ export default function PackagesPage() {
           {PACKAGES.map((pkg) => (
             <div
               key={pkg.id}
-              className={`card flex flex-col justify-between transition-all duration-300 relative ${
+              className={`card flex flex-col justify-between transition-all duration-300 relative overflow-hidden ${
                 pkg.featured
                   ? "border-green/40 shadow-xl bg-white"
                   : "border-gray-200 hover:shadow-lg bg-white"
               }`}
             >
               {pkg.featured && (
-                <div className="absolute -top-3.5 right-6 inline-flex items-center gap-1.5 px-3 py-1 bg-green text-white text-xs font-bold rounded-full shadow-sm">
+                <div className="absolute top-4 right-4 z-10 inline-flex items-center gap-1.5 px-3 py-1 bg-green text-white text-xs font-bold rounded-full shadow-md">
                   <Sparkles size={12} /> Canberra Top Pick
+                </div>
+              )}
+
+              {pkg.image && (
+                <div className="relative h-48 -mx-6 -mt-6 mb-5 overflow-hidden bg-gray-100">
+                  <img
+                    src={pkg.image}
+                    alt={pkg.name}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent to-transparent opacity-70" />
                 </div>
               )}
 

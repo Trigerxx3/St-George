@@ -1,9 +1,8 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
-import { ShieldCheck, Phone, CheckCircle } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import MultiStepQuoteForm from "@/components/forms/multi-step-quote-form";
 import { BUSINESS } from "@/lib/constants";
-import { phoneHref } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Request a Free Quote | St George Electrical Energy Solutions",
@@ -43,27 +42,6 @@ export default function QuotePage() {
         >
           <MultiStepQuoteForm />
         </Suspense>
-
-        {/* Alternative direct call section */}
-        <div className="mt-12 text-center max-w-md mx-auto">
-          <p className="text-sm text-gray-500 mb-2">Prefer to talk directly to an electrician right now?</p>
-          <a
-            href={phoneHref(BUSINESS.phone)}
-            className="inline-flex items-center gap-2 text-base font-bold text-navy hover:text-green transition-colors"
-          >
-            <Phone size={18} className="text-green" />
-            Call Justin George on {BUSINESS.phoneDisplay}
-          </a>
-          <div className="flex items-center justify-center gap-4 text-xs text-gray-400 mt-3">
-            <span className="flex items-center gap-1">
-              <CheckCircle size={12} className="text-green" /> No Call Centres
-            </span>
-            <span>•</span>
-            <span className="flex items-center gap-1">
-              <CheckCircle size={12} className="text-green" /> Direct Electrician Advice
-            </span>
-          </div>
-        </div>
       </div>
     </div>
   );

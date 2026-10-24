@@ -10,6 +10,8 @@ interface ServiceHeroProps {
   badge?: string;
   primaryCtaText?: string;
   primaryCtaHref?: string;
+  imageSrc?: string;
+  imageAlt?: string;
 }
 
 export default function ServiceHero({
@@ -19,6 +21,8 @@ export default function ServiceHero({
   badge = `ACT Licence #${BUSINESS.licence} · Licensed & Insured`,
   primaryCtaText = "Request a Free Quote",
   primaryCtaHref = "/quote",
+  imageSrc,
+  imageAlt,
 }: ServiceHeroProps) {
   return (
     <section className="relative min-h-[460px] lg:min-h-[520px] flex items-center gradient-hero overflow-hidden">
@@ -38,7 +42,8 @@ export default function ServiceHero({
       <div className="absolute bottom-0 left-1/4 w-[350px] h-[350px] bg-orange/10 rounded-full blur-[100px]" />
 
       <div className="container-custom relative z-10 py-14 lg:py-20">
-        <div className="max-w-3xl">
+        <div className={imageSrc ? "grid grid-cols-1 lg:grid-cols-12 gap-10 items-center" : "max-w-3xl"}>
+          <div className={imageSrc ? "lg:col-span-7" : ""}>
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white/80 text-xs sm:text-sm mb-5">
             <ShieldCheck size={16} className="text-green-light" />
@@ -89,6 +94,25 @@ export default function ServiceHero({
             <span>✓ Master Electricians Member</span>
             <span>✓ 100% ACT & NSW Compliant</span>
           </div>
+        </div>
+
+        {/* Optional Right Hero Image */}
+          {imageSrc && (
+            <div className="lg:col-span-5 hidden lg:block">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/20 aspect-4/3 group">
+                <img
+                  src={imageSrc}
+                  alt={imageAlt || title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4 bg-navy/85 backdrop-blur-md rounded-xl p-3 border border-white/10 flex items-center justify-between text-xs text-white">
+                  <span className="font-semibold">{title}</span>
+                  <span className="text-green-light font-bold">ACT #{BUSINESS.licence}</span>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

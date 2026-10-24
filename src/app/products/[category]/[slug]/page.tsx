@@ -95,19 +95,18 @@ export default async function ProductDetailPage({ params }: Props) {
         {/* Product Overview Section */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6 sm:p-10 shadow-sm mb-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-            {/* Visual Box / Placeholder Icon Frame */}
-            <div className="lg:col-span-5 bg-off-white rounded-xl border border-gray-200 p-8 flex flex-col items-center justify-center text-center min-h-[320px] relative overflow-hidden">
-              <div className="w-24 h-24 rounded-2xl bg-navy/5 text-green flex items-center justify-center mb-4">
-                <Zap size={48} />
-              </div>
-              <span className="text-xs uppercase tracking-wider font-bold text-gray-400 mb-1">
-                {product.categoryName}
-              </span>
-              <h3 className="text-xl font-bold text-navy max-w-xs">{product.name}</h3>
+            {/* Real Product Showcase Image */}
+            <div className="lg:col-span-5 bg-navy/5 rounded-xl border border-gray-200 overflow-hidden relative aspect-[4/3] group shadow-inner">
+              <img
+                src={product.images[0] || "/images/hero/hero-solar-home.jpg"}
+                alt={product.name}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
 
               {product.badge && (
-                <div className="absolute top-4 right-4 inline-flex items-center gap-1 text-xs font-bold text-green bg-green/10 px-3 py-1 rounded-full">
-                  <Sparkles size={12} /> {product.badge}
+                <div className="absolute top-4 right-4 inline-flex items-center gap-1 text-xs font-bold text-white bg-navy/85 backdrop-blur-md px-3 py-1 rounded-full border border-white/20 shadow-md">
+                  <Sparkles size={12} className="text-orange" /> {product.badge}
                 </div>
               )}
             </div>

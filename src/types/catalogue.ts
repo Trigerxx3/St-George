@@ -32,4 +32,5 @@ export interface PackageItem {
   rebateEligible: boolean;
   warrantySummary: string;
   featured?: boolean;
+  image?: string;
 }

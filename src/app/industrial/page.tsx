@@ -75,6 +75,8 @@ export default function IndustrialSectorPage() {
         description="Heavy-duty electrical engineering for industrial plants, manufacturing facilities, warehouses, and transport depots across Canberra and regional NSW."
         primaryCtaText="Request Industrial Assessment"
         primaryCtaHref="/quote?property=industrial"
+        imageSrc="/images/services/commercial-solar.jpg"
+        imageAlt="Industrial electrical and high-voltage distribution Canberra"
       />
 
       <section className="section-padding bg-off-white">
