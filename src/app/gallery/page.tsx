@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   Sun,
@@ -12,8 +12,12 @@ import {
   ArrowRight,
   ShieldCheck,
   Star,
+  Eye,
+  X,
+  Camera,
 } from "lucide-react";
 import { BUSINESS } from "@/lib/constants";
+import { createClient } from "@/lib/supabase/client";
 
 interface Project {
   id: string;
@@ -142,6 +146,28 @@ const PROJECTS: Project[] = [
 
 export default function GalleryPage() {
   const [filter, setFilter] = useState<string>("all");
+  const [uploadedPhotos, setUploadedPhotos] = useState<
+    Array<{ id: string; image_url: string; caption: string | null; sort_order: number }>
+  >([]);
+  const [lightboxUrl, setLightboxUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function loadGallery() {
+      try {
+        const supabase = createClient();
+        const { data } = await supabase
+          .from("gallery")
+          .select("*")
+          .order("sort_order", { ascending: true });
+        if (data && data.length > 0) {
+          setUploadedPhotos(data);
+        }
+      } catch (err) {
+        // Fallback silently to static case studies
+      }
+    }
+    loadGallery();
+  }, []);
 
   const filteredProjects =
     filter === "all" ? PROJECTS : PROJECTS.filter((p) => p.category === filter);
@@ -178,7 +204,7 @@ export default function GalleryPage() {
             <button
               key={f.id}
               onClick={() => setFilter(f.id)}
-              className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
+              className={`px-4 py-2 rounded-full text-sm font-semibold transition-all cursor-pointer ${
                 filter === f.id
                   ? "bg-green text-white shadow-sm"
                   : "bg-white text-gray-700 hover:border-green/40 hover:text-green border border-gray-200"
@@ -267,6 +293,79 @@ export default function GalleryPage() {
             </div>
           ))}
         </div>
+
+        {/* Dynamic Installation Photos from Admin Uploads */}
+        {uploadedPhotos.length > 0 && (
+          <div className="mb-16 bg-white p-8 sm:p-10 rounded-2xl border border-gray-200 shadow-sm">
+            <div className="text-center max-w-2xl mx-auto mb-8">
+              <span className="text-xs font-bold uppercase tracking-wider text-green block mb-1">
+                Verified Field Work
+              </span>
+              <h2
+                className="text-2xl sm:text-3xl font-bold text-navy"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                Recent On-Site Installation Gallery
+              </h2>
+              <p className="text-gray-500 text-xs sm:text-sm mt-1">
+                Direct snapshots from residential rooftop solar, EV chargers, and switchboard modernisations.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {uploadedPhotos.map((photo) => (
+                <div
+                  key={photo.id}
+                  onClick={() => setLightboxUrl(photo.image_url)}
+                  className="bg-off-white rounded-xl border border-gray-200 overflow-hidden shadow-xs hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
+                >
+                  <div className="relative aspect-video bg-gray-100 overflow-hidden">
+                    <img
+                      src={photo.image_url}
+                      alt={photo.caption || "Installation photo"}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <span className="px-3 py-1 rounded-full bg-navy/80 text-white text-[11px] font-semibold backdrop-blur-xs flex items-center gap-1.5 shadow">
+                        <Eye size={12} /> View Photo
+                      </span>
+                    </div>
+                  </div>
+                  {photo.caption && (
+                    <div className="p-3 bg-white">
+                      <p className="text-xs font-semibold text-navy line-clamp-2">
+                        {photo.caption}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Lightbox Modal */}
+        {lightboxUrl && (
+          <div
+            onClick={() => setLightboxUrl(null)}
+            className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 cursor-zoom-out"
+          >
+            <div className="relative max-w-4xl max-h-[90vh]">
+              <img
+                src={lightboxUrl}
+                alt="Enlarged installation"
+                className="max-w-full max-h-[85vh] object-contain rounded-xl shadow-2xl"
+              />
+              <button
+                onClick={() => setLightboxUrl(null)}
+                className="absolute -top-10 right-0 text-white hover:text-green p-1 text-sm font-bold flex items-center gap-1 cursor-pointer"
+              >
+                <X size={18} />
+                <span>Close</span>
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* CTA Bar */}
         <div className="bg-navy rounded-2xl p-8 sm:p-10 text-white text-center max-w-3xl mx-auto shadow-xl">
