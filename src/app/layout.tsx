@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import SiteHeader from "@/components/layout/site-header";
-import SiteFooter from "@/components/layout/site-footer";
-import MobileFloatingBar from "@/components/layout/mobile-floating-bar";
+import PublicShell from "@/components/layout/public-shell";
 import { BUSINESS } from "@/lib/constants";
 
 export const metadata: Metadata = {
@@ -99,16 +97,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="min-h-full flex flex-col antialiased">
-        {/* Skip to main content for accessibility */}
-        <a href="#main-content" className="skip-link">
-          Skip to main content
-        </a>
-        <SiteHeader />
-        <main id="main-content" className="flex-1">
-          {children}
-        </main>
-        <SiteFooter />
-        <MobileFloatingBar />
+        <PublicShell>{children}</PublicShell>
       </body>
     </html>
   );
