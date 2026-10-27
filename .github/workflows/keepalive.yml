@@ -13,8 +13,10 @@ jobs:
     steps:
       - name: Ping Keepalive Table
         run: |
-          if [ -z "${{ secrets.SUPABASE_URL }}" ] || [ -z "${{ secrets.SUPABASE_ANON_KEY }}" ]; then
-            echo "::error::GitHub Secrets SUPABASE_URL and SUPABASE_ANON_KEY must be set in Repository Settings -> Secrets and variables -> Actions."
+          API_KEY="${{ secrets.SUPABASE_PUBLISHABLE_KEY || secrets.SUPABASE_ANON_KEY }}"
+
+          if [ -z "${{ secrets.SUPABASE_URL }}" ] || [ -z "$API_KEY" ]; then
+            echo "::error::GitHub Secrets SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY (or SUPABASE_ANON_KEY) must be set in Repository Settings -> Secrets and variables -> Actions."
             exit 1
           fi
 
@@ -25,8 +27,8 @@ jobs:
 
           RESPONSE=$(curl -s -w "\n%{http_code}" -X GET \
             "$CLEAN_URL/rest/v1/keepalive?select=id,pinged_at&limit=1" \
-            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "apikey: $API_KEY" \
+            -H "Authorization: Bearer $API_KEY" \
             -H "Content-Type: application/json")
 
           HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
