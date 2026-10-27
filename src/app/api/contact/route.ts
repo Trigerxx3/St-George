@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { ContactRequestSchema } from "@/lib/validations";
 import { sendNotificationEmail } from "@/lib/email";
 import { BUSINESS } from "@/lib/constants";
+import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {
   try {
@@ -21,6 +22,30 @@ export async function POST(request: Request) {
 
     const data = validation.data;
     const contactId = `CT-${Math.floor(100000 + Math.random() * 900000)}`;
+
+    // Store in Supabase enquiries table (if configured)
+    if (
+      process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY &&
+      !process.env.NEXT_PUBLIC_SUPABASE_URL.includes("placeholder-project")
+    ) {
+      try {
+        const supabase = await createClient();
+        await supabase.from("enquiries").insert([
+          {
+            name: data.name,
+            email: data.email,
+            phone: data.phone,
+            suburb: null,
+            service_type: data.subject || "General Contact",
+            message: data.message,
+            status: "new",
+          },
+        ]);
+      } catch (dbErr) {
+        console.warn("[Contact Supabase Insert Warning]", dbErr);
+      }
+    }
 
     const emailSubject = `[Website Contact Inquiry #${contactId}] ${data.subject} - ${data.name}`;
     const emailBody = `

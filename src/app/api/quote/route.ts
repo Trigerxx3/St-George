@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { QuoteRequestSchema } from "@/lib/validations";
 import { sendNotificationEmail } from "@/lib/email";
 import { BUSINESS } from "@/lib/constants";
+import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {
   try {
@@ -22,6 +23,32 @@ export async function POST(request: Request) {
 
     const data = validation.data;
     const refId = `STG-Q${Math.floor(100000 + Math.random() * 900000)}`;
+
+    const messageDetails = `Property: ${data.propertyType} | Quarterly Bill: ${data.billAmount || "N/A"}${data.message ? ` | Notes: ${data.message}` : ""}`;
+
+    // Store in Supabase enquiries table (if configured)
+    if (
+      process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY &&
+      !process.env.NEXT_PUBLIC_SUPABASE_URL.includes("placeholder-project")
+    ) {
+      try {
+        const supabase = await createClient();
+        await supabase.from("enquiries").insert([
+          {
+            name: data.name,
+            email: data.email,
+            phone: data.phone,
+            suburb: `${data.suburb} ${data.postcode}`,
+            service_type: data.serviceType,
+            message: messageDetails,
+            status: "new",
+          },
+        ]);
+      } catch (dbErr) {
+        console.warn("[Quote Supabase Insert Warning]", dbErr);
+      }
+    }
 
     // Prepare email notification for Justin
     const emailSubject = `[New Quote Lead #${refId}] ${data.serviceType} - ${data.name} (${data.suburb})`;

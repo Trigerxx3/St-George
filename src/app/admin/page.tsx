@@ -1,161 +1,320 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
-  FileText,
-  Calendar,
-  Boxes,
+  Inbox,
+  Wrench,
   MessageSquareQuote,
-  TrendingUp,
+  Images,
+  Sliders,
   ArrowRight,
+  RefreshCw,
   Phone,
   Mail,
-  CheckCircle2,
+  MapPin,
   Clock,
+  CheckCircle2,
+  AlertCircle,
 } from "lucide-react";
-import { PRODUCTS, PACKAGES } from "@/lib/catalogue-data";
+import { createClient } from "@/lib/supabase/client";
+
+interface RecentEnquiry {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  suburb: string | null;
+  service_type: string | null;
+  status: string;
+  created_at: string;
+}
 
 export default function AdminDashboardPage() {
-  const stats = [
-    { title: "New Quote Leads", value: "8", change: "+3 this week", icon: FileText, color: "text-green" },
-    { title: "Pending Bookings", value: "4", change: "2 urgent", icon: Calendar, color: "text-orange" },
-    { title: "Catalogue Products", value: PRODUCTS.length.toString(), change: "Active online", icon: Boxes, color: "text-navy" },
-    { title: "Turnkey Packages", value: PACKAGES.length.toString(), change: "Canberra schemes", icon: MessageSquareQuote, color: "text-blue-600" },
-  ];
+  const [stats, setStats] = useState({
+    newEnquiries: 0,
+    totalServices: 0,
+    testimonials: 0,
+    galleryItems: 0,
+  });
+  const [recentEnquiries, setRecentEnquiries] = useState<RecentEnquiry[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const recentLeads = [
+  const fetchDashboardData = async () => {
+    setIsLoading(true);
+    try {
+      const supabase = createClient();
+
+      // 1. Fetch counts
+      const [enqRes, servRes, testRes, galRes] = await Promise.all([
+        supabase.from("enquiries").select("id, status, name, email, phone, suburb, service_type, created_at").order("created_at", { ascending: false }),
+        supabase.from("services").select("id", { count: "exact" }),
+        supabase.from("testimonials").select("id", { count: "exact" }),
+        supabase.from("gallery").select("id", { count: "exact" }),
+      ]);
+
+      const enquiriesData = enqRes.data || [];
+      const newEnqCount = enquiriesData.filter((e) => e.status === "new").length;
+
+      setStats({
+        newEnquiries: newEnqCount,
+        totalServices: servRes.count || 0,
+        testimonials: testRes.count || 0,
+        galleryItems: galRes.count || 0,
+      });
+
+      setRecentEnquiries(enquiriesData.slice(0, 5));
+    } catch (e) {
+      console.error("Dashboard data load error:", e);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchDashboardData();
+  }, []);
+
+  const statCards = [
     {
-      id: "STG-Q344603",
-      name: "Mark T.",
-      service: "Solar & Battery",
-      property: "House (Gungahlin)",
-      phone: "0412 345 678",
-      status: "New",
-      date: "Today, 10:45 AM",
+      title: "New Enquiries",
+      value: stats.newEnquiries.toString(),
+      subtext: "Awaiting review",
+      icon: Inbox,
+      color: "text-green",
+      bg: "bg-green/10",
+      href: "/admin/enquiries",
     },
     {
-      id: "STG-Q344598",
-      name: "Sarah C.",
-      service: "EV Charger",
-      property: "Townhouse (Belconnen)",
-      phone: "0423 456 789",
-      status: "Contacted",
-      date: "Yesterday",
+      title: "Active Services",
+      value: stats.totalServices.toString(),
+      subtext: "Solar, EV & Electrical",
+      icon: Wrench,
+      color: "text-blue-500",
+      bg: "bg-blue-500/10",
+      href: "/admin/services",
     },
     {
-      id: "STG-Q344582",
-      name: "David O.",
-      service: "Switchboard Upgrade",
-      property: "House (Woden)",
-      phone: "0434 567 890",
-      status: "Quoted",
-      date: "2 days ago",
+      title: "Published Reviews",
+      value: stats.testimonials.toString(),
+      subtext: "Verified customer ratings",
+      icon: MessageSquareQuote,
+      color: "text-amber-500",
+      bg: "bg-amber-500/10",
+      href: "/admin/testimonials",
+    },
+    {
+      title: "Gallery Projects",
+      value: stats.galleryItems.toString(),
+      subtext: "Installed photos in cloud",
+      icon: Images,
+      color: "text-purple-500",
+      bg: "bg-purple-500/10",
+      href: "/admin/gallery",
     },
   ];
 
   return (
-    <div className="space-y-8 max-w-6xl">
+    <div className="space-y-8 max-w-7xl">
       {/* Top Welcome */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1
-            className="text-3xl font-bold text-navy"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            Owner Dashboard Overview
+          <h1 className="text-3xl font-bold text-navy tracking-tight">
+            Administrator Control Center
           </h1>
-          <p className="text-gray-500 text-sm">
-            Welcome, Justin George. Here is a summary of your website lead generation and service requests.
+          <p className="text-gray-500 text-sm mt-1">
+            Real-time management for St George Electrical customer leads, services, and web content.
           </p>
         </div>
 
         <div className="flex gap-2">
-          <Link href="/admin/quotes" className="btn-primary !py-2 !px-4 text-xs">
-            Review Leads
-          </Link>
-          <Link href="/admin/bookings" className="btn-outline !py-2 !px-4 text-xs !text-navy !border-navy hover:!bg-navy hover:!text-white">
-            View Bookings
+          <button
+            onClick={fetchDashboardData}
+            disabled={isLoading}
+            className="inline-flex items-center gap-1.5 px-3 py-2 bg-white border border-gray-300 rounded-lg text-xs font-semibold text-gray-700 hover:bg-gray-50 transition-colors shadow-sm cursor-pointer disabled:opacity-50"
+          >
+            <RefreshCw size={14} className={isLoading ? "animate-spin" : ""} />
+            <span>Refresh</span>
+          </button>
+          <Link
+            href="/admin/enquiries"
+            className="px-4 py-2 bg-green hover:bg-green-light text-navy text-xs font-bold rounded-lg shadow-sm transition-colors flex items-center gap-1.5"
+          >
+            <span>Review Enquiries</span>
+            <ArrowRight size={14} />
           </Link>
         </div>
       </div>
 
-      {/* Stats Grid */}
+      {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {stats.map((s, idx) => {
-          const Icon = s.icon;
+        {statCards.map((card, idx) => {
+          const Icon = card.icon;
           return (
-            <div key={idx} className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+            <Link
+              key={idx}
+              href={card.href}
+              className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-all hover:border-green group"
+            >
               <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-semibold text-gray-500 uppercase">{s.title}</span>
-                <Icon size={18} className={s.color} />
+                <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                  {card.title}
+                </span>
+                <div className={`p-2 rounded-lg ${card.bg}`}>
+                  <Icon size={18} className={card.color} />
+                </div>
               </div>
-              <div className="text-3xl font-extrabold text-navy font-mono mb-1">{s.value}</div>
-              <span className="text-xs text-green font-medium">{s.change}</span>
-            </div>
+              <div className="text-3xl font-extrabold text-navy font-mono mb-1">
+                {isLoading ? "..." : card.value}
+              </div>
+              <div className="flex items-center justify-between text-xs text-gray-400 group-hover:text-green transition-colors">
+                <span>{card.subtext}</span>
+                <ArrowRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+              </div>
+            </Link>
           );
         })}
       </div>
 
-      {/* Recent Leads Table */}
+      {/* Recent Enquiries Box */}
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
         <div className="p-5 border-b border-gray-100 flex items-center justify-between">
-          <h2 className="text-base font-bold text-navy">Recent Quote Inquiries</h2>
+          <div className="flex items-center gap-2">
+            <Inbox className="text-green" size={20} />
+            <h2 className="text-base font-bold text-navy">Recent Customer Inquiries</h2>
+          </div>
           <Link
-            href="/admin/quotes"
-            className="text-xs font-semibold text-green hover:underline inline-flex items-center gap-1"
+            href="/admin/enquiries"
+            className="text-xs font-semibold text-green hover:text-green-dark flex items-center gap-1"
           >
-            View All Leads <ArrowRight size={13} />
+            <span>View All</span>
+            <ArrowRight size={12} />
           </Link>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
-            <thead className="bg-gray-50 text-gray-500 uppercase font-semibold border-b border-gray-100">
-              <tr>
-                <th className="p-4">Reference</th>
-                <th className="p-4">Customer</th>
-                <th className="p-4">Service</th>
-                <th className="p-4">Location</th>
-                <th className="p-4">Status</th>
-                <th className="p-4">Date</th>
-                <th className="p-4 text-right">Action</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100 text-gray-700">
-              {recentLeads.map((lead) => (
-                <tr key={lead.id} className="hover:bg-gray-50/80">
-                  <td className="p-4 font-mono font-bold text-navy">{lead.id}</td>
-                  <td className="p-4 font-medium text-navy">
-                    <div>{lead.name}</div>
-                    <span className="text-[11px] text-gray-400">{lead.phone}</span>
-                  </td>
-                  <td className="p-4">{lead.service}</td>
-                  <td className="p-4 text-gray-500">{lead.property}</td>
-                  <td className="p-4">
-                    <span
-                      className={`px-2 py-0.5 rounded-full font-bold text-[10px] ${
-                        lead.status === "New"
-                          ? "bg-green/10 text-green"
-                          : lead.status === "Contacted"
-                          ? "bg-blue-50 text-blue-600"
-                          : "bg-gray-100 text-gray-600"
-                      }`}
-                    >
-                      {lead.status}
-                    </span>
-                  </td>
-                  <td className="p-4 text-gray-400">{lead.date}</td>
-                  <td className="p-4 text-right">
-                    <a
-                      href={`tel:${lead.phone.replace(/\s+/g, "")}`}
-                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-green/10 text-green font-semibold hover:bg-green hover:text-white transition-colors"
-                    >
-                      <Phone size={12} /> Call
-                    </a>
-                  </td>
+        {isLoading ? (
+          <div className="p-8 text-center text-gray-400 text-xs flex items-center justify-center gap-2">
+            <RefreshCw size={16} className="animate-spin text-green" />
+            <span>Loading recent activity...</span>
+          </div>
+        ) : recentEnquiries.length === 0 ? (
+          <div className="p-8 text-center text-gray-400 text-xs">
+            No customer enquiries recorded yet.
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs">
+              <thead className="bg-gray-50 text-gray-500 font-semibold border-b border-gray-100">
+                <tr>
+                  <th className="py-3 px-4">Customer Name</th>
+                  <th className="py-3 px-4">Contact</th>
+                  <th className="py-3 px-4">Service</th>
+                  <th className="py-3 px-4">Date</th>
+                  <th className="py-3 px-4">Status</th>
+                  <th className="py-3 px-4 text-right">Action</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {recentEnquiries.map((enq) => (
+                  <tr key={enq.id} className="hover:bg-slate-50 transition-colors">
+                    <td className="py-3 px-4 font-bold text-navy">{enq.name}</td>
+                    <td className="py-3 px-4 text-gray-600">
+                      <div>{enq.email}</div>
+                      <div className="text-[11px] font-mono text-gray-400">{enq.phone}</div>
+                    </td>
+                    <td className="py-3 px-4">
+                      <span className="font-medium text-navy">{enq.service_type || "General"}</span>
+                      {enq.suburb && <div className="text-[11px] text-gray-400">{enq.suburb}</div>}
+                    </td>
+                    <td className="py-3 px-4 font-mono text-[11px] text-gray-400">
+                      {new Date(enq.created_at).toLocaleDateString("en-AU", {
+                        day: "numeric",
+                        month: "short",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </td>
+                    <td className="py-3 px-4">
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold capitalize ${
+                        enq.status === "new"
+                          ? "bg-emerald-100 text-emerald-800"
+                          : enq.status === "contacted"
+                          ? "bg-blue-100 text-blue-800"
+                          : enq.status === "quoted"
+                          ? "bg-amber-100 text-amber-800"
+                          : "bg-gray-100 text-gray-600"
+                      }`}>
+                        {enq.status}
+                      </span>
+                    </td>
+                    <td className="py-3 px-4 text-right">
+                      <Link
+                        href="/admin/enquiries"
+                        className="text-xs font-semibold text-navy hover:text-green"
+                      >
+                        Manage →
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+
+      {/* Quick Access Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Link
+          href="/admin/services"
+          className="p-5 bg-white rounded-xl border border-gray-200 shadow-sm hover:border-green hover:shadow-md transition-all flex items-start gap-3.5 group"
+        >
+          <div className="p-2.5 bg-blue-50 text-blue-600 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-colors">
+            <Wrench size={20} />
+          </div>
+          <div>
+            <h3 className="text-sm font-bold text-navy group-hover:text-green transition-colors">
+              Manage Services
+            </h3>
+            <p className="text-xs text-gray-500 mt-0.5">
+              Edit services, sector classifications, and sort orders.
+            </p>
+          </div>
+        </Link>
+
+        <Link
+          href="/admin/gallery"
+          className="p-5 bg-white rounded-xl border border-gray-200 shadow-sm hover:border-green hover:shadow-md transition-all flex items-start gap-3.5 group"
+        >
+          <div className="p-2.5 bg-purple-50 text-purple-600 rounded-lg group-hover:bg-purple-600 group-hover:text-white transition-colors">
+            <Images size={20} />
+          </div>
+          <div>
+            <h3 className="text-sm font-bold text-navy group-hover:text-green transition-colors">
+              Cloud Photo Gallery
+            </h3>
+            <p className="text-xs text-gray-500 mt-0.5">
+              Upload job photos to Supabase Storage and manage public showcase.
+            </p>
+          </div>
+        </Link>
+
+        <Link
+          href="/admin/settings"
+          className="p-5 bg-white rounded-xl border border-gray-200 shadow-sm hover:border-green hover:shadow-md transition-all flex items-start gap-3.5 group"
+        >
+          <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-lg group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+            <Sliders size={20} />
+          </div>
+          <div>
+            <h3 className="text-sm font-bold text-navy group-hover:text-green transition-colors">
+              Site Settings &amp; Contact
+            </h3>
+            <p className="text-xs text-gray-500 mt-0.5">
+              Update phone numbers, email, hours, and licence numbers.
+            </p>
+          </div>
+        </Link>
       </div>
     </div>
   );
