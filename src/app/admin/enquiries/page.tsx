@@ -1,24 +1,23 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { EnquiryStatus } from "@/lib/supabase/types";
 import {
   Inbox,
   Search,
-  Filter,
   CheckCircle,
   Clock,
   PhoneCall,
   FileCheck,
-  XCircle,
   RefreshCw,
   Mail,
   Phone,
   MapPin,
-  Calendar,
   AlertCircle,
-  MessageSquare,
+  FileSpreadsheet,
+  Download,
+  ChevronDown,
 } from "lucide-react";
 
 interface Enquiry {
@@ -41,6 +40,7 @@ export default function AdminEnquiriesPage() {
   const [selectedEnquiry, setSelectedEnquiry] = useState<Enquiry | null>(null);
   const [updatingId, setUpdatingId] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [showExportMenu, setShowExportMenu] = useState(false);
 
   const fetchEnquiries = async () => {
     setIsLoading(true);
@@ -128,6 +128,79 @@ export default function AdminEnquiriesPage() {
     closed: enquiries.filter((e) => e.status === "closed").length,
   };
 
+  // Export Enquiries to Excel (.csv with UTF-8 BOM for Microsoft Excel)
+  const exportToExcel = (itemsToExport: Enquiry[], filterLabel = "all") => {
+    if (itemsToExport.length === 0) {
+      alert("No enquiries to export.");
+      return;
+    }
+
+    const headers = [
+      "Enquiry Reference ID",
+      "Date Received",
+      "Time Received",
+      "Customer Name",
+      "Email Address",
+      "Phone Number",
+      "Suburb / Location",
+      "Service Requested",
+      "Inquiry Status",
+      "Customer Message / Notes",
+    ];
+
+    const escapeCsv = (val: string | null | undefined) => {
+      if (val === null || val === undefined) return '""';
+      // Normalize line breaks and double escape quotes
+      const cleaned = String(val).replace(/"/g, '""');
+      return `"${cleaned}"`;
+    };
+
+    const rows = itemsToExport.map((item) => {
+      const d = new Date(item.created_at);
+      const datePart = d.toLocaleDateString("en-AU", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      });
+      const timePart = d.toLocaleTimeString("en-AU", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      });
+
+      return [
+        escapeCsv(item.id),
+        escapeCsv(datePart),
+        escapeCsv(timePart),
+        escapeCsv(item.name),
+        escapeCsv(item.email),
+        // Prefix with \t (tab) to guarantee Excel treats phone numbers as text and preserves leading zeroes (04xx xxx xxx)
+        escapeCsv(`\t${item.phone}`),
+        escapeCsv(item.suburb || "Canberra Region"),
+        escapeCsv(item.service_type || "General Enquiry"),
+        escapeCsv(item.status.toUpperCase()),
+        escapeCsv(item.message),
+      ].join(",");
+    });
+
+    // \uFEFF Byte Order Mark ensures Microsoft Excel displays UTF-8 characters cleanly
+    const csvContent = "\uFEFF" + [headers.map((h) => `"${h}"`).join(","), ...rows].join("\r\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    const today = new Date().toISOString().split("T")[0];
+    link.href = url;
+    link.setAttribute("download", `st-george-enquiries-${filterLabel}-${today}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    setShowExportMenu(false);
+  };
+
+  const isFiltered = filterStatus !== "all" || Boolean(searchQuery);
+
   return (
     <div className="space-y-6 max-w-7xl">
       {/* Header */}
@@ -135,21 +208,79 @@ export default function AdminEnquiriesPage() {
         <div>
           <h1 className="text-2xl font-bold text-navy flex items-center gap-2">
             <Inbox className="text-green" size={26} />
-            Customer Enquiries & Leads
+            Customer Enquiries &amp; Leads
           </h1>
           <p className="text-sm text-gray-500">
-            Real-time customer inquiries from website contact and quote request forms.
+            Real-time customer inquiries from website contact, quote, and booking request forms.
           </p>
         </div>
 
-        <button
-          onClick={fetchEnquiries}
-          disabled={isLoading}
-          className="inline-flex items-center gap-2 px-3.5 py-2 bg-white border border-gray-300 rounded-lg text-xs font-semibold text-gray-700 hover:bg-gray-50 shadow-sm transition-colors cursor-pointer disabled:opacity-50"
-        >
-          <RefreshCw size={14} className={isLoading ? "animate-spin" : ""} />
-          Refresh
-        </button>
+        <div className="flex items-center gap-2 relative">
+          {/* Export to Excel Dropdown Button */}
+          <div className="relative">
+            <button
+              onClick={() => {
+                if (!isFiltered) {
+                  exportToExcel(enquiries, "all");
+                } else {
+                  setShowExportMenu((prev) => !prev);
+                }
+              }}
+              className="inline-flex items-center gap-2 px-3.5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg text-xs font-bold shadow-sm transition-colors cursor-pointer"
+              title="Export enquiries to Excel spreadsheet"
+            >
+              <FileSpreadsheet size={15} />
+              <span>Export to Excel</span>
+              {isFiltered ? (
+                <ChevronDown size={14} className={showExportMenu ? "rotate-180 transition-transform" : ""} />
+              ) : (
+                <span className="bg-emerald-900/60 px-1.5 py-0.5 rounded text-[10px]">
+                  {enquiries.length}
+                </span>
+              )}
+            </button>
+
+            {/* Dropdown for Filtered vs All */}
+            {showExportMenu && isFiltered && (
+              <div className="absolute right-0 mt-1.5 w-56 bg-white border border-gray-200 rounded-xl shadow-xl z-30 py-1.5 animate-in fade-in zoom-in-95">
+                <button
+                  onClick={() => exportToExcel(filteredEnquiries, "filtered")}
+                  className="w-full text-left px-4 py-2 text-xs text-gray-700 hover:bg-slate-50 flex items-center justify-between cursor-pointer"
+                >
+                  <div className="flex items-center gap-2">
+                    <Download size={13} className="text-emerald-600" />
+                    <span className="font-semibold">Export Filtered Leads</span>
+                  </div>
+                  <span className="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded text-[10px]">
+                    {filteredEnquiries.length}
+                  </span>
+                </button>
+
+                <button
+                  onClick={() => exportToExcel(enquiries, "all")}
+                  className="w-full text-left px-4 py-2 text-xs text-gray-700 hover:bg-slate-50 flex items-center justify-between border-t border-gray-100 cursor-pointer"
+                >
+                  <div className="flex items-center gap-2">
+                    <Download size={13} className="text-gray-400" />
+                    <span>Export All Enquiries</span>
+                  </div>
+                  <span className="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded text-[10px]">
+                    {enquiries.length}
+                  </span>
+                </button>
+              </div>
+            )}
+          </div>
+
+          <button
+            onClick={fetchEnquiries}
+            disabled={isLoading}
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-white border border-gray-300 rounded-lg text-xs font-semibold text-gray-700 hover:bg-gray-50 shadow-sm transition-colors cursor-pointer disabled:opacity-50"
+          >
+            <RefreshCw size={14} className={isLoading ? "animate-spin" : ""} />
+            <span>Refresh</span>
+          </button>
+        </div>
       </div>
 
       {errorMsg && (
@@ -221,7 +352,7 @@ export default function AdminEnquiriesPage() {
                 <tr>
                   <th className="py-3 px-4">Customer</th>
                   <th className="py-3 px-4">Contact</th>
-                  <th className="py-3 px-4">Service & Suburb</th>
+                  <th className="py-3 px-4">Service &amp; Suburb</th>
                   <th className="py-3 px-4">Received</th>
                   <th className="py-3 px-4">Status</th>
                   <th className="py-3 px-4 text-right">Actions</th>
@@ -267,7 +398,6 @@ export default function AdminEnquiriesPage() {
                       {getStatusBadge(enq.status)}
                     </td>
                     <td className="py-3.5 px-4 text-right space-x-2">
-                      {/* Status select dropdown */}
                       <select
                         value={enq.status}
                         disabled={updatingId === enq.id}
