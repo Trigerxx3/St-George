@@ -1,7 +1,6 @@
 import Link from "next/link";
-import { Phone, ArrowUpRight, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, ShieldCheck } from "lucide-react";
 import { BUSINESS } from "@/lib/constants";
-import { phoneHref } from "@/lib/utils";
 import WireLine from "@/components/ui/wire-line";
 import HeroSlider from "@/components/home/hero-slider";
 
@@ -56,14 +55,10 @@ export default function HeroSection() {
             </p>
 
             <div className="animate-fade-in-up animate-delay-400 flex flex-col sm:flex-row gap-3 sm:gap-4 mb-10">
-              <Link href="/quote" className="btn-primary !py-3.5 !px-7">
+              <Link href="/quote" className="btn-primary !py-3.5 !px-8 text-base">
                 Get a Free Quote
                 <ArrowUpRight size={18} />
               </Link>
-              <a href={phoneHref(BUSINESS.phone)} className="btn-outline !py-3.5 !px-7">
-                <Phone size={18} />
-                {BUSINESS.phoneDisplay}
-              </a>
             </div>
 
             <ul className="animate-fade-in-up animate-delay-400 flex flex-wrap gap-x-6 gap-y-3 text-body-muted text-xs sm:text-sm">
