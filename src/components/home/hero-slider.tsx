@@ -112,8 +112,8 @@ export default function HeroSlider() {
       role="region"
       aria-label="Clean Energy Services Showcase Carousel"
     >
-      {/* ─── Main Image Frame ─── */}
-      <div className="relative rounded-3xl overflow-hidden border border-white/15 shadow-2xl shadow-black/60 group bg-navy-950">
+      {/* ─── Main Image Frame (Border removed for seamless visual blend) ─── */}
+      <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-black/70 group bg-navy-950">
         <div className="relative aspect-[4/5] sm:aspect-[4/3] lg:aspect-[4/5] w-full overflow-hidden">
           {SLIDES.map((slide, index) => {
             const isActive = index === currentIndex;
@@ -144,7 +144,7 @@ export default function HeroSlider() {
         </div>
 
         {/* Top-Right Floating Category Badge */}
-        <div className="absolute top-4 right-4 z-20 card-glass !rounded-full px-3.5 py-1.5 text-xs font-semibold flex items-center gap-2 backdrop-blur-md border border-white/20 text-white shadow-lg animate-fade-in">
+        <div className="absolute top-4 right-4 z-20 card-glass !rounded-full px-3.5 py-1.5 text-xs font-semibold flex items-center gap-2 backdrop-blur-md !border-0 text-white shadow-lg animate-fade-in">
           <BadgeIcon size={14} className="text-orange" />
           <span>{currentSlide.badgeText}</span>
         </div>
@@ -187,7 +187,7 @@ export default function HeroSlider() {
       {/* ─── Overlapping Interactive Glass Info Card ─── */}
       <Link
         href={currentSlide.href}
-        className="group/card absolute left-3 right-3 bottom-0 lg:-left-8 lg:right-4 z-30 card-glass !bg-navy-950/90 backdrop-blur-xl p-4 sm:p-4.5 rounded-2xl shadow-2xl border border-white/15 hover:border-orange/40 transition-all flex items-center justify-between gap-3 block"
+        className="group/card absolute left-3 right-3 bottom-0 lg:-left-8 lg:right-4 z-30 card-glass !bg-navy-950/90 backdrop-blur-xl p-4 sm:p-4.5 rounded-2xl shadow-2xl !border-0 hover:!border hover:!border-orange/50 transition-all flex items-center justify-between gap-3 block"
       >
         <div className="min-w-0">
           <span className="text-[10px] sm:text-[11px] uppercase font-bold text-orange-light tracking-[0.14em] block mb-1">

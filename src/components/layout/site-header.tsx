@@ -48,14 +48,14 @@ export default function SiteHeader() {
     <>
       {/* ─── Main Header ─── */}
       <header
-        className={`sticky top-0 z-50 border-b transition-all duration-300 ${
+        className={`sticky top-0 z-50 transition-all duration-300 ${
           overlay ? "-mb-16 lg:-mb-[76px]" : ""
         } ${
           transparent
-            ? "bg-transparent border-transparent"
+            ? "bg-transparent border-0 border-transparent shadow-none"
             : isScrolled
-            ? "bg-navy-950/95 backdrop-blur-xl border-white/10 shadow-lg shadow-black/20"
-            : "bg-navy-950/80 backdrop-blur-xl border-white/5"
+            ? "bg-navy-950/95 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/20"
+            : "bg-navy-950/80 backdrop-blur-xl border-b border-white/5"
         }`}
       >
         <div className="container-custom flex items-center justify-between gap-4 h-16 lg:h-[76px]">
