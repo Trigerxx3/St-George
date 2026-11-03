@@ -99,7 +99,7 @@ export default function CaseStudyPreview() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/40 to-transparent" />
               <div className="absolute left-0 right-0 bottom-0 p-5">
-                <span className="inline-block rounded-full border border-white/25 bg-white/10 backdrop-blur px-3 py-1 text-[11px] font-semibold text-white mb-3">
+                <span className="inline-block rounded-full border-0 bg-white/15 backdrop-blur px-3 py-1 text-[11px] font-semibold text-white mb-3">
                   {study.service}
                 </span>
                 <div className="flex items-end justify-between gap-3">

@@ -103,7 +103,7 @@ export default async function ProductDetailPage({ params }: Props) {
               <div className="absolute inset-0 bg-gradient-to-t from-navy-950/50 via-transparent to-transparent pointer-events-none" />
 
               {product.badge && (
-                <div className="absolute top-4 right-4 inline-flex items-center gap-1 text-xs font-bold text-white bg-navy-950/85 backdrop-blur-md px-3 py-1 rounded-full border border-white/20 shadow-md">
+                <div className="absolute top-4 right-4 inline-flex items-center gap-1 text-xs font-bold text-white bg-navy-950/85 backdrop-blur-md px-3 py-1 rounded-full border-0 shadow-md">
                   <Sparkles size={12} className="text-orange" /> {product.badge}
                 </div>
               )}

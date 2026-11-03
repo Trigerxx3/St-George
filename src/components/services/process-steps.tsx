@@ -51,7 +51,7 @@ export default function ProcessSteps({
   eyebrow = "How It Works",
 }: ProcessStepsProps) {
   return (
-    <section className="section-dark section-padding border-t border-white/5 overflow-hidden">
+    <section className="section-dark section-padding border-0 overflow-hidden">
       <div className="container-custom">
         <SectionHeading eyebrow={eyebrow} line1={title} intro={subtitle} />
 

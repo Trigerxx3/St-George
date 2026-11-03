@@ -34,7 +34,7 @@
 
   /* Glass */
   --glass-bg: rgba(255, 255, 255, 0.06);
-  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-border: transparent;
 
   /* Semantic */
   --background: #ffffff;
@@ -236,11 +236,11 @@ h1, h2, h3, h4, h5, h6 {
 .btn-outline {
   color: #fff;
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(232, 117, 26, 0.45);
 }
 .btn-outline:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(232, 117, 26, 0.12);
+  border-color: var(--color-orange);
   transform: translateY(-1px);
 }
 .btn-outline-dark {

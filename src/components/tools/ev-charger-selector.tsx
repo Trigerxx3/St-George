@@ -75,7 +75,7 @@ export default function EVChargerSelector() {
   return (
     <div className="bg-white rounded-2xl border border-gray-200 shadow-xl overflow-hidden max-w-4xl mx-auto">
       {/* Header */}
-      <div className="bg-navy-950 p-6 sm:p-8 text-white border-b border-white/10">
+      <div className="bg-navy-950 p-6 sm:p-8 text-white border-b-0">
         <span className="eyebrow mb-2">
           Canberra EV Matchmaker
         </span>
@@ -201,7 +201,7 @@ export default function EVChargerSelector() {
         </div>
 
         {/* Right Output */}
-        <div className="lg:col-span-6 bg-navy-950 border border-white/10 rounded-2xl p-6 sm:p-8 text-white flex flex-col justify-between">
+        <div className="lg:col-span-6 bg-navy-950 border-0 rounded-2xl p-6 sm:p-8 text-white flex flex-col justify-between shadow-2xl">
           <div>
             <div className="inline-flex items-center gap-1 text-xs font-bold text-orange-light bg-orange/15 border border-orange/30 px-2.5 py-0.5 rounded-full mb-3">
               <Sparkles size={12} /> Top Recommendation
@@ -215,7 +215,7 @@ export default function EVChargerSelector() {
             <p className="text-xs text-white/70 mb-6 leading-relaxed">{chargerReason}</p>
 
             <div className="grid grid-cols-2 gap-3 mb-6">
-              <div className="bg-white/5 rounded-xl p-3 border border-white/10">
+              <div className="bg-white/5 rounded-xl p-3 border-0">
                 <span className="text-[11px] text-white/60 block mb-0.5">Charge Speed</span>
                 <span className="text-xl font-bold text-orange-light font-mono">
                   +{rangePerHourKm} km/hr
@@ -225,7 +225,7 @@ export default function EVChargerSelector() {
                 </span>
               </div>
 
-              <div className="bg-white/5 rounded-xl p-3 border border-white/10">
+              <div className="bg-white/5 rounded-xl p-3 border-0">
                 <span className="text-[11px] text-white/60 block mb-0.5">Daily Commute Top-Up</span>
                 <span className="text-xl font-bold text-white font-mono">
                   {dailyChargeMinutes < 60 ? `${dailyChargeMinutes} mins` : `${(dailyChargeMinutes / 60).toFixed(1)} hrs`}
@@ -235,7 +235,7 @@ export default function EVChargerSelector() {
                 </span>
               </div>
 
-              <div className="bg-white/5 rounded-xl p-3 border border-white/10">
+              <div className="bg-white/5 rounded-xl p-3 border-0">
                 <span className="text-[11px] text-white/60 block mb-0.5">Full 0-100% Time</span>
                 <span className="text-xl font-bold text-white font-mono">
                   ~{fullChargeHours} hrs
@@ -245,7 +245,7 @@ export default function EVChargerSelector() {
                 </span>
               </div>
 
-              <div className="bg-white/5 rounded-xl p-3 border border-white/10">
+              <div className="bg-white/5 rounded-xl p-3 border-0">
                 <span className="text-[11px] text-white/60 block mb-0.5">Annual Fuel Savings</span>
                 <span className="text-xl font-bold text-orange-light font-mono">
                   ${annualSavings.toLocaleString()}
@@ -257,7 +257,7 @@ export default function EVChargerSelector() {
             </div>
           </div>
 
-          <div className="pt-4 border-t border-white/10 space-y-2">
+          <div className="pt-4 border-t-0 space-y-2">
             <Link
               href={`/quote?service=ev-chargers&charger=${encodeURIComponent(recommendedCharger)}`}
               className="btn-primary w-full !py-3.5 text-center justify-center flex text-sm"

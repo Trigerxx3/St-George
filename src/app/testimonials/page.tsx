@@ -155,7 +155,7 @@ export default function TestimonialsPage() {
         </div>
 
         {/* CTA Bar */}
-        <div className="section-dark rounded-2xl p-8 sm:p-10 text-white text-center max-w-3xl mx-auto shadow-xl border border-white/10">
+        <div className="section-dark rounded-2xl p-8 sm:p-10 text-white text-center max-w-3xl mx-auto shadow-2xl border-0">
           <div className="relative z-10">
             <h3
               className="text-2xl sm:text-3xl text-white mb-3 font-extrabold tracking-tight"

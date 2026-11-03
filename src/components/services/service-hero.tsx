@@ -92,7 +92,7 @@ export default function ServiceHero({
 
           {imageSrc && (
             <div className="lg:col-span-5">
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-black/40 border border-white/15 aspect-[4/3] group">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-black/60 border-0 aspect-[4/3] group">
                 <img
                   src={imageSrc}
                   alt={imageAlt || title}

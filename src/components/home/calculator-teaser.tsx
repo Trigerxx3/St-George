@@ -4,7 +4,7 @@ import SectionHeading from "@/components/ui/section-heading";
 
 export default function CalculatorTeaser() {
   return (
-    <section className="section-dark section-padding border-t border-white/5">
+    <section className="section-dark section-padding border-0">
       <div className="container-custom">
         <SectionHeading
           eyebrow="03 — Free Online Tool"
@@ -28,7 +28,7 @@ export default function CalculatorTeaser() {
                   { icon: DollarSign, label: "Annual Savings", value: "$1,800+", note: "[placeholder]" },
                   { icon: Leaf, label: "CO₂ Offset", value: "8.5 tonnes/yr", note: "[estimate]" },
                 ].map(({ icon: Icon, label, value, note }) => (
-                  <div key={label} className="rounded-xl border border-white/10 bg-white/[0.04] p-5">
+                  <div key={label} className="rounded-xl border-0 bg-white/[0.04] p-5">
                     <div className="flex items-center justify-between mb-4">
                       <Icon size={22} strokeWidth={1.4} className="text-orange-light" />
                       <span className="text-[10px] text-[#9fb2c8]">{note}</span>

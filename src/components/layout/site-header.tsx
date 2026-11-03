@@ -48,14 +48,14 @@ export default function SiteHeader() {
     <>
       {/* ─── Main Header ─── */}
       <header
-        className={`sticky top-0 z-50 transition-all duration-300 ${
+        className={`sticky top-0 z-50 transition-all duration-300 border-0 ${
           overlay ? "-mb-16 lg:-mb-[76px]" : ""
         } ${
           transparent
             ? "bg-transparent border-0 border-transparent shadow-none"
             : isScrolled
-            ? "bg-navy-950/95 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/20"
-            : "bg-navy-950/80 backdrop-blur-xl border-b border-white/5"
+            ? "bg-navy-950/95 backdrop-blur-xl border-0 shadow-lg shadow-black/20"
+            : "bg-navy-950/80 backdrop-blur-xl border-0"
         }`}
       >
         <div className="container-custom flex items-center justify-between gap-4 h-16 lg:h-[76px]">
@@ -116,7 +116,7 @@ export default function SiteHeader() {
 
                   {item.children && open && (
                     <div className="absolute top-full left-0 pt-2 z-50 animate-fade-in">
-                      <div className="rounded-xl border border-white/10 bg-navy-950/95 backdrop-blur-xl shadow-2xl shadow-black/40 py-2 min-w-[220px]">
+                      <div className="rounded-xl border-0 bg-navy-950/95 backdrop-blur-xl shadow-2xl shadow-black/60 py-2 min-w-[220px]">
                         {item.children.map((child) => (
                           <Link
                             key={child.href}
@@ -157,7 +157,7 @@ export default function SiteHeader() {
       {mobileOpen && (
         <div className="fixed inset-0 z-40 lg:hidden">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-fade-in" onClick={() => setMobileOpen(false)} />
-          <div className="absolute top-0 right-0 w-[85%] max-w-sm h-full bg-navy-950 border-l border-white/10 overflow-y-auto shadow-xl animate-fade-in">
+          <div className="absolute top-0 right-0 w-[85%] max-w-sm h-full bg-navy-950 border-0 overflow-y-auto shadow-2xl animate-fade-in">
             <div className="p-6 pt-20">
               <nav className="space-y-1" aria-label="Mobile navigation">
                 {NAV_ITEMS.map((item) => (
@@ -170,7 +170,7 @@ export default function SiteHeader() {
                 ))}
               </nav>
 
-              <div className="mt-8 pt-6 border-t border-white/10">
+              <div className="mt-8 pt-6 border-t-0">
                 <Link
                   href="/quote"
                   className="btn-primary w-full"

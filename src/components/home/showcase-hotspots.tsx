@@ -84,7 +84,7 @@ export default function ShowcaseHotspots() {
           intro="Take control of your energy with premium solar panel and battery storage solutions designed for Australian conditions. Cut your electricity bills and power your home with clean energy."
         />
 
-        <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl shadow-black/40 aspect-[4/5] sm:aspect-[16/10] bg-navy-light">
+        <div className="relative rounded-3xl overflow-hidden border-0 shadow-2xl shadow-black/60 aspect-[4/5] sm:aspect-[16/10] bg-navy-light">
           {/* Default + per-service photos, cross-faded */}
           <img
             src="/images/hero/hero-solar-home.jpg"

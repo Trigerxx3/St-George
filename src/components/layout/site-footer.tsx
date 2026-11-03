@@ -13,7 +13,7 @@ export default function SiteFooter() {
   return (
     <footer className="section-dark !bg-none bg-navy-950 text-[#9fb2c8]">
       {/* ─── Licence / Trust Strip ─── */}
-      <div className="border-b border-white/10">
+      <div className="bg-white/[0.02]">
         <div className="container-custom py-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
           <span className="flex items-center gap-2">
             <Shield size={16} className="text-orange" />
@@ -47,7 +47,7 @@ export default function SiteFooter() {
             </div>
             <p className="text-sm mb-5 max-w-xs">{BUSINESS.tagline}</p>
 
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white mb-6">
+            <span className="inline-flex items-center gap-2 rounded-full border-0 bg-white/5 px-3 py-1 text-xs text-white mb-6">
               <MapPin size={13} className="text-orange" />
               {BUSINESS.address.suburb}, {BUSINESS.address.state}
             </span>

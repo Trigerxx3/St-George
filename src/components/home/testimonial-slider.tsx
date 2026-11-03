@@ -53,7 +53,7 @@ export default function TestimonialSlider() {
     );
 
   return (
-    <section className="section-dark section-padding border-t border-white/5">
+    <section className="section-dark section-padding border-0">
       <div className="container-custom">
         <SectionHeading
           eyebrow="06 — Testimonials"
@@ -105,14 +105,14 @@ export default function TestimonialSlider() {
                 <div className="flex gap-2">
                   <button
                     onClick={prev}
-                    className="w-10 h-10 rounded-full border border-white/20 text-white flex items-center justify-center hover:bg-orange-strong hover:border-orange-strong transition-all"
+                    className="w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-orange-strong border-0 transition-all"
                     aria-label="Previous review"
                   >
                     <ChevronLeft size={18} />
                   </button>
                   <button
                     onClick={next}
-                    className="w-10 h-10 rounded-full border border-white/20 text-white flex items-center justify-center hover:bg-orange-strong hover:border-orange-strong transition-all"
+                    className="w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-orange-strong border-0 transition-all"
                     aria-label="Next review"
                   >
                     <ChevronRight size={18} />

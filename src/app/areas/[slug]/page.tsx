@@ -177,7 +177,7 @@ export default async function ServiceAreaPage({ params }: Props) {
             </div>
 
             {/* Right: Local Booking Box */}
-            <div className="lg:col-span-4 section-dark text-white p-6 sm:p-8 rounded-2xl shadow-xl border border-white/10">
+            <div className="lg:col-span-4 section-dark text-white p-6 sm:p-8 rounded-2xl shadow-2xl border-0">
               <div className="relative z-10">
                 <span className="eyebrow mb-2">
                   Fast Local Service
@@ -207,7 +207,7 @@ export default async function ServiceAreaPage({ params }: Props) {
                   </Link>
                 </div>
 
-                <div className="pt-4 border-t border-white/10 text-xs text-white/60 space-y-2">
+                <div className="pt-4 border-t-0 text-xs text-white/60 space-y-2">
                   <div className="flex items-center gap-2">
                     <Clock size={14} className="text-orange-light" />
                     <span>Mon – Fri: 7:00 AM – 5:00 PM</span>

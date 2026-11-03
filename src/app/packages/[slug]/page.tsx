@@ -149,7 +149,7 @@ export default async function PackageDetailPage({ params }: Props) {
                   </a>
                 </div>
 
-                <div className="pt-5 border-t border-white/10 text-xs text-[#9fb2c8] space-y-2">
+                <div className="pt-5 border-t-0 text-xs text-[#9fb2c8] space-y-2">
                   <div className="flex items-center gap-2">
                     <ShieldCheck size={14} className="text-orange" />
                     <span>{pkg.warrantySummary}</span>

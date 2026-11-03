@@ -112,7 +112,7 @@ export default async function BlogPostPage({ params }: Props) {
         </article>
 
         {/* CTA Banner */}
-        <div className="section-dark rounded-2xl p-8 sm:p-10 text-white flex flex-col sm:flex-row items-center justify-between gap-6 mb-16 shadow-xl border border-white/10">
+        <div className="section-dark rounded-2xl p-8 sm:p-10 text-white flex flex-col sm:flex-row items-center justify-between gap-6 mb-16 shadow-2xl border-0">
           <div className="max-w-lg relative z-10">
             <h3
               className="text-2xl sm:text-3xl text-white font-extrabold tracking-tight mb-2"

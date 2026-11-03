@@ -238,7 +238,7 @@ export default function SolarCalculator() {
             </div>
           </div>
 
-          <div className="pt-4 border-t border-white/10 space-y-2">
+          <div className="pt-4 border-t-0 space-y-2">
             <Link
               href={`/quote?service=solar-battery&bill=$${quarterlyBill}&systemSize=${recommendedSize}kW`}
               className="btn-primary w-full !py-3.5 text-center justify-center flex text-sm"

@@ -11,7 +11,7 @@ import Link from "next/link";
  */
 export default function MobileFloatingBar() {
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-navy-950/95 backdrop-blur-xl border-t border-white/10 safe-area-bottom">
+    <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-navy-950/95 backdrop-blur-xl border-0 shadow-2xl shadow-black/80 safe-area-bottom">
       <div className="grid grid-cols-3 h-14">
         {/* Call */}
         <a
