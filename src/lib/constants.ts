@@ -18,7 +18,7 @@ import {
 export const BUSINESS = {
   name: "St George Electrical Energy Solutions",
   shortName: "St George Electrical",
-  owner: "Justin George",
+  owner: "St George Electrical Energy Solutions",
   phone: "0450598628",
   phoneDisplay: "0450 598 628",
   email: "justingeorge@zohomail.com.au",
@@ -129,45 +129,43 @@ export const SERVICES: ServiceInfo[] = [
     ],
     href: "/electrical",
   },
-];
-
-/* ─── Sectors ─── */
-export interface SectorInfo {
-  slug: string;
-  title: string;
-  tagline: string;
-  description: string;
-  icon: string;
-  href: string;
-}
-
-export const SECTORS: SectorInfo[] = [
   {
-    slug: "domestic",
-    title: "Domestic",
-    tagline: "Keeping your home safe, comfortable & powered",
+    slug: "heating-cooling",
+    title: "Air Conditioning & Climate Control",
+    shortTitle: "Heating & Cooling",
+    tagline: "Comfort. Efficiency. Year-Round.",
     description:
-      "Expert electrical solutions for Australian homes. From solar installations to safety upgrades, we keep your family safe and your energy bills low.",
-    icon: "Home",
-    href: "/domestic",
+      "Complete heating, cooling, and climate control installations for Canberra homes and businesses. From split systems to ducted air conditioning, we deliver energy-efficient comfort all year round.",
+    icon: "Wind",
+    features: [
+      "Split system air conditioning",
+      "Ducted air conditioning",
+      "Heating system installation",
+      "Cooling system installation",
+      "System upgrades and replacements",
+      "Air conditioning maintenance",
+      "Energy-efficient climate solutions",
+    ],
+    href: "/heating-cooling",
   },
   {
-    slug: "commercial",
-    title: "Commercial",
-    tagline: "Powering businesses to keep them running",
+    slug: "security-cctv",
+    title: "Security & Surveillance Solutions",
+    shortTitle: "Security & CCTV",
+    tagline: "Smart. Secure. Connected.",
     description:
-      "Reliable electrical services for businesses of all sizes. Minimise downtime, maximise efficiency, and keep your operations running smoothly.",
-    icon: "Building2",
-    href: "/commercial",
-  },
-  {
-    slug: "industrial",
-    title: "Industrial",
-    tagline: "Reliable electrical solutions for large-scale operations",
-    description:
-      "Heavy-duty electrical expertise for industrial facilities. We understand the demands of large-scale operations and deliver solutions built to last.",
-    icon: "Factory",
-    href: "/industrial",
+      "Protect your property with professional security and surveillance systems. We supply, wire, and configure high-definition CCTV cameras, IP systems, and remote monitoring for residential and commercial sites.",
+    icon: "Cctv",
+    features: [
+      "CCTV camera installation",
+      "Residential security systems",
+      "Commercial surveillance systems",
+      "IP camera systems",
+      "Remote monitoring solutions",
+      "Video recording systems",
+      "Security system upgrades and maintenance",
+    ],
+    href: "/security-cctv",
   },
 ];
 
@@ -199,20 +197,13 @@ export interface NavItem {
 export const NAV_ITEMS: NavItem[] = [
   {
     label: "Services",
-    href: "#",
+    href: "/#services",
     children: [
-      { label: "Solar & Battery", href: "/solar-battery" },
-      { label: "EV Chargers", href: "/ev-chargers" },
-      { label: "Electrical", href: "/electrical" },
-    ],
-  },
-  {
-    label: "Sectors",
-    href: "#",
-    children: [
-      { label: "Domestic", href: "/domestic" },
-      { label: "Commercial", href: "/commercial" },
-      { label: "Industrial", href: "/industrial" },
+      { label: "01 — Solar & Battery", href: "/solar-battery" },
+      { label: "02 — EV Chargers", href: "/ev-chargers" },
+      { label: "03 — Electrical Services", href: "/electrical" },
+      { label: "04 — Heating & Cooling", href: "/heating-cooling" },
+      { label: "05 — Security & CCTV", href: "/security-cctv" },
     ],
   },
   {
@@ -220,32 +211,25 @@ export const NAV_ITEMS: NavItem[] = [
     href: "/products",
     children: [
       { label: "All Products", href: "/products" },
-      { label: "Solar Panels", href: "/products/solar-panels" },
       { label: "Batteries", href: "/products/batteries" },
       { label: "Inverters", href: "/products/inverters" },
+      { label: "Solar Panels", href: "/products/solar-panels" },
       { label: "EV Chargers", href: "/products/ev-chargers" },
-      { label: "Packages", href: "/packages" },
-    ],
-  },
-  {
-    label: "Tools",
-    href: "#",
-    children: [
-      { label: "Solar Calculator", href: "/calculator" },
-      { label: "EV Charger Selector", href: "/ev-selector" },
-      { label: "Rebates & Incentives", href: "/rebates" },
+      { label: "Switchboard & Safety", href: "/products/switchboard-safety" },
+      { label: "Lighting", href: "/products/lighting" },
+      { label: "Turnkey Packages", href: "/packages" },
     ],
   },
   { label: "Gallery", href: "/gallery" },
-  { label: "Blog", href: "/blog" },
+  { label: "How It Works", href: "/#how-it-works" },
   { label: "Contact", href: "/contact" },
 ];
 
 /* ─── Product Categories ─── */
 export const PRODUCT_CATEGORIES = [
-  { name: "Solar Panels", slug: "solar-panels" },
   { name: "Batteries", slug: "batteries" },
   { name: "Inverters", slug: "inverters" },
+  { name: "Solar Panels", slug: "solar-panels" },
   { name: "EV Chargers", slug: "ev-chargers" },
   { name: "Switchboard & Safety", slug: "switchboard-safety" },
   { name: "Lighting", slug: "lighting" },

@@ -75,11 +75,10 @@ export default function EVChargerSelector() {
   return (
     <div className="bg-white rounded-2xl border border-gray-200 shadow-xl overflow-hidden max-w-4xl mx-auto">
       {/* Header */}
-      <div className="bg-navy p-6 sm:p-8 text-white">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-green/20 text-green-light rounded-full text-xs font-semibold mb-3">
-          <Car size={14} />
+      <div className="bg-navy-950 p-6 sm:p-8 text-white border-b border-white/10">
+        <span className="eyebrow mb-2">
           Canberra EV Matchmaker
-        </div>
+        </span>
         <h2
           className="text-2xl sm:text-3xl text-white mb-2 font-bold"
           style={{ fontFamily: "var(--font-heading)" }}
@@ -96,11 +95,11 @@ export default function EVChargerSelector() {
         <div className="lg:col-span-6 space-y-6">
           {/* Vehicle Selection */}
           <div>
-            <label className="text-sm font-bold text-navy block mb-2">Select Your Vehicle</label>
+            <label className="text-sm font-bold text-ink block mb-2">Select Your Vehicle</label>
             <select
               value={selectedEv}
               onChange={(e) => setSelectedEv(e.target.value)}
-              className="input-field font-medium text-navy"
+              className="input-field font-medium text-ink"
             >
               {Object.entries(EV_MODELS).map(([k, v]) => (
                 <option key={k} value={k}>
@@ -112,7 +111,7 @@ export default function EVChargerSelector() {
 
           {/* Power Supply Phase */}
           <div>
-            <label className="text-sm font-bold text-navy block mb-2">Home Power Supply</label>
+            <label className="text-sm font-bold text-ink block mb-2">Home Power Supply</label>
             <div className="grid grid-cols-3 gap-2">
               {[
                 { id: "single", label: "Single-Phase (240V)" },
@@ -123,9 +122,9 @@ export default function EVChargerSelector() {
                   key={p.id}
                   type="button"
                   onClick={() => setPowerPhase(p.id as any)}
-                  className={`p-2.5 rounded-xl border text-xs font-medium text-center transition-all ${
+                  className={`p-2.5 rounded-xl border text-xs font-medium text-center transition-all cursor-pointer ${
                     powerPhase === p.id
-                      ? "border-green bg-green/10 text-green font-bold shadow-sm"
+                      ? "border-orange bg-orange/10 text-orange-strong font-bold shadow-sm"
                       : "border-gray-200 text-gray-600 hover:bg-gray-50"
                   }`}
                 >
@@ -134,27 +133,27 @@ export default function EVChargerSelector() {
               ))}
             </div>
             <p className="text-[11px] text-gray-400 mt-1">
-              *If unsure, Justin will inspect your main switchboard during your free site assessment.
+              *If unsure, our team will inspect your main switchboard during your free site assessment.
             </p>
           </div>
 
           {/* Rooftop Solar Presence */}
           <div>
-            <label className="text-sm font-bold text-navy block mb-2">
+            <label className="text-sm font-bold text-ink block mb-2">
               Do you have rooftop solar?
             </label>
             <div className="grid grid-cols-2 gap-3">
               <button
                 type="button"
                 onClick={() => setHasSolar(true)}
-                className={`p-3 rounded-xl border text-left transition-all ${
+                className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
                   hasSolar
-                    ? "border-green bg-green/5 text-navy shadow-sm"
+                    ? "border-orange bg-orange/5 text-ink shadow-sm"
                     : "border-gray-200 text-gray-500 hover:bg-gray-50"
                 }`}
               >
                 <div className="flex items-center gap-1.5 mb-0.5">
-                  <Sun size={15} className={hasSolar ? "text-green" : "text-gray-400"} />
+                  <Sun size={15} className={hasSolar ? "text-orange-strong" : "text-gray-400"} />
                   <span className="text-xs font-bold">Yes (Charge with Solar)</span>
                 </div>
                 <p className="text-[11px] text-gray-400">Match charging with solar export.</p>
@@ -163,14 +162,14 @@ export default function EVChargerSelector() {
               <button
                 type="button"
                 onClick={() => setHasSolar(false)}
-                className={`p-3 rounded-xl border text-left transition-all ${
+                className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
                   !hasSolar
-                    ? "border-green bg-green/5 text-navy shadow-sm"
+                    ? "border-orange bg-orange/5 text-ink shadow-sm"
                     : "border-gray-200 text-gray-500 hover:bg-gray-50"
                 }`}
               >
                 <div className="flex items-center gap-1.5 mb-0.5">
-                  <Zap size={15} className={!hasSolar ? "text-green" : "text-gray-400"} />
+                  <Zap size={15} className={!hasSolar ? "text-orange-strong" : "text-gray-400"} />
                   <span className="text-xs font-bold">No / Off-Peak Grid</span>
                 </div>
                 <p className="text-[11px] text-gray-400">Standard overnight charging.</p>
@@ -181,8 +180,8 @@ export default function EVChargerSelector() {
           {/* Daily commute distance slider */}
           <div>
             <div className="flex items-center justify-between mb-1.5">
-              <label className="text-sm font-bold text-navy">Daily Commute Distance</label>
-              <span className="text-sm font-bold text-green font-mono">{dailyCommuteKm} km / day</span>
+              <label className="text-sm font-bold text-ink">Daily Commute Distance</label>
+              <span className="text-sm font-bold text-orange-strong font-mono">{dailyCommuteKm} km / day</span>
             </div>
             <input
               type="range"
@@ -191,7 +190,7 @@ export default function EVChargerSelector() {
               step={5}
               value={dailyCommuteKm}
               onChange={(e) => setDailyCommuteKm(Number(e.target.value))}
-              className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-green"
+              className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-orange"
             />
             <div className="flex justify-between text-[11px] text-gray-400 mt-1">
               <span>15 km (Local)</span>
@@ -202,9 +201,9 @@ export default function EVChargerSelector() {
         </div>
 
         {/* Right Output */}
-        <div className="lg:col-span-6 bg-gradient-to-br from-navy to-navy-light rounded-2xl p-6 sm:p-8 text-white flex flex-col justify-between">
+        <div className="lg:col-span-6 bg-navy-950 border border-white/10 rounded-2xl p-6 sm:p-8 text-white flex flex-col justify-between">
           <div>
-            <div className="inline-flex items-center gap-1 text-xs font-bold text-green-light bg-white/10 px-2.5 py-0.5 rounded-full mb-3">
+            <div className="inline-flex items-center gap-1 text-xs font-bold text-orange-light bg-orange/15 border border-orange/30 px-2.5 py-0.5 rounded-full mb-3">
               <Sparkles size={12} /> Top Recommendation
             </div>
             <h3
@@ -216,9 +215,9 @@ export default function EVChargerSelector() {
             <p className="text-xs text-white/70 mb-6 leading-relaxed">{chargerReason}</p>
 
             <div className="grid grid-cols-2 gap-3 mb-6">
-              <div className="bg-white/10 rounded-xl p-3 border border-white/10">
+              <div className="bg-white/5 rounded-xl p-3 border border-white/10">
                 <span className="text-[11px] text-white/60 block mb-0.5">Charge Speed</span>
-                <span className="text-xl font-bold text-green-light font-mono">
+                <span className="text-xl font-bold text-orange-light font-mono">
                   +{rangePerHourKm} km/hr
                 </span>
                 <span className="text-[10px] text-white/50 block mt-0.5">
@@ -226,7 +225,7 @@ export default function EVChargerSelector() {
                 </span>
               </div>
 
-              <div className="bg-white/10 rounded-xl p-3 border border-white/10">
+              <div className="bg-white/5 rounded-xl p-3 border border-white/10">
                 <span className="text-[11px] text-white/60 block mb-0.5">Daily Commute Top-Up</span>
                 <span className="text-xl font-bold text-white font-mono">
                   {dailyChargeMinutes < 60 ? `${dailyChargeMinutes} mins` : `${(dailyChargeMinutes / 60).toFixed(1)} hrs`}
@@ -236,7 +235,7 @@ export default function EVChargerSelector() {
                 </span>
               </div>
 
-              <div className="bg-white/10 rounded-xl p-3 border border-white/10">
+              <div className="bg-white/5 rounded-xl p-3 border border-white/10">
                 <span className="text-[11px] text-white/60 block mb-0.5">Full 0-100% Time</span>
                 <span className="text-xl font-bold text-white font-mono">
                   ~{fullChargeHours} hrs
@@ -246,9 +245,9 @@ export default function EVChargerSelector() {
                 </span>
               </div>
 
-              <div className="bg-white/10 rounded-xl p-3 border border-white/10">
+              <div className="bg-white/5 rounded-xl p-3 border border-white/10">
                 <span className="text-[11px] text-white/60 block mb-0.5">Annual Fuel Savings</span>
-                <span className="text-xl font-bold text-green-light font-mono">
+                <span className="text-xl font-bold text-orange-light font-mono">
                   ${annualSavings.toLocaleString()}
                 </span>
                 <span className="text-[10px] text-white/50 block mt-0.5">
@@ -263,7 +262,7 @@ export default function EVChargerSelector() {
               href={`/quote?service=ev-chargers&charger=${encodeURIComponent(recommendedCharger)}`}
               className="btn-primary w-full !py-3.5 text-center justify-center flex text-sm"
             >
-              Request Installation Quote <ArrowRight size={16} />
+              Request Installation Quote <span aria-hidden="true">↗</span>
             </Link>
             <p className="text-[11px] text-center text-white/50">
               *Includes dedicated 32A circuit wiring, Type B RCD, and ACT compliance certificate.

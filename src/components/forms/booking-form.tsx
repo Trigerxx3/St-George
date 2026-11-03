@@ -22,6 +22,8 @@ const SERVICE_TYPES = [
   "Power Points & Dedicated Appliance Circuit",
   "EV Charger Assessment & Installation",
   "Solar System Health Check / Inverter Error",
+  "Air Conditioning & Climate Control (Split / Ducted)",
+  "Security & CCTV Camera Installation / Maintenance",
   "Smoke Alarm Compliance & Safety Audit",
   "Renovation / Rewiring Rough-In",
   "Other Electrical Work",
@@ -113,7 +115,7 @@ export default function BookingForm() {
         setErrors({ form: data.message || "Failed to submit booking request. Please call us." });
       }
     } catch {
-      setErrors({ form: "Network error. Please call Justin directly on " + BUSINESS.phoneDisplay });
+      setErrors({ form: "Network error. Please call us directly on " + BUSINESS.phoneDisplay });
     } finally {
       setIsSubmitting(false);
     }
@@ -121,19 +123,16 @@ export default function BookingForm() {
 
   if (isSubmitted) {
     return (
-      <div className="bg-white rounded-2xl border border-gray-200 p-8 sm:p-12 shadow-xl max-w-2xl mx-auto text-center">
-        <div className="w-16 h-16 bg-green/10 text-green rounded-full flex items-center justify-center mx-auto mb-6">
+      <div className="bg-white rounded-3xl border border-gray-200 p-8 sm:p-12 shadow-xl max-w-2xl mx-auto text-center">
+        <div className="w-16 h-16 bg-orange/10 text-orange-strong rounded-full flex items-center justify-center mx-auto mb-6">
           <CheckCircle2 size={36} />
         </div>
-        <h2
-          className="text-3xl sm:text-4xl text-navy mb-3"
-          style={{ fontFamily: "var(--font-heading)" }}
-        >
+        <h2 className="text-3xl sm:text-4xl text-ink mb-3">
           Booking Request Received!
         </h2>
-        <p className="text-gray-600 text-base sm:text-lg mb-6 leading-relaxed">
-          Thanks <strong className="text-navy">{formData.name}</strong>. Your booking inquiry reference is{" "}
-          <strong className="text-green font-mono">{bookingRef}</strong>.
+        <p className="text-body-muted text-base sm:text-lg mb-6 leading-relaxed">
+          Thanks <strong className="text-ink">{formData.name}</strong>. Your booking inquiry reference is{" "}
+          <strong className="text-orange-strong font-mono">{bookingRef}</strong>.
         </p>
 
         <div className="bg-off-white rounded-xl p-5 mb-8 text-left text-sm text-gray-700 space-y-2 border border-gray-100">
@@ -152,7 +151,7 @@ export default function BookingForm() {
         </div>
 
         <p className="text-gray-500 text-sm mb-6">
-          Justin will check the service vehicle schedule and phone you to confirm your time slot.
+          Our team will check the service vehicle schedule and phone you to confirm your time slot.
         </p>
 
         <a href={phoneHref(BUSINESS.phone)} className="btn-primary !py-3 !px-6">
@@ -164,16 +163,13 @@ export default function BookingForm() {
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 shadow-xl overflow-hidden max-w-3xl mx-auto">
+    <div className="bg-white rounded-3xl border border-gray-200 shadow-xl overflow-hidden max-w-3xl mx-auto">
       {/* Top Header */}
-      <div className="bg-navy p-6 sm:p-8 text-white">
-        <h2
-          className="text-2xl sm:text-3xl text-white mb-2"
-          style={{ fontFamily: "var(--font-heading)" }}
-        >
+      <div className="section-dark p-6 sm:p-8 text-white">
+        <h2 className="text-2xl sm:text-3xl text-white mb-2">
           Schedule an Electrician
         </h2>
-        <p className="text-white/70 text-sm">
+        <p className="text-[#9fb2c8] text-sm">
           Book a licensed electrical inspection, repair, or upgrade for your property.
         </p>
       </div>
@@ -214,13 +210,13 @@ export default function BookingForm() {
                   onClick={() => update("urgency", u.id)}
                   className={`p-3.5 rounded-xl border text-left transition-all ${
                     isSelected
-                      ? "border-green bg-green/5 shadow-sm"
+                      ? "border-orange-strong bg-orange/5 shadow-sm"
                       : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
                   }`}
                 >
                   <div className="flex items-center gap-2 mb-1">
-                    <Icon size={16} className={isSelected ? "text-green" : "text-gray-500"} />
-                    <span className="text-sm font-bold text-navy">{u.label}</span>
+                    <Icon size={16} className={isSelected ? "text-orange-strong" : "text-gray-500"} />
+                    <span className="text-sm font-bold text-ink">{u.label}</span>
                   </div>
                   <p className="text-xs text-gray-500">{u.desc}</p>
                 </button>
@@ -299,8 +295,8 @@ export default function BookingForm() {
 
         {/* Contact & Location Details */}
         <div className="pt-4 border-t border-gray-100 space-y-4">
-          <h3 className="text-base font-bold text-navy flex items-center gap-2">
-            <Wrench size={18} className="text-green" /> Your Details &amp; Site Address
+          <h3 className="text-base font-bold text-ink flex items-center gap-2">
+            <Wrench size={18} className="text-orange-strong" /> Your Details &amp; Site Address
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -394,7 +390,7 @@ export default function BookingForm() {
         </div>
 
         <div className="p-4 bg-off-white rounded-xl border border-gray-200 text-xs text-gray-500 flex items-center gap-3">
-          <ShieldCheck size={20} className="text-green flex-shrink-0" />
+          <ShieldCheck size={20} className="text-orange-strong shrink-0" />
           <span>
             Fully licensed &amp; insured. Master Electricians member. ACT Licence #{BUSINESS.licence}.
           </span>

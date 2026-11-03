@@ -57,8 +57,8 @@ export default function PrivacyPolicyPage() {
         <section className="space-y-3">
           <h2 className="text-xl font-bold text-navy">5. Contact Us</h2>
           <p>
-            If you have questions regarding this Privacy Policy or wish to access or update your information, please contact Justin George at{" "}
-            <a href={`mailto:${BUSINESS.email}`} className="text-green font-semibold underline">
+            If you have questions regarding this Privacy Policy or wish to access or update your information, please contact {BUSINESS.name} at{" "}
+            <a href={`mailto:${BUSINESS.email}`} className="text-orange-strong font-semibold underline">
               {BUSINESS.email}
             </a>{" "}
             or call {BUSINESS.phoneDisplay}.

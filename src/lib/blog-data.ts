@@ -17,7 +17,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "How to Claim the ACT Sustainable Household Scheme $15,000 Zero-Interest Loan",
     excerpt:
       "A complete homeowner guide to accessing up to $15,000 in interest-free financing over 10 years for rooftop solar, home battery storage, and smart EV chargers in Canberra.",
-    author: "Justin George",
+    author: "St George Electrical",
     date: "January 15, 2025",
     readTime: "5 min read",
     category: "Rebates & Finance",
@@ -35,7 +35,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "Home EV Charger Installation in Canberra: Level 2 vs Level 1 & Switchboard Checklist",
     excerpt:
       "Everything Canberra electric car owners need to know about charging speeds, 32-amp dedicated circuits, solar smart chargers, and whether your switchboard is ready.",
-    author: "Justin George",
+    author: "St George Electrical",
     date: "February 2, 2025",
     readTime: "6 min read",
     category: "EV Chargers",
@@ -53,7 +53,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "Why Canberra Homeowners Need to Replace Old Ceramic Fuse Switchboards",
     excerpt:
       "Rewirable ceramic fuses and deteriorating asbestos panels pose severe electrical fire and shock hazards. Here is why modern RCBO safety switches are life-saving.",
-    author: "Justin George",
+    author: "St George Electrical",
     date: "February 20, 2025",
     readTime: "4 min read",
     category: "Electrical Safety",
@@ -71,7 +71,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "Solar Batteries in Canberra: Are They Worth the Investment in 2025/2026?",
     excerpt:
       "With Canberra's sub-zero winter evenings and daytime solar feed-in tariffs hovering around 7-8c/kWh, does adding a home battery make financial sense?",
-    author: "Justin George",
+    author: "St George Electrical",
     date: "March 5, 2025",
     readTime: "5 min read",
     category: "Solar & Batteries",

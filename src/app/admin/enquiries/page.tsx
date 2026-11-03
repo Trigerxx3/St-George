@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { errorMessage } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 import { EnquiryStatus } from "@/lib/supabase/types";
 import {
@@ -57,8 +58,8 @@ export default function AdminEnquiriesPage() {
       } else {
         setEnquiries(data || []);
       }
-    } catch (err: any) {
-      setErrorMsg(err.message || "Error loading enquiries");
+    } catch (err) {
+      setErrorMsg(errorMessage(err) || "Error loading enquiries");
     } finally {
       setIsLoading(false);
     }
@@ -87,8 +88,8 @@ export default function AdminEnquiriesPage() {
           setSelectedEnquiry((prev) => (prev ? { ...prev, status: newStatus } : null));
         }
       }
-    } catch (e: any) {
-      alert(`Error updating: ${e.message}`);
+    } catch (e) {
+      alert(`Error updating: ${errorMessage(e)}`);
     } finally {
       setUpdatingId(null);
     }

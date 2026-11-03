@@ -1,113 +1,130 @@
 import Link from "next/link";
-import { BatteryCharging, Wrench, ArrowRight } from "lucide-react";
+import { ArrowRight, CheckCircle2, Sun, BatteryCharging, Wrench, Wind, Cctv, type LucideIcon } from "lucide-react";
+import { SERVICES } from "@/lib/constants";
+import SectionHeading from "@/components/ui/section-heading";
+import Reveal from "@/components/ui/reveal";
 
-const CARDS = [
-  {
-    icon: BatteryCharging,
-    title: "EV Charger Installation",
-    tagline: "Charge Smarter. Drive Greener.",
-    description:
-      "Future-proof your home or business with professional EV charger installation. Single-phase, three-phase, and solar-integrated options.",
-    features: ["Home & commercial", "All major brands", "Smart charging", "Solar integration"],
-    href: "/ev-chargers",
-    image: "/images/services/ev-charger.jpg",
-    alt: "Modern home EV wall charger charging electric vehicle",
+const ICONS: Record<string, LucideIcon> = {
+  Sun,
+  BatteryCharging,
+  Wrench,
+  Wind,
+  Cctv,
+};
+
+const IMAGES: Record<string, { src: string; alt: string }> = {
+  "solar-battery": {
+    src: "/images/services/battery-storage.jpg",
+    alt: "Solar panels and battery storage installation in Canberra",
   },
-  {
-    icon: Wrench,
-    title: "Electrical Services",
-    tagline: "Trusted. Experienced. Professional.",
-    description:
-      "Complete electrical services — switchboard upgrades, RCBO safety switches, LED lighting retrofits, rewiring, and fault finding by licensed electricians.",
-    features: ["Installations & repairs", "Switchboard upgrades", "LED lighting", "Safety inspections"],
-    href: "/electrical",
-    image: "/images/services/switchboard.jpg",
-    alt: "Modern Australian electrical switchboard upgrade with RCBO safety switches",
+  "ev-chargers": {
+    src: "/images/services/ev-charger.jpg",
+    alt: "Home and commercial EV charger installation",
   },
-];
+  electrical: {
+    src: "/images/services/switchboard.jpg",
+    alt: "Electrical switchboard upgrade and general electrical services",
+  },
+  "heating-cooling": {
+    src: "/images/hero/hero-solar-home.jpg",
+    alt: "Air conditioning and climate control installation",
+  },
+  "security-cctv": {
+    src: "/images/services/commercial-solar.jpg",
+    alt: "Security and CCTV camera installation",
+  },
+};
 
 export default function ServiceCards() {
   return (
-    <section className="section-padding bg-white">
+    <section id="services" className="section-light section-padding scroll-mt-16">
       <div className="container-custom">
-        {/* Section header */}
-        <div className="text-center mb-12">
-          <h2
-            className="text-3xl sm:text-4xl text-navy mb-3 font-bold"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            Complete Electrical{" "}
-            <span className="text-green">Solutions</span>
-          </h2>
-          <p className="text-gray-500 max-w-xl mx-auto text-base">
-            From smart EV charger installations to complete switchboard upgrades, we deliver quality workmanship you can rely on.
-          </p>
-        </div>
+        <SectionHeading
+          eyebrow="01 — What We Do"
+          line1="All Works &"
+          line2="Services We Provide"
+          intro="Browse our five core divisions below to see every service we complete across Canberra & surrounding regions, then request your free quote in one click."
+        />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {CARDS.map((card) => {
-            const Icon = card.icon;
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {SERVICES.map((svc, i) => {
+            const Icon = ICONS[svc.icon] || Wrench;
+            const img = IMAGES[svc.slug] || IMAGES.electrical;
+            const divisionNumber = String(i + 1).padStart(2, "0");
+
             return (
-              <div
-                key={card.title}
-                className="rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group bg-white"
-              >
-                {/* Visual Header Image */}
-                <div className="relative aspect-[16/9] w-full overflow-hidden bg-navy/5">
-                  <img
-                    src={card.image}
-                    alt={card.alt}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-                  <div className="absolute top-4 left-4 w-12 h-12 rounded-xl bg-white/90 backdrop-blur-md text-navy flex items-center justify-center shadow-lg">
-                    <Icon size={24} className="text-green" />
-                  </div>
-                </div>
-
-                <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between">
-                  <div>
-                    <h3
-                      className="text-2xl text-navy mb-1 font-bold group-hover:text-green transition-colors"
-                      style={{ fontFamily: "var(--font-heading)" }}
-                    >
-                      {card.title}
-                    </h3>
-                    <p className="text-orange text-xs font-bold uppercase tracking-wider mb-3">
-                      {card.tagline}
-                    </p>
-                    <p className="text-gray-600 text-sm mb-6 leading-relaxed">
-                      {card.description}
-                    </p>
-
-                    {/* Features list */}
-                    <ul className="grid grid-cols-2 gap-2 mb-6 text-xs text-gray-700">
-                      {card.features.map((f) => (
-                        <li key={f} className="flex items-center gap-2">
-                          <span className="w-1.5 h-1.5 bg-green rounded-full shrink-0" />
-                          <span>{f}</span>
-                        </li>
-                      ))}
-                    </ul>
+              <Reveal key={svc.slug} delay={i * 60}>
+                <article className="h-full flex flex-col rounded-2xl border border-gray-200 bg-white overflow-hidden card-hover group">
+                  {/* Top visual banner */}
+                  <div className="relative aspect-[16/9] w-full overflow-hidden bg-navy-950">
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      width={800}
+                      height={450}
+                      loading="lazy"
+                      className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy-950/85 via-navy-950/25 to-transparent" />
+                    <div className="absolute top-3.5 left-3.5 flex items-center gap-2">
+                      <span className="px-3 py-1 rounded-full bg-navy-950/90 backdrop-blur text-orange-light text-xs font-extrabold tracking-wider uppercase border border-orange/30">
+                        Division {divisionNumber}
+                      </span>
+                    </div>
+                    <div className="absolute bottom-3.5 left-4 right-4 flex items-center gap-2.5 text-white">
+                      <span className="w-9 h-9 rounded-lg bg-orange-strong text-white flex items-center justify-center shrink-0 shadow">
+                        <Icon size={18} />
+                      </span>
+                      <div>
+                        <p className="text-[11px] uppercase tracking-wider text-white/75 font-semibold leading-none mb-0.5">
+                          {svc.shortTitle}
+                        </p>
+                        <h3 className="text-lg font-extrabold text-white leading-tight">
+                          {svc.title}
+                        </h3>
+                      </div>
+                    </div>
                   </div>
 
-                  <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
-                    <Link
-                      href={card.href}
-                      className="inline-flex items-center gap-2 text-sm font-bold text-navy hover:text-green transition-colors"
-                    >
-                      <span>Explore Service Details</span>
-                      <ArrowRight size={16} />
-                    </Link>
-                    <Link
-                      href={`/quote?service=${card.href.replace("/", "")}`}
-                      className="btn-primary !py-2 !px-4 text-xs font-semibold"
-                    >
-                      Get Quote
-                    </Link>
+                  {/* Full checklist of works done */}
+                  <div className="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                      <p className="text-body-muted text-xs sm:text-sm leading-relaxed mb-4">
+                        {svc.description}
+                      </p>
+
+                      <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-ink mb-2.5">
+                        Works Included:
+                      </p>
+                      <ul className="space-y-2 mb-6 text-xs sm:text-sm text-gray-700">
+                        {svc.features.map((f) => (
+                          <li key={f} className="flex items-start gap-2">
+                            <CheckCircle2 size={15} className="text-orange-strong shrink-0 mt-0.5" />
+                            <span>{f}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Direct actions */}
+                    <div className="pt-4 border-t border-gray-100 flex items-center justify-between gap-3">
+                      <Link
+                        href={`/quote?service=${svc.slug}`}
+                        className="btn-primary !py-2.5 !px-4 text-xs flex-1 justify-center"
+                      >
+                        Get a Quote <span aria-hidden="true">↗</span>
+                      </Link>
+                      <Link
+                        href={svc.href}
+                        className="inline-flex items-center gap-1 text-xs font-bold text-ink hover:text-orange-strong px-3 py-2.5 rounded-xl border border-gray-200 hover:border-orange-strong/40 transition-colors"
+                      >
+                        <span>Details</span>
+                        <ArrowRight size={14} />
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              </div>
+                </article>
+              </Reveal>
             );
           })}
         </div>

@@ -67,25 +67,23 @@ export default async function ServiceAreaPage({ params }: Props) {
       />
 
       {/* Hero */}
-      <section className="gradient-hero py-16 lg:py-20 text-white relative overflow-hidden">
+      <section className="section-dark pt-24 pb-16 lg:pt-32 lg:pb-24 text-white relative overflow-hidden">
         <div className="container-custom relative z-10">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-white/10 rounded-full text-xs text-white/80 font-medium mb-4">
-              <MapPin size={14} className="text-green-light" />
-              <span>
-                Servicing {area.name} &amp; Surrounding {area.region} Suburbs
-              </span>
-            </div>
+            <span className="eyebrow mb-4">
+              Servicing {area.name} &amp; Surrounding {area.region} Suburbs
+            </span>
 
             <h1
-              className="text-3xl sm:text-5xl lg:text-6xl text-white font-bold mb-4"
+              className="text-3xl sm:text-5xl lg:text-6xl text-white font-extrabold tracking-tight mb-4"
               style={{ fontFamily: "var(--font-heading)" }}
             >
-              Licensed Electrician in {area.name}
+              <span className="block">Licensed Electrician</span>
+              <span className="block text-orange-light">in {area.name}</span>
             </h1>
 
-            <p className="text-white/80 text-base sm:text-lg mb-8 leading-relaxed">
-              Looking for a reliable, licensed electrical contractor in {area.name}? Justin George provides prompt, high-quality solar, battery storage, EV charger, and general electrical services backed by full warranties.
+            <p className="text-white/70 text-base sm:text-lg mb-8 leading-relaxed">
+              Looking for a reliable, licensed electrical contractor in {area.name}? {BUSINESS.name} provides prompt, high-quality solar, battery storage, EV charger, and general electrical services backed by full warranties.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-6">
@@ -93,7 +91,7 @@ export default async function ServiceAreaPage({ params }: Props) {
                 href={`/quote?suburb=${encodeURIComponent(area.name)}`}
                 className="btn-primary text-base !py-3.5 !px-8"
               >
-                Request Free Quote in {area.name} <ArrowRight size={18} />
+                Request Free Quote in {area.name} <span aria-hidden="true">↗</span>
               </Link>
               <a
                 href={phoneHref(BUSINESS.phone)}
@@ -113,13 +111,13 @@ export default async function ServiceAreaPage({ params }: Props) {
       </section>
 
       {/* Main Content Area */}
-      <section className="section-padding">
+      <section className="section-light section-padding">
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
             <div className="lg:col-span-8 space-y-8">
               <div className="bg-white rounded-2xl border border-gray-200 p-6 sm:p-8 shadow-sm">
                 <h2
-                  className="text-2xl sm:text-3xl text-navy font-bold mb-4"
+                  className="text-2xl sm:text-3xl text-ink font-bold mb-4"
                   style={{ fontFamily: "var(--font-heading)" }}
                 >
                   Electrical Solutions Tailored for {area.name} Properties
@@ -135,87 +133,89 @@ export default async function ServiceAreaPage({ params }: Props) {
               {/* Service Capabilities in this Area */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="card bg-white p-5">
-                  <Sun size={24} className="text-green mb-3" />
-                  <h3 className="font-bold text-navy text-base mb-1.5">Solar &amp; Batteries</h3>
+                  <Sun size={24} className="text-orange-strong mb-3" />
+                  <h3 className="font-bold text-ink text-base mb-1.5">Solar &amp; Batteries</h3>
                   <p className="text-xs text-gray-500 mb-3">
                     High-yield rooftop solar arrays and home battery storage tailored for {area.name}&apos;s climate.
                   </p>
                   <Link
                     href="/solar-battery"
-                    className="text-xs font-semibold text-green hover:underline inline-flex items-center gap-1"
+                    className="link-arrow text-xs"
                   >
-                    Solar Details <ArrowRight size={12} />
+                    Solar Details <span aria-hidden="true">↗</span>
                   </Link>
                 </div>
 
                 <div className="card bg-white p-5">
-                  <BatteryCharging size={24} className="text-green mb-3" />
-                  <h3 className="font-bold text-navy text-base mb-1.5">EV Charging</h3>
+                  <BatteryCharging size={24} className="text-orange-strong mb-3" />
+                  <h3 className="font-bold text-ink text-base mb-1.5">EV Charging</h3>
                   <p className="text-xs text-gray-500 mb-3">
                     Fast Level 2 home and workplace electric vehicle charger supply and licensed installation.
                   </p>
                   <Link
                     href="/ev-chargers"
-                    className="text-xs font-semibold text-green hover:underline inline-flex items-center gap-1"
+                    className="link-arrow text-xs"
                   >
-                    EV Details <ArrowRight size={12} />
+                    EV Details <span aria-hidden="true">↗</span>
                   </Link>
                 </div>
 
                 <div className="card bg-white p-5">
-                  <Wrench size={24} className="text-green mb-3" />
-                  <h3 className="font-bold text-navy text-base mb-1.5">Switchboards</h3>
+                  <Wrench size={24} className="text-orange-strong mb-3" />
+                  <h3 className="font-bold text-ink text-base mb-1.5">Switchboards</h3>
                   <p className="text-xs text-gray-500 mb-3">
                     Modern RCBO combination safety switches, surge protection, and compliant rewiring.
                   </p>
                   <Link
                     href="/electrical"
-                    className="text-xs font-semibold text-green hover:underline inline-flex items-center gap-1"
+                    className="link-arrow text-xs"
                   >
-                    Electrical Details <ArrowRight size={12} />
+                    Electrical Details <span aria-hidden="true">↗</span>
                   </Link>
                 </div>
               </div>
             </div>
 
             {/* Right: Local Booking Box */}
-            <div className="lg:col-span-4 bg-navy text-white p-6 sm:p-8 rounded-2xl shadow-xl">
-              <span className="text-xs font-bold text-green-light uppercase tracking-wider block mb-2">
-                Fast Local Service
-              </span>
-              <h3
-                className="text-2xl text-white font-bold mb-3"
-                style={{ fontFamily: "var(--font-heading)" }}
-              >
-                Book in {area.name}
-              </h3>
-              <p className="text-xs text-white/70 mb-6 leading-relaxed">
-                Contact Justin George directly for prompt scheduling in {area.name} and surrounding {area.region} areas.
-              </p>
-
-              <div className="space-y-3 mb-6">
-                <Link
-                  href={`/quote?suburb=${encodeURIComponent(area.name)}`}
-                  className="btn-primary w-full !py-3 text-sm justify-center flex"
+            <div className="lg:col-span-4 section-dark text-white p-6 sm:p-8 rounded-2xl shadow-xl border border-white/10">
+              <div className="relative z-10">
+                <span className="eyebrow mb-2">
+                  Fast Local Service
+                </span>
+                <h3
+                  className="text-2xl text-white font-bold mb-3"
+                  style={{ fontFamily: "var(--font-heading)" }}
                 >
-                  Request a Free Quote <ArrowRight size={15} />
-                </Link>
-                <Link
-                  href="/booking"
-                  className="btn-outline w-full !py-3 text-sm justify-center flex"
-                >
-                  Schedule Service Visit
-                </Link>
-              </div>
+                  Book in {area.name}
+                </h3>
+                <p className="text-xs text-white/70 mb-6 leading-relaxed">
+                  Contact {BUSINESS.shortName} directly for prompt scheduling in {area.name} and surrounding {area.region} areas.
+                </p>
 
-              <div className="pt-4 border-t border-white/10 text-xs text-white/60 space-y-2">
-                <div className="flex items-center gap-2">
-                  <Clock size={14} className="text-green" />
-                  <span>Mon – Fri: 7:00 AM – 5:00 PM</span>
+                <div className="space-y-3 mb-6">
+                  <Link
+                    href={`/quote?suburb=${encodeURIComponent(area.name)}`}
+                    className="btn-primary w-full !py-3 text-sm justify-center flex"
+                  >
+                    Request a Free Quote <span aria-hidden="true">↗</span>
+                  </Link>
+                  <Link
+                    href="/booking"
+                    className="btn-outline w-full !py-3 text-sm justify-center flex"
+                  >
+                    Schedule Service Visit
+                  </Link>
                 </div>
-                <div className="flex items-center gap-2">
-                  <ShieldCheck size={14} className="text-green" />
-                  <span>Emergency dispatch available 24/7</span>
+
+                <div className="pt-4 border-t border-white/10 text-xs text-white/60 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Clock size={14} className="text-orange-light" />
+                    <span>Mon – Fri: 7:00 AM – 5:00 PM</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck size={14} className="text-orange-light" />
+                    <span>Emergency dispatch available 24/7</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -226,7 +226,7 @@ export default async function ServiceAreaPage({ params }: Props) {
       {/* Global CTA */}
       <ServiceCTA
         title={`Looking for an Electrician in ${area.name}?`}
-        subtitle="Speak directly with Justin George on 0450 598 628 for honest advice and upfront pricing."
+        subtitle="Call 0450 598 628 for honest advice and upfront pricing."
         primaryCtaText={`Get Quote in ${area.name}`}
         primaryCtaHref={`/quote?suburb=${encodeURIComponent(area.name)}`}
       />

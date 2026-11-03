@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { errorMessage } from "@/lib/utils";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import {
@@ -60,8 +61,8 @@ export default function AdminGalleryPage() {
       } else {
         setItems(data || []);
       }
-    } catch (err: any) {
-      setErrorMsg(err.message || "Failed to load gallery items.");
+    } catch (err) {
+      setErrorMsg(errorMessage(err) || "Failed to load gallery items.");
     } finally {
       setIsLoading(false);
     }
@@ -166,8 +167,8 @@ export default function AdminGalleryPage() {
       setSelectedFile(null);
       setFilePreview(null);
       await fetchGallery();
-    } catch (err: any) {
-      alert(`Error saving photo: ${err.message}`);
+    } catch (err) {
+      alert(`Error saving photo: ${errorMessage(err)}`);
     } finally {
       setIsSaving(false);
     }
@@ -183,8 +184,8 @@ export default function AdminGalleryPage() {
       const { error } = await supabase.from("gallery").delete().eq("id", item.id);
       if (error) throw error;
       setItems((prev) => prev.filter((i) => i.id !== item.id));
-    } catch (err: any) {
-      alert(`Delete failed: ${err.message}`);
+    } catch (err) {
+      alert(`Delete failed: ${errorMessage(err)}`);
     }
   };
 
@@ -207,8 +208,8 @@ export default function AdminGalleryPage() {
         supabase.from("gallery").update({ sort_order: newTargetOrder }).eq("id", targetItem.id),
       ]);
       await fetchGallery();
-    } catch (e: any) {
-      alert(`Reorder failed: ${e.message}`);
+    } catch (e) {
+      alert(`Reorder failed: ${errorMessage(e)}`);
     }
   };
 

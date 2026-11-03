@@ -6,9 +6,10 @@ import {
   Sun,
   BatteryCharging,
   Wrench,
+  Wind,
+  Shield,
   HelpCircle,
   Home,
-  Building,
   Building2,
   Factory,
   ArrowRight,
@@ -28,7 +29,6 @@ interface FormData {
   suburb: string;
   postcode: string;
   billAmount: string;
-  systemSize: string;
   name: string;
   email: string;
   phone: string;
@@ -39,59 +39,72 @@ interface FormData {
 const SERVICE_OPTIONS = [
   {
     id: "solar-battery",
-    title: "Solar & Battery Storage",
-    desc: "Cut electricity bills with rooftop solar and home batteries",
+    badge: "Division 01",
+    title: "Solar & Battery",
+    desc: "Solar panels, battery storage & hybrid inverters",
     icon: Sun,
   },
   {
     id: "ev-chargers",
-    title: "EV Charger Installation",
-    desc: "Fast home or commercial EV wall chargers",
+    badge: "Division 02",
+    title: "EV Chargers",
+    desc: "Home & commercial fast charging stations",
     icon: BatteryCharging,
   },
   {
     id: "electrical",
-    title: "General Electrical",
-    desc: "Switchboard upgrades, lighting, rewiring & repairs",
+    badge: "Division 03",
+    title: "Electrical Services",
+    desc: "Switchboards, LED lighting, rewiring & repairs",
     icon: Wrench,
   },
   {
+    id: "heating-cooling",
+    badge: "Division 04",
+    title: "Heating & Cooling",
+    desc: "Split system, ducted aircon & climate control",
+    icon: Wind,
+  },
+  {
+    id: "security-cctv",
+    badge: "Division 05",
+    title: "Security & CCTV",
+    desc: "CCTV cameras, IP surveillance & remote monitoring",
+    icon: Shield,
+  },
+  {
     id: "other",
-    title: "Combined / Custom Project",
-    desc: "Multi-service package or specialized electrical inquiry",
+    badge: "Custom",
+    title: "Multiple / Other Work",
+    desc: "Combine multiple divisions or custom project",
     icon: HelpCircle,
   },
 ];
 
 const PROPERTY_OPTIONS = [
-  { id: "house", label: "Single House", icon: Home },
-  { id: "townhouse", label: "Townhouse", icon: Building },
-  { id: "unit", label: "Unit / Apartment", icon: Building },
-  { id: "commercial", label: "Commercial Office / Retail", icon: Building2 },
-  { id: "industrial", label: "Industrial / Warehouse", icon: Factory },
+  { id: "house", title: "Residential House", desc: "Standalone single or two-storey home", icon: Home },
+  { id: "townhouse", title: "Townhouse / Unit", desc: "Strata or multi-unit residential", icon: Home },
+  { id: "commercial", title: "Commercial / Office", desc: "Retail, office, or hospitality site", icon: Building2 },
+  { id: "industrial", title: "Industrial / Warehouse", desc: "Workshop, factory, or depot", icon: Factory },
 ];
 
-const BILL_OPTIONS = [
-  { id: "under-500", label: "Under $500 / quarter" },
-  { id: "500-1000", label: "$500 – $1,000 / quarter" },
-  { id: "1000-1500", label: "$1,000 – $1,500 / quarter" },
-  { id: "1500-plus", label: "$1,500+ / quarter" },
-  { id: "unsure", label: "Not sure / New Build" },
+const STEPS = [
+  { num: 1, label: "Select Service" },
+  { num: 2, label: "Property Info" },
+  { num: 3, label: "Your Details" },
+  { num: 4, label: "Review & Send" },
 ];
 
 export default function MultiStepQuoteForm() {
   const searchParams = useSearchParams();
-
   const [step, setStep] = useState(1);
-  const totalSteps = 4;
 
   const [formData, setFormData] = useState<FormData>({
     serviceType: "solar-battery",
     propertyType: "house",
     suburb: "Canberra",
     postcode: "2600",
-    billAmount: "$500 – $1,000 / quarter",
-    systemSize: "Standard 6.6kW – 10kW",
+    billAmount: "$500 - $800 / qtr",
     name: "",
     email: "",
     phone: "",
@@ -104,15 +117,33 @@ export default function MultiStepQuoteForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submissionId, setSubmissionId] = useState("");
 
-  // Sync with URL parameters if provided
   useEffect(() => {
     const serviceParam = searchParams.get("service");
-    const propertyParam = searchParams.get("property");
-    if (serviceParam && ["solar-battery", "ev-chargers", "electrical", "other"].includes(serviceParam)) {
+    const suburbParam = searchParams.get("suburb");
+    const billParam = searchParams.get("bill");
+    const productParam = searchParams.get("product");
+    const packageParam = searchParams.get("package");
+
+    if (
+      serviceParam &&
+      ["solar-battery", "ev-chargers", "electrical", "heating-cooling", "security-cctv", "other"].includes(serviceParam)
+    ) {
       setFormData((prev) => ({ ...prev, serviceType: serviceParam }));
     }
-    if (propertyParam && ["house", "townhouse", "unit", "commercial", "industrial"].includes(propertyParam)) {
-      setFormData((prev) => ({ ...prev, propertyType: propertyParam }));
+    if (suburbParam) {
+      setFormData((prev) => ({ ...prev, suburb: suburbParam }));
+    }
+    if (billParam) {
+      setFormData((prev) => ({ ...prev, billAmount: billParam }));
+    }
+    if (productParam || packageParam) {
+      const refText = packageParam
+        ? `Interested in package: ${packageParam.replace(/-/g, " ")}`
+        : `Interested in product: ${productParam?.replace(/-/g, " ")}`;
+      setFormData((prev) => ({
+        ...prev,
+        message: prev.message ? prev.message : refText,
+      }));
     }
   }, [searchParams]);
 
@@ -131,26 +162,24 @@ export default function MultiStepQuoteForm() {
     const newErrors: Record<string, string> = {};
 
     if (currentStep === 1) {
-      if (!formData.serviceType) newErrors.serviceType = "Please select a service";
-    }
-
-    if (currentStep === 2) {
-      if (!formData.propertyType) newErrors.propertyType = "Please select a property type";
-      if (!formData.suburb.trim()) newErrors.suburb = "Please enter your suburb";
-      if (!/^[0-9]{4}$/.test(formData.postcode.trim())) {
-        newErrors.postcode = "Please enter a valid 4-digit postcode";
+      if (!formData.serviceType) newErrors.serviceType = "Please choose a service";
+    } else if (currentStep === 2) {
+      if (!formData.propertyType) newErrors.propertyType = "Please select your property type";
+      if (!formData.suburb.trim() || formData.suburb.trim().length < 2) {
+        newErrors.suburb = "Please enter your suburb";
       }
-    }
-
-    if (currentStep === 4) {
+      if (!/^[0-9]{4}$/.test(formData.postcode.trim())) {
+        newErrors.postcode = "Enter a valid 4-digit postcode (e.g. 2600)";
+      }
+    } else if (currentStep === 3) {
       if (!formData.name.trim() || formData.name.trim().length < 2) {
-        newErrors.name = "Please enter your full name";
+        newErrors.name = "Full name is required";
       }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
         newErrors.email = "Please enter a valid email address";
       }
       if (!formData.phone.trim() || formData.phone.trim().length < 8) {
-        newErrors.phone = "Please enter a valid phone number";
+        newErrors.phone = "Please enter a valid contact phone number";
       }
     }
 
@@ -158,25 +187,21 @@ export default function MultiStepQuoteForm() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const nextStep = () => {
+  const handleNext = () => {
     if (validateStep(step)) {
-      setStep((prev) => Math.min(prev + 1, totalSteps));
-      window.scrollTo({ top: 200, behavior: "smooth" });
+      setStep((s) => Math.min(s + 1, 4));
     }
   };
 
-  const prevStep = () => {
-    setStep((prev) => Math.max(prev - 1, 1));
-    window.scrollTo({ top: 200, behavior: "smooth" });
+  const handleBack = () => {
+    setStep((s) => Math.max(s - 1, 1));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateStep(4)) return;
+    if (!validateStep(3)) return;
 
-    // Check honeypot
     if (formData.honeypot) {
-      // Silently discard spam
       setIsSubmitted(true);
       return;
     }
@@ -194,92 +219,141 @@ export default function MultiStepQuoteForm() {
         setIsSubmitted(true);
         setSubmissionId(data.id || "STG-" + Math.floor(100000 + Math.random() * 900000));
       } else {
-        setErrors({ form: data.message || "Failed to submit quote request. Please try calling us directly." });
+        setErrors({ form: data.message || "Failed to submit quote request. Please call us directly." });
       }
     } catch {
-      setErrors({ form: "Network error. Please call Justin directly on " + BUSINESS.phoneDisplay });
+      setErrors({ form: "Network error. Please call us directly on " + BUSINESS.phoneDisplay });
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const selectedServiceObj =
+    SERVICE_OPTIONS.find((s) => s.id === formData.serviceType) || SERVICE_OPTIONS[0];
+  const selectedPropertyObj =
+    PROPERTY_OPTIONS.find((p) => p.id === formData.propertyType) || PROPERTY_OPTIONS[0];
+
   if (isSubmitted) {
     return (
-      <div className="bg-white rounded-2xl border border-gray-200 p-8 sm:p-12 shadow-xl max-w-2xl mx-auto text-center">
-        <div className="w-16 h-16 bg-green/10 text-green rounded-full flex items-center justify-center mx-auto mb-6">
+      <div className="bg-white rounded-3xl border border-gray-200 p-8 sm:p-12 shadow-2xl max-w-2xl mx-auto text-center animate-fade-in">
+        <div className="w-16 h-16 bg-orange/10 text-orange-strong rounded-full flex items-center justify-center mx-auto mb-6">
           <CheckCircle2 size={36} />
         </div>
-        <h2
-          className="text-3xl sm:text-4xl text-navy mb-3"
-          style={{ fontFamily: "var(--font-heading)" }}
-        >
+        <h2 className="text-3xl sm:text-4xl text-ink mb-3">
           Quote Request Received!
         </h2>
-        <p className="text-gray-600 text-base sm:text-lg mb-6 leading-relaxed">
-          Thank you, <strong className="text-navy">{formData.name}</strong>. Your request reference is{" "}
-          <strong className="text-green font-mono">{submissionId}</strong>.
+        <p className="text-body-muted text-base sm:text-lg mb-6 leading-relaxed">
+          Thank you, <strong className="text-ink">{formData.name}</strong>. Your reference number is{" "}
+          <strong className="text-orange-strong font-mono">{submissionId}</strong>.
         </p>
         <div className="bg-off-white rounded-xl p-5 mb-8 text-left text-sm text-gray-700 space-y-2 border border-gray-100">
           <div className="flex justify-between">
-            <span className="text-gray-500">Service:</span>
-            <span className="font-semibold text-navy capitalize">{formData.serviceType.replace("-", " ")}</span>
+            <span className="text-gray-500">Selected Service:</span>
+            <span className="font-semibold text-ink">{selectedServiceObj.title}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-500">Location:</span>
-            <span className="font-semibold text-navy">{formData.suburb}, {formData.postcode}</span>
+            <span className="text-gray-500">Property &amp; Location:</span>
+            <span className="font-semibold text-ink">
+              {selectedPropertyObj.title} · {formData.suburb} {formData.postcode}
+            </span>
           </div>
           <div className="flex justify-between">
             <span className="text-gray-500">Direct Contact:</span>
-            <span className="font-semibold text-navy">Justin George (0450 598 628)</span>
+            <span className="font-semibold text-ink">
+              {BUSINESS.shortName} ({BUSINESS.phoneDisplay})
+            </span>
           </div>
         </div>
         <p className="text-gray-500 text-sm mb-6">
-          Justin George will review your site details and contact you within 24 business hours with an honest, tailored proposal.
+          Our team will review your project details and contact you promptly with an obligation-free quote.
         </p>
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <a
-            href={phoneHref(BUSINESS.phone)}
-            className="btn-primary !py-3 !px-6"
-          >
-            <Phone size={18} />
-            Need Immediate Assistance? Call Now
-          </a>
-        </div>
+        <a href={phoneHref(BUSINESS.phone)} className="btn-primary !py-3.5 !px-7">
+          <Phone size={18} />
+          Need Immediate Assistance? Call {BUSINESS.phoneDisplay}
+        </a>
       </div>
     );
   }
 
-  const progressPercentage = ((step - 1) / (totalSteps - 1)) * 100;
-
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 shadow-xl overflow-hidden max-w-3xl mx-auto">
-      {/* Progress Bar Header */}
-      <div className="bg-navy p-6 sm:p-8 text-white relative">
-        <div className="flex items-center justify-between text-xs sm:text-sm text-white/70 mb-2 font-medium">
-          <span>Step {step} of {totalSteps}</span>
-          <span className="text-green-light font-semibold">
-            {step === 1 && "Choose Service"}
-            {step === 2 && "Property & Location"}
-            {step === 3 && "Usage & System"}
-            {step === 4 && "Contact Details"}
-          </span>
+    <div className="bg-white rounded-3xl border border-white/20 shadow-2xl overflow-hidden max-w-3xl mx-auto">
+      {/* Dark Navy Step Progress Header */}
+      <div className="section-dark p-6 sm:p-8 text-white">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-6">
+          <div>
+            <span className="eyebrow mb-1">Step {step} of 4</span>
+            <h2 className="text-xl sm:text-2xl text-white">
+              {STEPS[step - 1].label}
+            </h2>
+          </div>
+          <a
+            href={phoneHref(BUSINESS.phone)}
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-orange-light hover:text-white transition-colors"
+          >
+            <Phone size={15} /> Prefer to talk? Call {BUSINESS.phoneDisplay}
+          </a>
         </div>
-        {/* Progress bar track */}
-        <div className="w-full h-2 bg-white/20 rounded-full overflow-hidden">
-          <div
-            className="h-full bg-green transition-all duration-300 ease-out rounded-full"
-            style={{ width: `${progressPercentage}%` }}
-          />
+
+        {/* Step Indicator Bar */}
+        <div className="grid grid-cols-4 gap-2 sm:gap-3">
+          {STEPS.map((s) => {
+            const isCompleted = step > s.num;
+            const isCurrent = step === s.num;
+            return (
+              <button
+                key={s.num}
+                type="button"
+                onClick={() => {
+                  if (s.num < step) setStep(s.num);
+                }}
+                disabled={s.num > step}
+                className={`text-left group transition-all ${
+                  s.num < step ? "cursor-pointer" : "cursor-default"
+                }`}
+              >
+                <div
+                  className={`h-1.5 rounded-full mb-2 transition-all ${
+                    isCurrent
+                      ? "bg-orange"
+                      : isCompleted
+                      ? "bg-orange/60 group-hover:bg-orange"
+                      : "bg-white/15"
+                  }`}
+                />
+                <div className="flex items-center gap-1.5">
+                  <span
+                    className={`w-5 h-5 rounded-full text-[11px] font-extrabold flex items-center justify-center shrink-0 transition-colors ${
+                      isCurrent
+                        ? "bg-orange text-white"
+                        : isCompleted
+                        ? "bg-orange/25 text-orange-light"
+                        : "bg-white/10 text-white/50"
+                    }`}
+                  >
+                    {isCompleted ? "✓" : s.num}
+                  </span>
+                  <span
+                    className={`text-xs font-semibold truncate hidden sm:inline ${
+                      isCurrent
+                        ? "text-white"
+                        : isCompleted
+                        ? "text-[#c3d0df]"
+                        : "text-white/40"
+                    }`}
+                  >
+                    {s.label}
+                  </span>
+                </div>
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      {/* Form Content */}
       <form onSubmit={handleSubmit} className="p-6 sm:p-10">
-        {/* Honeypot field (hidden from real users) */}
+        {/* Honeypot */}
         <div className="hidden" aria-hidden="true">
-          <label htmlFor="hp_field">Do not fill this</label>
           <input
-            id="hp_field"
             type="text"
             value={formData.honeypot}
             onChange={(e) => updateField("honeypot", e.target.value)}
@@ -288,28 +362,25 @@ export default function MultiStepQuoteForm() {
           />
         </div>
 
-        {/* STEP 1: SERVICE TYPE */}
+        {errors.form && (
+          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm flex items-center gap-2">
+            <AlertCircle size={18} /> {errors.form}
+          </div>
+        )}
+
+        {/* STEP 1: SERVICE SELECTION */}
         {step === 1 && (
-          <div className="space-y-6">
+          <div className="space-y-6 animate-fade-in">
             <div>
-              <h3
-                className="text-2xl sm:text-3xl text-navy mb-2"
-                style={{ fontFamily: "var(--font-heading)" }}
-              >
-                What service are you looking for?
+              <h3 className="text-xl text-ink mb-1">
+                Which service do you need a quote for?
               </h3>
-              <p className="text-gray-500 text-sm">
-                Select the primary solution you need. You can always discuss additional work with us.
+              <p className="text-xs sm:text-sm text-body-muted">
+                Choose one of our 5 divisions below (or select Multiple / Other Work).
               </p>
             </div>
 
-            {errors.serviceType && (
-              <p className="text-red-500 text-xs flex items-center gap-1.5">
-                <AlertCircle size={14} /> {errors.serviceType}
-              </p>
-            )}
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               {SERVICE_OPTIONS.map((item) => {
                 const Icon = item.icon;
                 const isSelected = formData.serviceType === item.id;
@@ -318,31 +389,31 @@ export default function MultiStepQuoteForm() {
                     key={item.id}
                     type="button"
                     onClick={() => updateField("serviceType", item.id)}
-                    className={`p-5 rounded-xl border-2 text-left transition-all flex flex-col justify-between ${
+                    className={`p-4 sm:p-5 rounded-2xl border-2 text-left transition-all cursor-pointer flex items-start gap-4 ${
                       isSelected
-                        ? "border-green bg-green/5 shadow-md"
+                        ? "border-orange-strong bg-orange/5 shadow-md"
                         : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
                     }`}
                   >
-                    <div className="flex items-center justify-between mb-3">
-                      <div
-                        className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                          isSelected ? "bg-green text-white" : "bg-gray-100 text-gray-700"
-                        }`}
-                      >
-                        <Icon size={20} />
-                      </div>
-                      <div
-                        className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                          isSelected ? "border-green bg-green" : "border-gray-300"
-                        }`}
-                      >
-                        {isSelected && <div className="w-2 h-2 bg-white rounded-full" />}
-                      </div>
+                    <div
+                      className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
+                        isSelected
+                          ? "bg-orange-strong text-white"
+                          : "bg-gray-100 text-gray-700"
+                      }`}
+                    >
+                      <Icon size={22} />
                     </div>
-                    <div>
-                      <h4 className="font-bold text-navy text-base mb-1">{item.title}</h4>
-                      <p className="text-xs text-gray-500">{item.desc}</p>
+                    <div className="min-w-0 flex-1">
+                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-orange-strong block mb-0.5">
+                        {item.badge}
+                      </span>
+                      <h4 className="font-bold text-ink text-base leading-snug">
+                        {item.title}
+                      </h4>
+                      <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+                        {item.desc}
+                      </p>
                     </div>
                   </button>
                 );
@@ -353,63 +424,73 @@ export default function MultiStepQuoteForm() {
 
         {/* STEP 2: PROPERTY & LOCATION */}
         {step === 2 && (
-          <div className="space-y-6">
+          <div className="space-y-6 animate-fade-in">
             <div>
-              <h3
-                className="text-2xl sm:text-3xl text-navy mb-2"
-                style={{ fontFamily: "var(--font-heading)" }}
-              >
+              <h3 className="text-xl text-ink mb-1">
                 Tell us about your property
               </h3>
-              <p className="text-gray-500 text-sm">
-                This helps us estimate roof space, electrical capacity, and travel radius.
+              <p className="text-xs sm:text-sm text-body-muted">
+                This helps us check your roof/switchboard requirements and local ACT/NSW compliance.
               </p>
             </div>
 
-            {/* Property type selection */}
             <div>
-              <label className="block text-sm font-semibold text-navy mb-2.5">Property Type</label>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {PROPERTY_OPTIONS.map((opt) => {
-                  const Icon = opt.icon;
-                  const isSelected = formData.propertyType === opt.id;
+              <label className="block text-xs font-extrabold uppercase tracking-wider text-ink mb-2.5">
+                Property Type
+              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {PROPERTY_OPTIONS.map((prop) => {
+                  const Icon = prop.icon;
+                  const isSelected = formData.propertyType === prop.id;
                   return (
                     <button
-                      key={opt.id}
+                      key={prop.id}
                       type="button"
-                      onClick={() => updateField("propertyType", opt.id)}
-                      className={`p-3.5 rounded-xl border text-center transition-all flex flex-col items-center justify-center gap-2 ${
+                      onClick={() => updateField("propertyType", prop.id)}
+                      className={`p-4 rounded-xl border-2 text-left transition-all cursor-pointer flex items-center gap-3.5 ${
                         isSelected
-                          ? "border-green bg-green/5 font-semibold text-green shadow-sm"
-                          : "border-gray-200 text-gray-700 hover:border-gray-300 hover:bg-gray-50"
+                          ? "border-orange-strong bg-orange/5 shadow-sm"
+                          : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
                       }`}
                     >
-                      <Icon size={20} className={isSelected ? "text-green" : "text-gray-500"} />
-                      <span className="text-xs">{opt.label}</span>
+                      <div
+                        className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${
+                          isSelected
+                            ? "bg-orange-strong text-white"
+                            : "bg-gray-100 text-gray-700"
+                        }`}
+                      >
+                        <Icon size={20} />
+                      </div>
+                      <div>
+                        <div className="font-bold text-ink text-sm">{prop.title}</div>
+                        <div className="text-xs text-gray-500">{prop.desc}</div>
+                      </div>
                     </button>
                   );
                 })}
               </div>
             </div>
 
-            {/* Location fields */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-semibold text-navy mb-1.5">
+                <label className="block text-xs font-semibold text-ink mb-1.5">
                   Suburb <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
-                  placeholder="e.g. Belconnen, Kingston, Queanbeyan"
+                  placeholder="e.g. Belconnen, Gungahlin, Queanbeyan"
                   value={formData.suburb}
                   onChange={(e) => updateField("suburb", e.target.value)}
                   className={`input-field ${errors.suburb ? "border-red-500" : ""}`}
                 />
-                {errors.suburb && <p className="text-red-500 text-xs mt-1">{errors.suburb}</p>}
+                {errors.suburb && (
+                  <p className="text-red-500 text-xs mt-1">{errors.suburb}</p>
+                )}
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-navy mb-1.5">
+                <label className="block text-xs font-semibold text-ink mb-1.5">
                   Postcode <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -420,176 +501,187 @@ export default function MultiStepQuoteForm() {
                   onChange={(e) => updateField("postcode", e.target.value)}
                   className={`input-field ${errors.postcode ? "border-red-500" : ""}`}
                 />
-                {errors.postcode && <p className="text-red-500 text-xs mt-1">{errors.postcode}</p>}
+                {errors.postcode && (
+                  <p className="text-red-500 text-xs mt-1">{errors.postcode}</p>
+                )}
+              </div>
+            </div>
+
+            {formData.serviceType === "solar-battery" && (
+              <div>
+                <label className="block text-xs font-semibold text-ink mb-2">
+                  Approx. Quarterly Electricity Bill (Optional)
+                </label>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                  {[
+                    "Under $500 / qtr",
+                    "$500 - $800 / qtr",
+                    "$800 - $1,200 / qtr",
+                    "$1,200+ / qtr",
+                  ].map((bill) => (
+                    <button
+                      key={bill}
+                      type="button"
+                      onClick={() => updateField("billAmount", bill)}
+                      className={`py-2.5 px-3 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
+                        formData.billAmount === bill
+                          ? "border-orange-strong bg-orange-strong text-white shadow-sm"
+                          : "border-gray-200 bg-white text-gray-700 hover:border-gray-300"
+                      }`}
+                    >
+                      {bill}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* STEP 3: CONTACT DETAILS */}
+        {step === 3 && (
+          <div className="space-y-5 animate-fade-in">
+            <div>
+              <h3 className="text-xl text-ink mb-1">Your Contact Details</h3>
+              <p className="text-xs sm:text-sm text-body-muted">
+                Where should we send your quote or call to discuss your project?
+              </p>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-ink mb-1.5">
+                Full Name <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                placeholder="e.g. Sarah Jenkins"
+                value={formData.name}
+                onChange={(e) => updateField("name", e.target.value)}
+                className={`input-field ${errors.name ? "border-red-500" : ""}`}
+              />
+              {errors.name && (
+                <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+              )}
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-semibold text-ink mb-1.5">
+                  Phone Number <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="tel"
+                  placeholder="0400 000 000"
+                  value={formData.phone}
+                  onChange={(e) => updateField("phone", e.target.value)}
+                  className={`input-field ${errors.phone ? "border-red-500" : ""}`}
+                />
+                {errors.phone && (
+                  <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-ink mb-1.5">
+                  Email Address <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="email"
+                  placeholder="sarah@example.com"
+                  value={formData.email}
+                  onChange={(e) => updateField("email", e.target.value)}
+                  className={`input-field ${errors.email ? "border-red-500" : ""}`}
+                />
+                {errors.email && (
+                  <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                )}
               </div>
             </div>
           </div>
         )}
 
-        {/* STEP 3: USAGE & SYSTEM SIZE */}
-        {step === 3 && (
-          <div className="space-y-6">
+        {/* STEP 4: NOTES & REVIEW */}
+        {step === 4 && (
+          <div className="space-y-6 animate-fade-in">
             <div>
-              <h3
-                className="text-2xl sm:text-3xl text-navy mb-2"
-                style={{ fontFamily: "var(--font-heading)" }}
-              >
-                Energy usage &amp; preferences
+              <h3 className="text-xl text-ink mb-1">
+                Additional Notes &amp; Review
               </h3>
-              <p className="text-gray-500 text-sm">
-                Helps us size the optimum solar system or evaluate your electrical capacity.
+              <p className="text-xs sm:text-sm text-body-muted">
+                Add any specific details about the work you need, then submit your request.
               </p>
             </div>
 
-            {/* Quarterly bill */}
             <div>
-              <label className="block text-sm font-semibold text-navy mb-2.5">
-                Approximate Quarterly Power Bill
-              </label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {BILL_OPTIONS.map((bill) => {
-                  const isSelected = formData.billAmount === bill.label;
-                  return (
-                    <button
-                      key={bill.id}
-                      type="button"
-                      onClick={() => updateField("billAmount", bill.label)}
-                      className={`p-3.5 rounded-xl border text-left text-sm transition-all flex items-center justify-between ${
-                        isSelected
-                          ? "border-green bg-green/5 text-navy font-semibold shadow-sm"
-                          : "border-gray-200 text-gray-700 hover:border-gray-300 hover:bg-gray-50"
-                      }`}
-                    >
-                      <span>{bill.label}</span>
-                      <div
-                        className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                          isSelected ? "border-green bg-green" : "border-gray-300"
-                        }`}
-                      >
-                        {isSelected && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Any specific requests */}
-            <div>
-              <label className="block text-sm font-semibold text-navy mb-1.5">
-                Any specific system preferences or questions? (Optional)
+              <label className="block text-xs font-semibold text-ink mb-1.5">
+                Project Notes / Specific Requirements (Optional)
               </label>
               <textarea
-                rows={3}
-                placeholder="e.g. Interested in Tesla Powerwall or Sungrow battery; Have a 3-phase connection; Need EV charger on detached garage"
+                rows={4}
+                placeholder="Tell us briefly about the work needed (e.g. number of rooms for split system aircon, solar + battery size, CCTV camera points, switchboard upgrade)..."
                 value={formData.message}
                 onChange={(e) => updateField("message", e.target.value)}
                 className="input-field"
               />
             </div>
-          </div>
-        )}
 
-        {/* STEP 4: CONTACT INFORMATION */}
-        {step === 4 && (
-          <div className="space-y-6">
-            <div>
-              <h3
-                className="text-2xl sm:text-3xl text-navy mb-2"
-                style={{ fontFamily: "var(--font-heading)" }}
-              >
-                Where should we send your quote?
-              </h3>
-            </div>
-
-            {errors.form && (
-              <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-xs flex items-center gap-2">
-                <AlertCircle size={16} /> {errors.form}
+            {/* Summary Card */}
+            <div className="bg-off-white rounded-2xl p-5 border border-gray-200 space-y-2.5 text-xs sm:text-sm">
+              <div className="font-bold text-ink uppercase tracking-wider text-xs mb-2">
+                Quote Summary
               </div>
-            )}
-
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-semibold text-navy mb-1.5">
-                  Full Name <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g. Sarah Jenkins"
-                  value={formData.name}
-                  onChange={(e) => updateField("name", e.target.value)}
-                  className={`input-field ${errors.name ? "border-red-500" : ""}`}
-                />
-                {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+              <div className="flex justify-between gap-4">
+                <span className="text-gray-500">Service Division:</span>
+                <span className="font-semibold text-ink text-right">
+                  {selectedServiceObj.badge} — {selectedServiceObj.title}
+                </span>
               </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-semibold text-navy mb-1.5">
-                    Email Address <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="email"
-                    placeholder="sarah@example.com"
-                    value={formData.email}
-                    onChange={(e) => updateField("email", e.target.value)}
-                    className={`input-field ${errors.email ? "border-red-500" : ""}`}
-                  />
-                  {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-navy mb-1.5">
-                    Phone Number <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="tel"
-                    placeholder="0400 000 000"
-                    value={formData.phone}
-                    onChange={(e) => updateField("phone", e.target.value)}
-                    className={`input-field ${errors.phone ? "border-red-500" : ""}`}
-                  />
-                  {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
-                </div>
+              <div className="flex justify-between gap-4">
+                <span className="text-gray-500">Property &amp; Suburb:</span>
+                <span className="font-semibold text-ink text-right">
+                  {selectedPropertyObj.title} · {formData.suburb} {formData.postcode}
+                </span>
               </div>
-            </div>
-
-            <div className="p-4 bg-off-white rounded-xl border border-gray-200 text-xs text-gray-500 flex items-center gap-3">
-              <ShieldCheck size={20} className="text-green flex-shrink-0" />
-              <span>
-                Your privacy is protected. We will never share or sell your details. ACT Licence #{BUSINESS.licence}.
-              </span>
+              <div className="flex justify-between gap-4">
+                <span className="text-gray-500">Contact:</span>
+                <span className="font-semibold text-ink text-right">
+                  {formData.name} ({formData.phone})
+                </span>
+              </div>
             </div>
           </div>
         )}
 
-        {/* Form Action Controls */}
-        <div className="flex items-center justify-between pt-8 mt-8 border-t border-gray-100">
+        {/* Navigation Footer */}
+        <div className="mt-8 pt-6 border-t border-gray-100 flex items-center justify-between gap-4">
           {step > 1 ? (
             <button
               type="button"
-              onClick={prevStep}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-gray-300 text-gray-700 text-sm font-medium hover:bg-gray-50 transition-colors"
+              onClick={handleBack}
+              className="btn-outline-dark !py-3 !px-5 text-sm inline-flex items-center gap-2 cursor-pointer"
             >
               <ArrowLeft size={16} /> Back
             </button>
           ) : (
-            <div />
+            <div className="text-xs text-gray-500 flex items-center gap-2">
+              <ShieldCheck size={16} className="text-orange-strong shrink-0" />
+              <span>ACT Licence #{BUSINESS.licence} · Free Quote</span>
+            </div>
           )}
 
-          {step < totalSteps ? (
+          {step < 4 ? (
             <button
               type="button"
-              onClick={nextStep}
-              className="btn-primary !py-3 !px-6 text-sm"
+              onClick={handleNext}
+              className="btn-primary !py-3.5 !px-7 text-sm sm:text-base cursor-pointer ml-auto"
             >
-              Continue <ArrowRight size={16} />
+              Next Step <ArrowRight size={18} />
             </button>
           ) : (
             <button
               type="submit"
               disabled={isSubmitting}
-              className="btn-primary !py-3.5 !px-8 text-base shadow-lg disabled:opacity-50 flex items-center gap-2"
+              className="btn-primary !py-3.5 !px-8 text-sm sm:text-base shadow-lg disabled:opacity-50 cursor-pointer ml-auto"
             >
               {isSubmitting ? (
                 <>
@@ -597,7 +689,7 @@ export default function MultiStepQuoteForm() {
                 </>
               ) : (
                 <>
-                  Submit Quote Request <ArrowRight size={18} />
+                  Submit Quote Request <CheckCircle2 size={18} />
                 </>
               )}
             </button>

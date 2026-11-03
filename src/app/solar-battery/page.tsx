@@ -9,7 +9,7 @@ import RelatedServices from "@/components/services/related-services";
 export const metadata: Metadata = {
   title: "Solar & Battery Installation Canberra | St George Electrical",
   description:
-    "Expert solar panel and battery storage installations across Canberra and the ACT. ACT Sustainable Household Scheme eligible. Contact Justin George on 0450 598 628.",
+    "Expert solar panel and battery storage installations across Canberra and the ACT. ACT Sustainable Household Scheme eligible. Call 0450 598 628.",
   keywords: [
     "solar panels Canberra",
     "solar battery ACT",
@@ -138,23 +138,13 @@ export default function SolarBatteryPage() {
 
       <ServiceFeatures
         title="Engineered for Maximum Efficiency & Durability"
-        subtitle="Every system is designed by Justin George to maximize solar generation through Canberra's cold winters and hot summers."
+        subtitle="Every system is designed by St George Electrical to maximize solar generation through Canberra's cold winters and hot summers."
         features={FEATURES}
-      />
-
-      <ProcessSteps
-        title="From Solar Design to Clean Energy Generation"
-        subtitle="A hassle-free 4-step installation managed entirely by licensed ACT electricians."
-      />
-
-      <ServiceFAQ
-        title="Frequently Asked Questions: Solar & Batteries"
-        faqs={FAQS}
       />
 
       <ServiceCTA
         title="Ready to Cut Your Electricity Bills?"
-        subtitle="Contact Justin George for a detailed solar & battery assessment with no sales pressure."
+        subtitle="Contact St George Electrical for a detailed solar & battery assessment with no sales pressure."
         primaryCtaText="Request Solar Quote"
         primaryCtaHref="/quote?service=solar-battery"
       />

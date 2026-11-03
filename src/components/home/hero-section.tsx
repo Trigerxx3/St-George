@@ -1,132 +1,93 @@
 import Link from "next/link";
-import Image from "next/image";
-import { Phone, ArrowRight, ShieldCheck, Zap, Sun } from "lucide-react";
+import { Phone, ArrowUpRight, ShieldCheck } from "lucide-react";
 import { BUSINESS } from "@/lib/constants";
 import { phoneHref } from "@/lib/utils";
+import WireLine from "@/components/ui/wire-line";
+import HeroSlider from "@/components/home/hero-slider";
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-[640px] lg:min-h-[720px] flex items-center gradient-hero overflow-hidden">
-      {/* Background pattern overlay */}
-      <div className="absolute inset-0 opacity-5 pointer-events-none">
+    <section className="section-dark relative overflow-hidden bg-navy-950">
+      {/* ─── Hero Background Image + Atmospheric Overlay ─── */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <img
+          src="/images/hero/hero-solar-home.jpg"
+          alt=""
+          aria-hidden="true"
+          className="w-full h-full object-cover object-center scale-105"
+        />
+        {/* Horizontal dark gradient: deeper on left for text readability, softer on right */}
+        <div className="absolute inset-0 bg-gradient-to-r from-navy-950 via-navy-950/90 to-navy-950/70" />
+        {/* Vertical gradient: blends seamlessly with transparent header & bottom transition */}
+        <div className="absolute inset-0 bg-gradient-to-b from-navy-950/85 via-navy-950/40 to-navy-950" />
+        {/* Subtle radial warmth glow matching brand orange */}
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-            backgroundSize: "40px 40px",
+            background:
+              "radial-gradient(800px 450px at 15% 25%, rgba(232, 117, 26, 0.18), transparent 70%)",
           }}
         />
       </div>
 
-      {/* Atmospheric accent lighting */}
-      <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-green/15 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-[350px] h-[350px] bg-orange/15 rounded-full blur-[120px] pointer-events-none" />
+      <WireLine className="left-0 right-0 bottom-0 w-full h-40 opacity-70 z-0" variant="sweep" />
 
-      <div className="container-custom relative z-10 py-12 lg:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-          {/* Left Column: Copy & Actions */}
+      <div className="container-custom relative z-10 pt-24 pb-16 lg:pt-32 lg:pb-28">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-12 items-center">
+          {/* Left: copy & actions */}
           <div className="lg:col-span-7">
-            {/* Licence badge */}
-            <div className="animate-fade-in-up inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white/90 text-xs sm:text-sm mb-6">
-              <span className="w-2 h-2 bg-green rounded-full animate-pulse" />
+            <span className="animate-fade-in-up eyebrow mb-6">
               ACT Licence #{BUSINESS.licence} · Licensed &amp; Insured
-            </div>
+            </span>
 
-            {/* Heading */}
-            <h1
-              className="animate-fade-in-up animate-delay-100 text-4xl sm:text-5xl md:text-6xl text-white leading-[1.1] mb-4 font-bold"
-              style={{ fontFamily: "var(--font-heading)" }}
-            >
+            <h1 className="animate-fade-in-up animate-delay-100 text-4xl sm:text-5xl lg:text-7xl mb-5">
               Powering Your Home
               <br />
-              &amp; Business with{" "}
-              <span className="text-green">Confidence</span>
+              <span className="text-accent">&amp; Business with Confidence</span>
             </h1>
 
-            {/* Tagline with accent font */}
-            <p
-              className="animate-fade-in-up animate-delay-200 text-2xl sm:text-3xl text-orange-light mb-5"
-              style={{ fontFamily: "var(--font-accent)" }}
-            >
+            <p className="animate-fade-in-up animate-delay-200 text-lg sm:text-xl font-semibold italic text-orange-light mb-5">
               {BUSINESS.tagline}
             </p>
 
-            {/* Description */}
-            <p className="animate-fade-in-up animate-delay-300 text-base sm:text-lg text-white/80 max-w-xl mb-8 leading-relaxed">
-              Solar panels, battery storage, EV chargers &amp; complete electrical services. 
-              Serving Canberra, ACT &amp; surrounding regions with quality workmanship and zero shortcuts.
+            <p className="animate-fade-in-up animate-delay-300 text-base sm:text-lg text-body-muted max-w-xl mb-9 leading-relaxed">
+              Solar panels, battery storage, EV chargers &amp; complete electrical services. Serving Canberra, ACT
+              &amp; surrounding regions with quality workmanship and zero shortcuts.
             </p>
 
-            {/* CTAs */}
-            <div className="animate-fade-in-up animate-delay-400 flex flex-col sm:flex-row gap-4 mb-8">
-              <Link href="/quote" className="btn-primary text-base sm:text-lg !py-3.5 !px-8 shadow-xl">
+            <div className="animate-fade-in-up animate-delay-400 flex flex-col sm:flex-row gap-3 sm:gap-4 mb-10">
+              <Link href="/quote" className="btn-primary !py-3.5 !px-7">
                 Get a Free Quote
-                <ArrowRight size={20} />
+                <ArrowUpRight size={18} />
               </Link>
-              <a
-                href={phoneHref(BUSINESS.phone)}
-                className="btn-outline text-base sm:text-lg !py-3.5 !px-8"
-              >
-                <Phone size={20} />
+              <a href={phoneHref(BUSINESS.phone)} className="btn-outline !py-3.5 !px-7">
+                <Phone size={18} />
                 {BUSINESS.phoneDisplay}
               </a>
             </div>
 
-            {/* Trust indicators */}
-            <div className="animate-fade-in-up animate-delay-400 flex flex-wrap gap-x-6 gap-y-2 text-white/60 text-xs sm:text-sm">
-              <span className="flex items-center gap-1.5">
-                <ShieldCheck size={16} className="text-green" /> Free quotes &amp; consultations
-              </span>
-              <span className="flex items-center gap-1.5">
-                <ShieldCheck size={16} className="text-green" /> Master Electricians member
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Zap size={16} className="text-green" /> Domestic · Commercial · Industrial
-              </span>
-            </div>
+            <ul className="animate-fade-in-up animate-delay-400 flex flex-wrap gap-x-6 gap-y-3 text-body-muted text-xs sm:text-sm">
+              <li className="flex items-center gap-1.5">
+                <ShieldCheck size={16} className="text-orange" /> ACT Licence #{BUSINESS.licence}
+              </li>
+              <li className="flex items-center gap-1.5">
+                <ShieldCheck size={16} className="text-orange" /> Licensed &amp; Insured
+              </li>
+              <li className="flex items-center gap-1.5">
+                <ShieldCheck size={16} className="text-orange" /> Master Electricians Australia
+              </li>
+              <li className="flex items-center gap-1.5">
+                <ShieldCheck size={16} className="text-orange" /> Free quotes &amp; consultations
+              </li>
+            </ul>
           </div>
 
-          {/* Right Column: Hero Real Visual Showcase */}
-          <div className="lg:col-span-5 relative">
-            <div className="relative rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl group">
-              <div className="relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3] w-full">
-                <img
-                  src="/images/hero/hero-solar-home.jpg"
-                  alt="Modern Canberra home with rooftop solar panels installed by St George Electrical"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent pointer-events-none" />
-              </div>
-
-              {/* Floating Quality Stamp */}
-              <div className="absolute top-4 right-4 bg-navy/85 backdrop-blur-md border border-white/20 px-3 py-1.5 rounded-full text-white text-xs font-semibold flex items-center gap-1.5 shadow-lg">
-                <Sun size={14} className="text-orange" />
-                <span>Tier-1 N-Type Solar</span>
-              </div>
-
-              {/* Floating Bottom Trust Callout */}
-              <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-3.5 border border-white shadow-xl text-navy">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <span className="text-[10px] uppercase font-bold text-gray-500 tracking-wider block">
-                      Canberra Clean Energy Standard
-                    </span>
-                    <span className="text-xs sm:text-sm font-bold text-navy">
-                      0% Interest ACT Scheme Finance Available
-                    </span>
-                  </div>
-                  <span className="w-8 h-8 rounded-full bg-green/10 text-green flex items-center justify-center shrink-0">
-                    <ShieldCheck size={18} />
-                  </span>
-                </div>
-              </div>
-            </div>
+          {/* Right: Interactive Sliding Image Showcase */}
+          <div className="lg:col-span-5">
+            <HeroSlider />
           </div>
         </div>
       </div>
-
-      {/* Bottom fade into white */}
-      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent pointer-events-none" />
     </section>
   );
 }

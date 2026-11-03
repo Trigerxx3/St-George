@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { errorMessage } from "@/lib/utils";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import {
@@ -48,8 +49,8 @@ export default function AdminTestimonialsPage() {
       } else {
         setTestimonials(data || []);
       }
-    } catch (e: any) {
-      setErrorMsg(e.message);
+    } catch (e) {
+      setErrorMsg(errorMessage(e));
     } finally {
       setIsLoading(false);
     }
@@ -72,8 +73,8 @@ export default function AdminTestimonialsPage() {
       setTestimonials((prev) =>
         prev.map((t) => (t.id === item.id ? { ...t, is_published: nextVal } : t))
       );
-    } catch (err: any) {
-      alert(err.message);
+    } catch (err) {
+      alert(errorMessage(err));
     }
   };
 
@@ -108,8 +109,8 @@ export default function AdminTestimonialsPage() {
       setIsEditing(false);
       setCurrentTestimonial(null);
       await fetchTestimonials();
-    } catch (err: any) {
-      alert(err.message);
+    } catch (err) {
+      alert(errorMessage(err));
     } finally {
       setIsSaving(false);
     }
@@ -122,8 +123,8 @@ export default function AdminTestimonialsPage() {
       const { error } = await supabase.from("testimonials").delete().eq("id", id);
       if (error) throw error;
       setTestimonials((prev) => prev.filter((t) => t.id !== id));
-    } catch (err: any) {
-      alert(err.message);
+    } catch (err) {
+      alert(errorMessage(err));
     }
   };
 

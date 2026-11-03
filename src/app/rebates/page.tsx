@@ -72,59 +72,50 @@ const SCHEMES = [
 
 export default function RebatesPage() {
   return (
-    <div className="bg-off-white min-h-screen py-12 lg:py-16">
+    <div className="section-light min-h-screen py-12 lg:py-16">
       <div className="container-custom">
-        {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-green/10 text-green rounded-full text-xs font-semibold mb-3">
-            <Award size={14} />
+          <span className="eyebrow mb-3 !text-orange-strong">
             Government Incentives &amp; Zero-Interest Financing
-          </div>
-          <h1
-            className="text-3xl sm:text-5xl text-navy mb-4 font-bold tracking-tight"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            ACT Solar Rebates &amp; Incentives
+          </span>
+          <h1 className="text-3xl sm:text-5xl text-ink mb-4">
+            ACT Solar Rebates &amp; <span className="text-accent">Incentives</span>
           </h1>
-          <p className="text-gray-600 text-base sm:text-lg">
+          <p className="text-body-muted text-base sm:text-lg">
             Maximize your return on clean energy with zero-interest ACT Government loans and Federal STC discounts. We handle the paperwork from start to finish.
           </p>
         </div>
 
-        {/* Schemes list */}
         <div className="space-y-8 max-w-4xl mx-auto mb-16">
           {SCHEMES.map((scheme, idx) => (
             <div
               key={idx}
-              className="bg-white rounded-2xl border border-gray-200 p-6 sm:p-10 shadow-sm hover:shadow-md transition-shadow"
+              className="bg-white rounded-3xl border border-gray-200 p-6 sm:p-10 shadow-sm hover:shadow-md transition-shadow"
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-                <span className="inline-block text-xs font-bold text-green bg-green/10 px-3 py-1 rounded-full">
+                <span className="inline-block text-xs font-bold text-orange-strong bg-orange/10 px-3 py-1 rounded-full">
                   {scheme.badge}
                 </span>
-                <span className="text-xs font-bold text-navy/70">{scheme.highlight}</span>
+                <span className="text-xs font-bold text-ink/70">{scheme.highlight}</span>
               </div>
 
-              <h2
-                className="text-2xl sm:text-3xl text-navy font-bold mb-3"
-                style={{ fontFamily: "var(--font-heading)" }}
-              >
+              <h2 className="text-2xl sm:text-3xl text-ink mb-3">
                 {scheme.title}
               </h2>
 
-              <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-6">
+              <p className="text-body-muted text-sm sm:text-base leading-relaxed mb-6">
                 {scheme.description}
               </p>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-off-white rounded-xl p-5 mb-6 border border-gray-100">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-off-white rounded-2xl p-5 mb-6 border border-gray-100">
                 <div>
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-navy mb-2.5">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-ink mb-2.5">
                     Eligible Technologies
                   </h4>
                   <ul className="space-y-1.5 text-xs text-gray-700">
                     {scheme.eligibleItems.map((item, iIdx) => (
                       <li key={iIdx} className="flex items-center gap-2">
-                        <CheckCircle2 size={14} className="text-green flex-shrink-0" />
+                        <CheckCircle2 size={14} className="text-orange-strong shrink-0" />
                         <span>{item}</span>
                       </li>
                     ))}
@@ -132,19 +123,19 @@ export default function RebatesPage() {
                 </div>
 
                 <div>
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-navy mb-2.5">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-ink mb-2.5">
                     Eligibility &amp; Approvals
                   </h4>
                   <p className="text-xs text-gray-600 leading-relaxed mb-3">{scheme.whoEligible}</p>
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-navy mb-1">
-                    How Justin Assists
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-ink mb-1">
+                    How We Assist
                   </h4>
                   <p className="text-xs text-gray-600 leading-relaxed">{scheme.howWeHelp}</p>
                 </div>
               </div>
 
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-gray-100">
-                <span className="text-xs text-gray-400">
+                <span className="text-xs text-gray-500">
                   ACT Licence #{BUSINESS.licence} · Full compliance documentation supplied
                 </span>
                 <Link

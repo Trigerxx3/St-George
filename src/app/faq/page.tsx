@@ -45,7 +45,7 @@ const ALL_FAQS: FAQItem[] = [
   {
     question: "Do you supply official ACT Certificates of Electrical Compliance?",
     answer:
-      "Yes. Justin George holds ACT Electrical Contractor Licence #2028729. Every notifiable electrical installation is thoroughly tested to Australian Standards (AS/NZS 3000) and an official Certificate of Electrical Compliance is lodged with Access Canberra.",
+      "Yes. St George Electrical Energy Solutions holds ACT Electrical Contractor Licence #2028729. Every notifiable electrical installation is thoroughly tested to Australian Standards (AS/NZS 3000) and an official Certificate of Electrical Compliance is lodged with Access Canberra.",
   },
   {
     question: "What happens during a power blackout if I have solar and a battery?",
@@ -60,55 +60,45 @@ const ALL_FAQS: FAQItem[] = [
   {
     question: "Who will actually perform the electrical work on my property?",
     answer:
-      "Unlike large solar sales marketing companies that outsource installations to random subcontractors, Justin George personally manages and carries out the work. You deal directly with your licensed electrician from initial quote to final inspection.",
+      "Unlike large solar sales marketing companies that outsource installations to random subcontractors, our in-house licensed electricians personally manage and carry out the work. You deal directly with our team from initial quote to final inspection.",
   },
 ];
 
 export default function FAQPage() {
   return (
-    <div className="bg-off-white min-h-screen py-12 lg:py-16">
+    <div className="section-light min-h-screen py-12 lg:py-16">
       <div className="container-custom">
-        {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-green/10 text-green rounded-full text-xs font-semibold mb-3">
-            <HelpCircle size={14} />
+          <span className="eyebrow mb-3 !text-orange-strong">
             Expert Answers to Common Electrical &amp; Solar Questions
-          </div>
-          <h1
-            className="text-3xl sm:text-5xl text-navy mb-4 font-bold tracking-tight"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            Frequently Asked Questions
+          </span>
+          <h1 className="text-3xl sm:text-5xl text-ink mb-4">
+            Frequently Asked <span className="text-accent">Questions</span>
           </h1>
-          <p className="text-gray-600 text-base sm:text-lg">
+          <p className="text-body-muted text-base sm:text-lg">
             Find clear, transparent information about solar panels, batteries, EV chargers, switchboards, and government rebates in Canberra.
           </p>
         </div>
 
-        {/* Accordion FAQ with Schema */}
         <ServiceFAQ
           title="All Common Questions & Answers"
-          subtitle="Click on any question to view detailed advice from Justin George."
+          subtitle="Click on any question to view detailed advice from St George Electrical."
           faqs={ALL_FAQS}
         />
 
-        {/* Still have questions card */}
-        <div className="mt-14 bg-white rounded-2xl border border-gray-200 p-8 text-center max-w-2xl mx-auto shadow-sm">
-          <h3
-            className="text-2xl text-navy font-bold mb-2"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
+        <div className="mt-14 bg-white rounded-3xl border border-gray-200 p-8 text-center max-w-2xl mx-auto shadow-sm">
+          <h3 className="text-2xl text-ink mb-2">
             Have a Specific Question About Your Property?
           </h3>
-          <p className="text-gray-600 text-sm mb-6">
-            Justin George is always happy to discuss your electrical layout, switchboard capacity, or solar payback timeline.
+          <p className="text-body-muted text-sm mb-6">
+            Our team is always happy to discuss your electrical layout, switchboard capacity, or solar payback timeline.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/contact" className="btn-primary !py-2.5 !px-6 text-sm">
               Send a Message <ArrowRight size={14} />
             </Link>
-            <a href={phoneHref(BUSINESS.phone)} className="btn-outline !py-2.5 !px-6 text-sm">
-              <Phone size={14} /> Call {BUSINESS.phoneDisplay}
+            <a href={phoneHref(BUSINESS.phone)} className="btn-outline-dark !py-2.5 !px-6 text-sm rounded-xl font-bold inline-flex items-center justify-center gap-2">
+              <Phone size={14} className="text-orange-strong" /> Call {BUSINESS.phoneDisplay}
             </a>
           </div>
         </div>

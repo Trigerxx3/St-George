@@ -1,4 +1,6 @@
 import { CheckCircle2 } from "lucide-react";
+import SectionHeading from "@/components/ui/section-heading";
+import Reveal from "@/components/ui/reveal";
 
 export interface FeatureItem {
   title: string;
@@ -15,67 +17,69 @@ interface ServiceFeaturesProps {
   columns?: 2 | 3;
 }
 
+function splitTitle(text: string) {
+  const words = text.trim().split(/\s+/);
+  if (words.length <= 2) return { line1: text, line2: "" };
+  const mid = Math.ceil(words.length / 2);
+  return {
+    line1: words.slice(0, mid).join(" "),
+    line2: words.slice(mid).join(" "),
+  };
+}
+
 export default function ServiceFeatures({
   title,
   subtitle,
-  badgeText = "Why Choose St George",
+  badgeText = "01 — Capabilities",
   features,
   columns = 3,
 }: ServiceFeaturesProps) {
-  return (
-    <section className="section-padding bg-off-white">
-      <div className="container-custom">
-        {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="badge-primary mb-3">{badgeText}</span>
-          <h2
-            className="text-3xl sm:text-4xl lg:text-5xl text-navy mb-4 tracking-tight"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            {title}
-          </h2>
-          {subtitle && <p className="text-gray-500 text-base sm:text-lg">{subtitle}</p>}
-        </div>
+  const { line1, line2 } = splitTitle(title);
 
-        {/* Feature Grid */}
+  return (
+    <section className="section-light section-padding">
+      <div className="container-custom">
+        <SectionHeading eyebrow={badgeText} line1={line1} line2={line2} intro={subtitle} />
+
         <div
           className={`grid gap-6 ${
             columns === 2 ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
           }`}
         >
           {features.map((feature, idx) => (
-            <div
-              key={idx}
-              className="card group hover:border-green/40 hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
-            >
-              <div>
-                {feature.badge && (
-                  <span className="inline-block text-xs font-semibold text-green bg-green/10 px-2.5 py-1 rounded-full mb-3">
-                    {feature.badge}
-                  </span>
-                )}
-                <h3
-                  className="text-xl font-bold text-navy mb-2.5 group-hover:text-green transition-colors"
-                  style={{ fontFamily: "var(--font-heading)" }}
-                >
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                  {feature.description}
-                </p>
-              </div>
+            <Reveal key={idx} delay={(idx % 3) * 70}>
+              <div className="h-full card card-hover group flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-4">
+                    <span className="text-xs font-extrabold text-orange-strong tracking-[0.14em] uppercase">
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                    {feature.badge && (
+                      <span className="inline-block text-[11px] font-bold text-orange-strong bg-orange/10 px-2.5 py-1 rounded-full">
+                        {feature.badge}
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="text-xl text-ink mb-2.5 group-hover:text-orange-strong transition-colors">
+                    {feature.title}
+                  </h3>
+                  <p className="text-body-muted text-sm leading-relaxed mb-5">
+                    {feature.description}
+                  </p>
+                </div>
 
-              {feature.bullets && feature.bullets.length > 0 && (
-                <ul className="space-y-2 pt-3 border-t border-gray-100 text-xs text-gray-700">
-                  {feature.bullets.map((b, bIdx) => (
-                    <li key={bIdx} className="flex items-center gap-2">
-                      <CheckCircle2 size={14} className="text-green flex-shrink-0" />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
+                {feature.bullets && feature.bullets.length > 0 && (
+                  <ul className="space-y-2 pt-4 border-t border-gray-100 text-xs text-gray-700">
+                    {feature.bullets.map((b, bIdx) => (
+                      <li key={bIdx} className="flex items-start gap-2">
+                        <CheckCircle2 size={14} className="text-orange-strong shrink-0 mt-0.5" />
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </Reveal>
           ))}
         </div>
       </div>

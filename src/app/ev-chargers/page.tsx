@@ -142,19 +142,9 @@ export default function EVChargersPage() {
         features={FEATURES}
       />
 
-      <ProcessSteps
-        title="How We Install Your EV Charger"
-        subtitle="A quick, professional installation process designed to get you on the road with total confidence."
-      />
-
-      <ServiceFAQ
-        title="Frequently Asked Questions: EV Chargers"
-        faqs={FAQS}
-      />
-
       <ServiceCTA
         title="Ready to Install Your Home EV Charger?"
-        subtitle="Get a transparent, fixed-price quote from Justin George. Fast scheduling across all Canberra suburbs."
+        subtitle="Get a transparent, fixed-price quote from St George Electrical. Fast scheduling across all Canberra suburbs."
         primaryCtaText="Get a Free EV Charger Quote"
         primaryCtaHref="/quote?service=ev-chargers"
       />

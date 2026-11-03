@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const QuoteRequestSchema = z.object({
-  serviceType: z.enum(["solar-battery", "ev-chargers", "electrical", "other"], {
+  serviceType: z.enum(["solar-battery", "ev-chargers", "electrical", "heating-cooling", "security-cctv", "other"], {
     message: "Please select a service",
   }),
   propertyType: z.enum(["house", "townhouse", "unit", "commercial", "industrial"], {

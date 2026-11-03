@@ -109,7 +109,7 @@ const FAQS: FAQItem[] = [
   {
     question: "Can I book a prompt repair or safety inspection?",
     answer:
-      "Absolutely. You can use our online Booking Request form or call Justin directly on 0450 598 628. We provide prompt scheduling across all Canberra regions including Belconnen, Gungahlin, Woden, Tuggeranong, and Queanbeyan.",
+      "Absolutely. You can use our online Booking Request form or call us directly on 0450 598 628. We provide prompt scheduling across all Canberra regions including Belconnen, Gungahlin, Woden, Tuggeranong, and Queanbeyan.",
   },
   {
     question: "Do you assist landlords and property managers with rental safety standards?",
@@ -137,19 +137,9 @@ export default function ElectricalPage() {
         features={FEATURES}
       />
 
-      <ProcessSteps
-        title="Our Straightforward Service Process"
-        subtitle="Prompt communication, upfront quoting, clean workmanship, and licensed sign-off."
-      />
-
-      <ServiceFAQ
-        title="Frequently Asked Questions: Electrical Services"
-        faqs={FAQS}
-      />
-
       <ServiceCTA
         title="Need an Experienced Electrician in Canberra?"
-        subtitle="Call Justin George directly or request a service booking online today."
+        subtitle="Call St George Electrical directly or request a service booking online today."
         primaryCtaText="Request a Quote"
         primaryCtaHref="/quote?service=electrical"
       />

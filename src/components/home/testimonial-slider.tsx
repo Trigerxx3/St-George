@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import SectionHeading from "@/components/ui/section-heading";
 
 /* ─── Placeholder testimonials (clearly marked) ─── */
 const PLACEHOLDER_TESTIMONIALS = [
@@ -52,32 +53,22 @@ export default function TestimonialSlider() {
     );
 
   return (
-    <section className="section-padding bg-white">
+    <section className="section-dark section-padding border-t border-white/5">
       <div className="container-custom">
-        {/* Section header */}
-        <div className="text-center mb-12">
-          <h2
-            className="text-3xl sm:text-4xl text-navy mb-3"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            What Our Customers{" "}
-            <span className="text-green">Say</span>
-          </h2>
-          <p className="text-gray-500 max-w-xl mx-auto">
-            Don't just take our word for it — hear from homeowners and businesses we've helped.
-          </p>
-          <p className="text-xs text-orange mt-2">
-            [PLACEHOLDER REVIEWS — Replace with real Google Reviews]
-          </p>
-        </div>
+        <SectionHeading
+          eyebrow="06 — Testimonials"
+          line1="What Our Customers"
+          line2="Say"
+          intro="Don't just take our word for it — hear from homeowners and businesses we've helped. [PLACEHOLDER REVIEWS — Replace with real Google Reviews]"
+        />
 
         {/* Testimonial card */}
         <div className="max-w-3xl mx-auto">
-          <div className="relative bg-off-white rounded-2xl p-8 sm:p-10 border border-gray-100">
+          <div className="relative card-glass p-8 sm:p-10">
             {/* Quote icon */}
             <Quote
               size={48}
-              className="absolute top-6 left-6 text-green/10"
+              className="absolute top-6 left-6 text-orange/15"
               strokeWidth={1}
             />
 
@@ -94,17 +85,17 @@ export default function TestimonialSlider() {
               </div>
 
               {/* Review text */}
-              <blockquote className="text-lg sm:text-xl text-gray-700 leading-relaxed mb-6 animate-fade-in">
-                "{PLACEHOLDER_TESTIMONIALS[current].content}"
+              <blockquote className="text-lg sm:text-xl text-white leading-relaxed mb-6 animate-fade-in">
+                &ldquo;{PLACEHOLDER_TESTIMONIALS[current].content}&rdquo;
               </blockquote>
 
               {/* Author */}
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-semibold text-navy">
+                  <p className="font-extrabold text-white">
                     {PLACEHOLDER_TESTIMONIALS[current].name}
                   </p>
-                  <p className="text-sm text-gray-400">
+                  <p className="text-sm text-[#9fb2c8]">
                     {PLACEHOLDER_TESTIMONIALS[current].location} ·{" "}
                     {PLACEHOLDER_TESTIMONIALS[current].service}
                   </p>
@@ -114,14 +105,14 @@ export default function TestimonialSlider() {
                 <div className="flex gap-2">
                   <button
                     onClick={prev}
-                    className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-navy hover:text-white hover:border-navy transition-all"
+                    className="w-10 h-10 rounded-full border border-white/20 text-white flex items-center justify-center hover:bg-orange-strong hover:border-orange-strong transition-all"
                     aria-label="Previous review"
                   >
                     <ChevronLeft size={18} />
                   </button>
                   <button
                     onClick={next}
-                    className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-navy hover:text-white hover:border-navy transition-all"
+                    className="w-10 h-10 rounded-full border border-white/20 text-white flex items-center justify-center hover:bg-orange-strong hover:border-orange-strong transition-all"
                     aria-label="Next review"
                   >
                     <ChevronRight size={18} />
@@ -137,10 +128,10 @@ export default function TestimonialSlider() {
               <button
                 key={i}
                 onClick={() => setCurrent(i)}
-                className={`w-2.5 h-2.5 rounded-full transition-all ${
+                className={`h-2 rounded-full transition-all ${
                   i === current
-                    ? "bg-green w-6"
-                    : "bg-gray-300 hover:bg-gray-400"
+                    ? "bg-orange-strong w-8"
+                    : "bg-white/25 w-2 hover:bg-white/40"
                 }`}
                 aria-label={`Go to review ${i + 1}`}
               />

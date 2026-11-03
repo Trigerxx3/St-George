@@ -58,20 +58,14 @@ export default function SolarCalculator() {
   const co2AvoidedTonnes = ((annualGenerationKwh * 0.82) / 1000).toFixed(1);
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 shadow-xl overflow-hidden max-w-4xl mx-auto">
+    <div className="bg-white rounded-3xl border border-gray-200 shadow-xl overflow-hidden max-w-4xl mx-auto">
       {/* Header */}
-      <div className="bg-navy p-6 sm:p-8 text-white">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-green/20 text-green-light rounded-full text-xs font-semibold mb-3">
-          <Sun size={14} />
-          Canberra Climate &amp; Tariff Model
-        </div>
-        <h2
-          className="text-2xl sm:text-3xl text-white mb-2 font-bold"
-          style={{ fontFamily: "var(--font-heading)" }}
-        >
+      <div className="section-dark p-6 sm:p-8 text-white">
+        <span className="eyebrow mb-2">Canberra Climate &amp; Tariff Model</span>
+        <h2 className="text-2xl sm:text-3xl text-white mb-2">
           Solar &amp; Battery Savings Calculator
         </h2>
-        <p className="text-white/70 text-xs sm:text-sm">
+        <p className="text-[#9fb2c8] text-xs sm:text-sm">
           Calculate how much your Canberra household can save each year by switching to clean rooftop solar.
         </p>
       </div>
@@ -82,10 +76,10 @@ export default function SolarCalculator() {
           {/* Quarterly Bill Slider */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <label className="text-sm font-bold text-navy">
+              <label className="text-sm font-bold text-ink">
                 Average Quarterly Power Bill
               </label>
-              <span className="text-lg font-bold text-green font-mono">
+              <span className="text-lg font-extrabold text-orange-strong font-mono">
                 ${quarterlyBill} / qtr
               </span>
             </div>
@@ -96,7 +90,7 @@ export default function SolarCalculator() {
               step={50}
               value={quarterlyBill}
               onChange={(e) => setQuarterlyBill(Number(e.target.value))}
-              className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-green"
+              className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-orange-strong"
             />
             <div className="flex justify-between text-[11px] text-gray-400 mt-1">
               <span>$300 (Low)</span>
@@ -107,7 +101,7 @@ export default function SolarCalculator() {
 
           {/* Include Battery Storage Toggle */}
           <div>
-            <label className="text-sm font-bold text-navy block mb-2">
+            <label className="text-sm font-bold text-ink block mb-2">
               Add Home Battery Storage?
             </label>
             <div className="grid grid-cols-2 gap-3">
@@ -116,14 +110,14 @@ export default function SolarCalculator() {
                 onClick={() => setIncludeBattery(true)}
                 className={`p-3.5 rounded-xl border text-left transition-all ${
                   includeBattery
-                    ? "border-green bg-green/5 text-navy shadow-sm"
+                    ? "border-orange-strong bg-orange/5 text-ink shadow-sm"
                     : "border-gray-200 text-gray-500 hover:bg-gray-50"
                 }`}
               >
                 <div className="flex items-center gap-2 mb-1">
                   <BatteryCharging
                     size={16}
-                    className={includeBattery ? "text-green" : "text-gray-400"}
+                    className={includeBattery ? "text-orange-strong" : "text-gray-400"}
                   />
                   <span className="text-xs font-bold">Yes (Recommended)</span>
                 </div>
@@ -137,12 +131,12 @@ export default function SolarCalculator() {
                 onClick={() => setIncludeBattery(false)}
                 className={`p-3.5 rounded-xl border text-left transition-all ${
                   !includeBattery
-                    ? "border-green bg-green/5 text-navy shadow-sm"
+                    ? "border-orange-strong bg-orange/5 text-ink shadow-sm"
                     : "border-gray-200 text-gray-500 hover:bg-gray-50"
                 }`}
               >
                 <div className="flex items-center gap-2 mb-1">
-                  <Sun size={16} className={!includeBattery ? "text-green" : "text-gray-400"} />
+                  <Sun size={16} className={!includeBattery ? "text-orange-strong" : "text-gray-400"} />
                   <span className="text-xs font-bold">Solar Only</span>
                 </div>
                 <p className="text-[11px] text-gray-500">
@@ -154,7 +148,7 @@ export default function SolarCalculator() {
 
           {/* Roof Type Selection */}
           <div>
-            <label className="text-sm font-bold text-navy block mb-2">
+            <label className="text-sm font-bold text-ink block mb-2">
               Roof Profile
             </label>
             <div className="grid grid-cols-3 gap-2">
@@ -169,7 +163,7 @@ export default function SolarCalculator() {
                   onClick={() => setRoofType(r.id)}
                   className={`py-2 px-3 rounded-lg border text-xs font-medium text-center transition-all ${
                     roofType === r.id
-                      ? "border-green bg-green/10 text-green font-bold"
+                      ? "border-orange-strong bg-orange/10 text-orange-strong font-bold"
                       : "border-gray-200 text-gray-600 hover:bg-gray-50"
                   }`}
                 >
@@ -180,7 +174,7 @@ export default function SolarCalculator() {
           </div>
 
           <div className="p-3.5 bg-off-white rounded-xl border border-gray-100 text-xs text-gray-500 flex items-start gap-2.5">
-            <ShieldCheck size={16} className="text-green flex-shrink-0 mt-0.5" />
+            <ShieldCheck size={16} className="text-orange-strong shrink-0 mt-0.5" />
             <span>
               Eligible for up to $15,000 zero-interest finance under the ACT Sustainable Household Scheme.
             </span>
@@ -188,56 +182,56 @@ export default function SolarCalculator() {
         </div>
 
         {/* Right: Calculated Results Card */}
-        <div className="lg:col-span-6 bg-gradient-to-br from-navy to-navy-light rounded-2xl p-6 sm:p-8 text-white flex flex-col justify-between">
+        <div className="lg:col-span-6 section-dark rounded-2xl p-6 sm:p-8 text-white flex flex-col justify-between">
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-green-light block mb-1">
+            <span className="eyebrow mb-1">
               Estimated Annual Savings
             </span>
-            <div className="text-4xl sm:text-5xl font-extrabold text-white mb-2" style={{ fontFamily: "var(--font-heading)" }}>
+            <div className="text-4xl sm:text-5xl font-extrabold text-white mb-2">
               ${estimatedAnnualSavings.toLocaleString()}
-              <span className="text-lg text-white/60 font-normal"> / year</span>
+              <span className="text-lg text-[#9fb2c8] font-normal"> / year</span>
             </div>
-            <p className="text-xs text-white/70 mb-6">
+            <p className="text-xs text-[#9fb2c8] mb-6">
               Approx. ${(estimatedAnnualSavings * 10).toLocaleString()} saved over 10 years of solar generation.
             </p>
 
             <div className="grid grid-cols-2 gap-3 mb-6">
-              <div className="bg-white/10 rounded-xl p-3 border border-white/10">
-                <span className="text-[11px] text-white/60 block mb-0.5">Recommended Size</span>
+              <div className="card-glass p-3">
+                <span className="text-[11px] text-[#9fb2c8] block mb-0.5">Recommended Size</span>
                 <span className="text-lg font-bold text-white font-mono">
                   {recommendedSize} kW
                 </span>
-                <span className="text-[10px] text-white/50 block mt-0.5">
+                <span className="text-[10px] text-[#9fb2c8] block mt-0.5">
                   ~{annualGenerationKwh.toLocaleString()} kWh/yr
                 </span>
               </div>
 
-              <div className="bg-white/10 rounded-xl p-3 border border-white/10">
-                <span className="text-[11px] text-white/60 block mb-0.5">Payback Period</span>
-                <span className="text-lg font-bold text-green-light font-mono">
+              <div className="card-glass p-3">
+                <span className="text-[11px] text-[#9fb2c8] block mb-0.5">Payback Period</span>
+                <span className="text-lg font-bold text-orange-light font-mono">
                   ~{paybackYears} Years
                 </span>
-                <span className="text-[10px] text-white/50 block mt-0.5">
+                <span className="text-[10px] text-[#9fb2c8] block mt-0.5">
                   Full ROI in warranty
                 </span>
               </div>
 
-              <div className="bg-white/10 rounded-xl p-3 border border-white/10">
-                <span className="text-[11px] text-white/60 block mb-0.5">Carbon Offset</span>
+              <div className="card-glass p-3">
+                <span className="text-[11px] text-[#9fb2c8] block mb-0.5">Carbon Offset</span>
                 <span className="text-lg font-bold text-white font-mono">
                   {co2AvoidedTonnes} Tonnes
                 </span>
-                <span className="text-[10px] text-white/50 block mt-0.5">
+                <span className="text-[10px] text-[#9fb2c8] block mt-0.5">
                   CO₂ avoided / year
                 </span>
               </div>
 
-              <div className="bg-white/10 rounded-xl p-3 border border-white/10">
-                <span className="text-[11px] text-white/60 block mb-0.5">Battery Storage</span>
+              <div className="card-glass p-3">
+                <span className="text-[11px] text-[#9fb2c8] block mb-0.5">Battery Storage</span>
                 <span className="text-lg font-bold text-white font-mono">
                   {includeBattery ? "Included" : "Solar Only"}
                 </span>
-                <span className="text-[10px] text-white/50 block mt-0.5">
+                <span className="text-[10px] text-[#9fb2c8] block mt-0.5">
                   {includeBattery ? "13.5kWh Backup" : "Battery-Ready"}
                 </span>
               </div>
@@ -251,7 +245,7 @@ export default function SolarCalculator() {
             >
               Request Exact Site Quote <ArrowRight size={16} />
             </Link>
-            <p className="text-[11px] text-center text-white/50">
+            <p className="text-[11px] text-center text-[#9fb2c8]">
               *Estimates based on average Canberra irradiation and standard ACT retail tariffs.
             </p>
           </div>

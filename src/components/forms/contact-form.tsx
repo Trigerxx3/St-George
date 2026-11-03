@@ -73,7 +73,7 @@ export default function ContactForm() {
         setErrors({ form: data.message || "Failed to send message. Please call us directly." });
       }
     } catch {
-      setErrors({ form: "Network error. Please call Justin directly on " + BUSINESS.phoneDisplay });
+      setErrors({ form: "Network error. Please call us directly on " + BUSINESS.phoneDisplay });
     } finally {
       setIsSubmitting(false);
     }
@@ -81,18 +81,15 @@ export default function ContactForm() {
 
   if (isSubmitted) {
     return (
-      <div className="bg-white rounded-2xl border border-gray-200 p-8 text-center shadow-lg">
-        <div className="w-14 h-14 bg-green/10 text-green rounded-full flex items-center justify-center mx-auto mb-4">
+      <div className="bg-white rounded-3xl border border-gray-200 p-8 text-center shadow-lg">
+        <div className="w-14 h-14 bg-orange/10 text-orange-strong rounded-full flex items-center justify-center mx-auto mb-4">
           <CheckCircle2 size={32} />
         </div>
-        <h3
-          className="text-2xl text-navy mb-2"
-          style={{ fontFamily: "var(--font-heading)" }}
-        >
+        <h3 className="text-2xl text-ink mb-2">
           Message Sent!
         </h3>
-        <p className="text-gray-600 text-sm mb-4">
-          Thank you for reaching out. Justin George will review your message and reply as soon as possible.
+        <p className="text-body-muted text-sm mb-4">
+          Thank you for reaching out. Our team will review your message and reply as soon as possible.
         </p>
         <button
           type="button"
@@ -100,7 +97,7 @@ export default function ContactForm() {
             setIsSubmitted(false);
             setFormData({ name: "", email: "", phone: "", subject: "", message: "", honeypot: "" });
           }}
-          className="text-sm font-semibold text-green hover:underline"
+          className="text-sm font-bold text-orange-strong hover:underline"
         >
           Send another inquiry
         </button>
@@ -109,7 +106,7 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-gray-200 p-6 sm:p-8 shadow-lg space-y-4">
+    <form onSubmit={handleSubmit} className="bg-white rounded-3xl border border-gray-200 p-6 sm:p-8 shadow-lg space-y-4">
       {/* Honeypot */}
       <div className="hidden" aria-hidden="true">
         <input

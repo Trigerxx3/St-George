@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
+import { errorMessage } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { ShieldCheck, Lock, Mail, AlertTriangle, Loader2 } from "lucide-react";
@@ -123,9 +124,9 @@ function LoginForm() {
 
       router.push(nextUrl);
       router.refresh();
-    } catch (err: any) {
+    } catch (err) {
       console.error("Login unexpected error:", err);
-      setErrorMessage(err.message || "An unexpected error occurred during login.");
+      setErrorMessage(err instanceof Error ? err.message : "An unexpected error occurred during login.");
       setIsLoading(false);
     }
   }

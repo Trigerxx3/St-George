@@ -277,7 +277,7 @@ export default function AdminDashboardPage() {
               Manage Services
             </h3>
             <p className="text-xs text-gray-500 mt-0.5">
-              Edit services, sector classifications, and sort orders.
+              Edit services, categories, and sort orders.
             </p>
           </div>
         </Link>

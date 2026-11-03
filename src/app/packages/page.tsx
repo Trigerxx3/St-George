@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, ShieldCheck, Zap, Sparkles } from "lucide-react";
+import { ArrowUpRight, CheckCircle2, Zap, Sparkles } from "lucide-react";
 import { PACKAGES } from "@/lib/catalogue-data";
 
 export const metadata: Metadata = {
@@ -11,91 +11,80 @@ export const metadata: Metadata = {
 
 export default function PackagesPage() {
   return (
-    <div className="bg-off-white min-h-screen py-12 lg:py-16">
-      <div className="container-custom">
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-green/10 text-green rounded-full text-xs font-semibold mb-3">
-            <ShieldCheck size={14} />
-            ACT Sustainable Household Scheme Eligible Bundles
-          </div>
-          <h1
-            className="text-3xl sm:text-5xl text-navy mb-4"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            Solar &amp; Energy Packages
+    <div className="section-light min-h-screen">
+      <section className="section-dark py-16 lg:py-24">
+        <div className="container-custom">
+          <span className="eyebrow mb-4">ACT Sustainable Household Scheme Eligible Bundles</span>
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl mb-4">
+            Solar &amp; Energy
+            <br />
+            <span className="text-accent">Packages</span>
           </h1>
-          <p className="text-gray-600 text-base sm:text-lg">
+          <p className="text-body-muted text-base sm:text-lg max-w-2xl">
             Turnkey energy solutions designed for Canberra homes and businesses. Fully installed with zero hidden fees.
           </p>
         </div>
+      </section>
 
-        {/* Packages Grid */}
+      <div className="container-custom py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
           {PACKAGES.map((pkg) => (
             <div
               key={pkg.id}
-              className={`card flex flex-col justify-between transition-all duration-300 relative overflow-hidden ${
-                pkg.featured
-                  ? "border-green/40 shadow-xl bg-white"
-                  : "border-gray-200 hover:shadow-lg bg-white"
+              className={`card card-hover flex flex-col justify-between relative overflow-hidden ${
+                pkg.featured ? "!border-orange-strong/50 shadow-xl" : ""
               }`}
             >
               {pkg.featured && (
-                <div className="absolute top-4 right-4 z-10 inline-flex items-center gap-1.5 px-3 py-1 bg-green text-white text-xs font-bold rounded-full shadow-md">
+                <div className="absolute top-4 right-4 z-10 inline-flex items-center gap-1.5 px-3 py-1 bg-orange-strong text-white text-xs font-bold rounded-full shadow-md">
                   <Sparkles size={12} /> Canberra Top Pick
                 </div>
               )}
 
               {pkg.image && (
-                <div className="relative h-48 -mx-6 -mt-6 mb-5 overflow-hidden bg-gray-100">
+                <div className="relative h-52 -mx-6 -mt-6 mb-5 overflow-hidden bg-gray-100">
                   <img
                     src={pkg.image}
                     alt={pkg.name}
+                    width={800}
+                    height={450}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent to-transparent opacity-70" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-950/60 via-transparent to-transparent" />
                 </div>
               )}
 
               <div>
-                <div className="inline-block px-3 py-1 bg-navy/5 text-navy rounded-md text-xs font-bold mb-3">
-                  {pkg.systemSize}
-                </div>
+                <span className="eyebrow mb-2 !text-orange-strong">{pkg.systemSize}</span>
 
-                <h3
-                  className="text-2xl sm:text-3xl text-navy mb-3 font-bold"
-                  style={{ fontFamily: "var(--font-heading)" }}
-                >
+                <h3 className="text-2xl sm:text-3xl text-ink mb-3">
                   {pkg.name}
                 </h3>
 
-                <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                <p className="text-body-muted text-sm leading-relaxed mb-6">
                   {pkg.shortDesc}
                 </p>
 
-                {/* Key specs highlight */}
                 <div className="bg-off-white rounded-xl p-4 mb-6 border border-gray-100 space-y-2 text-xs">
-                  <div className="flex justify-between">
+                  <div className="flex justify-between gap-2">
                     <span className="text-gray-500">Estimated Output:</span>
-                    <span className="font-semibold text-navy">{pkg.estimatedOutput}</span>
+                    <span className="font-semibold text-ink">{pkg.estimatedOutput}</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between gap-2">
                     <span className="text-gray-500">Best Suited For:</span>
-                    <span className="font-semibold text-navy text-right max-w-[220px]">{pkg.idealFor}</span>
+                    <span className="font-semibold text-ink text-right max-w-[220px]">{pkg.idealFor}</span>
                   </div>
                 </div>
 
-                {/* Included Items List */}
                 <div className="mb-6">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">
+                  <h4 className="text-xs font-extrabold uppercase tracking-wider text-gray-500 mb-3">
                     What&apos;s Included In This Package:
                   </h4>
                   <ul className="space-y-2 text-xs text-gray-700">
                     {pkg.includedItems.slice(0, 4).map((item, idx) => (
                       <li key={idx} className="flex items-start gap-2">
-                        <CheckCircle2 size={15} className="text-green flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 size={15} className="text-orange-strong shrink-0 mt-0.5" />
                         <span>{item}</span>
                       </li>
                     ))}
@@ -103,40 +92,34 @@ export default function PackagesPage() {
                 </div>
               </div>
 
-              <div>
-                <div className="pt-4 border-t border-gray-100 flex flex-col sm:flex-row gap-3">
-                  <Link
-                    href={`/packages/${pkg.slug}`}
-                    className="btn-outline !py-3 !px-4 text-xs font-semibold text-center flex-1 justify-center"
-                  >
-                    View Details &amp; Specs
-                  </Link>
-                  <Link
-                    href={`/quote?package=${pkg.slug}`}
-                    className="btn-primary !py-3 !px-5 text-xs font-semibold text-center flex-1 justify-center"
-                  >
-                    Request This Package <ArrowRight size={14} />
-                  </Link>
-                </div>
+              <div className="pt-4 border-t border-gray-100 flex flex-col sm:flex-row gap-3">
+                <Link
+                  href={`/packages/${pkg.slug}`}
+                  className="btn-outline-dark !py-3 !px-4 text-xs font-bold text-center flex-1 rounded-xl"
+                >
+                  View Details &amp; Specs
+                </Link>
+                <Link
+                  href={`/quote?package=${pkg.slug}`}
+                  className="btn-primary !py-3 !px-5 text-xs flex-1"
+                >
+                  Request This Package <ArrowUpRight size={14} />
+                </Link>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Custom Solution Note */}
-        <div className="card p-8 bg-white border border-gray-200 text-center max-w-3xl mx-auto">
-          <Zap size={28} className="text-green mx-auto mb-3" />
-          <h3
-            className="text-2xl text-navy mb-2"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            Need a Custom Sized Solar &amp; Battery System?
+        <div className="section-dark rounded-3xl p-8 sm:p-12 text-center max-w-3xl mx-auto">
+          <Zap size={28} className="text-orange mx-auto mb-3" />
+          <h3 className="text-2xl sm:text-3xl text-white mb-2">
+            Need a Custom Sized Solar &amp; Battery <span className="text-accent">System?</span>
           </h3>
-          <p className="text-gray-600 text-sm mb-6 max-w-xl mx-auto">
+          <p className="text-body-muted text-sm mb-6 max-w-xl mx-auto">
             Every roof in Canberra is unique. We provide tailored solar and battery designs to match your specific roof orientation, shading, and energy profile.
           </p>
-          <Link href="/quote" className="btn-primary !py-3 !px-7">
-            Request Custom System Design
+          <Link href="/quote" className="btn-primary !py-3.5 !px-7">
+            Request Custom System Design <ArrowUpRight size={16} />
           </Link>
         </div>
       </div>

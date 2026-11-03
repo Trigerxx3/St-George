@@ -1,11 +1,15 @@
 import Link from "next/link";
-import { ArrowRight, Sun, BatteryCharging, Wrench, LucideIcon } from "lucide-react";
+import { ArrowRight, Sun, BatteryCharging, Wrench, Wind, Cctv, Shield, LucideIcon } from "lucide-react";
 import { SERVICES } from "@/lib/constants";
+import SectionHeading from "@/components/ui/section-heading";
 
 const ICON_MAP: Record<string, LucideIcon> = {
   Sun,
   BatteryCharging,
   Wrench,
+  Wind,
+  Cctv,
+  Shield,
 };
 
 interface RelatedServicesProps {
@@ -22,44 +26,36 @@ export default function RelatedServices({
   const others = SERVICES.filter((s) => s.slug !== currentSlug);
 
   return (
-    <section className="section-padding bg-white">
+    <section className="section-light section-padding border-t border-gray-200">
       <div className="container-custom">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="badge-primary mb-3">Comprehensive Capabilities</span>
-          <h2
-            className="text-3xl sm:text-4xl text-navy mb-3"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            {title}
-          </h2>
-          <p className="text-gray-500 text-sm sm:text-base">{subtitle}</p>
-        </div>
+        <SectionHeading
+          eyebrow="Comprehensive Capabilities"
+          line1={title}
+          intro={subtitle}
+        />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {others.map((service) => {
             const Icon = ICON_MAP[service.icon] || Wrench;
             return (
               <Link
                 key={service.slug}
                 href={service.href}
-                className="group card hover:border-green/40 hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
+                className="group card card-hover flex flex-col justify-between"
               >
                 <div>
-                  <div className="w-12 h-12 rounded-xl bg-navy/5 text-navy group-hover:bg-green group-hover:text-white transition-colors flex items-center justify-center mb-4">
-                    <Icon size={24} />
+                  <div className="w-12 h-12 rounded-xl border border-orange-strong/25 text-orange-strong group-hover:bg-orange-strong group-hover:text-white transition-colors flex items-center justify-center mb-5">
+                    <Icon size={24} strokeWidth={1.5} />
                   </div>
-                  <h3
-                    className="text-2xl text-navy mb-2 group-hover:text-green transition-colors"
-                    style={{ fontFamily: "var(--font-heading)" }}
-                  >
+                  <h3 className="text-2xl text-ink mb-2 group-hover:text-orange-strong transition-colors">
                     {service.title}
                   </h3>
-                  <p className="text-gray-600 text-sm leading-relaxed mb-6 line-clamp-3">
+                  <p className="text-body-muted text-sm leading-relaxed mb-6 line-clamp-3">
                     {service.description}
                   </p>
                 </div>
 
-                <div className="inline-flex items-center gap-2 text-sm font-semibold text-green group-hover:gap-3 transition-all pt-3 border-t border-gray-100">
+                <div className="link-arrow pt-4 border-t border-gray-100">
                   <span>Learn more</span>
                   <ArrowRight size={16} />
                 </div>

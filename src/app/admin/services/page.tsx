@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { errorMessage } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 import { ServiceCategory, ServiceSector } from "@/lib/supabase/types";
 import {
@@ -56,8 +57,8 @@ export default function AdminServicesPage() {
       } else {
         setServices(data || []);
       }
-    } catch (e: any) {
-      setErrorMsg(e.message);
+    } catch (e) {
+      setErrorMsg(errorMessage(e));
     } finally {
       setIsLoading(false);
     }
@@ -83,8 +84,8 @@ export default function AdminServicesPage() {
           prev.map((s) => (s.id === service.id ? { ...s, is_active: nextActive } : s))
         );
       }
-    } catch (err: any) {
-      alert(err.message);
+    } catch (err) {
+      alert(errorMessage(err));
     }
   };
 
@@ -112,8 +113,8 @@ export default function AdminServicesPage() {
       } = supabase.storage.from("site-assets").getPublicUrl(data.path);
 
       setCurrentService((prev) => ({ ...prev, image_url: publicUrl }));
-    } catch (err: any) {
-      alert(`Upload failed: ${err.message}`);
+    } catch (err) {
+      alert(`Upload failed: ${errorMessage(err)}`);
     } finally {
       setUploadingImage(false);
     }
@@ -156,8 +157,8 @@ export default function AdminServicesPage() {
       setIsEditing(false);
       setCurrentService(null);
       await fetchServices();
-    } catch (err: any) {
-      alert(`Error saving service: ${err.message}`);
+    } catch (err) {
+      alert(`Error saving service: ${errorMessage(err)}`);
     } finally {
       setIsSaving(false);
     }
@@ -170,8 +171,8 @@ export default function AdminServicesPage() {
       const { error } = await supabase.from("services").delete().eq("id", id);
       if (error) throw error;
       setServices((prev) => prev.filter((s) => s.id !== id));
-    } catch (err: any) {
-      alert(err.message);
+    } catch (err) {
+      alert(errorMessage(err));
     }
   };
 
@@ -185,7 +186,7 @@ export default function AdminServicesPage() {
             Service Management
           </h1>
           <p className="text-sm text-gray-500">
-            Manage services across Solar & Battery, EV Chargers, and Electrical sectors.
+            Manage services across Solar & Battery, EV Chargers, and Electrical categories.
           </p>
         </div>
 
@@ -246,7 +247,6 @@ export default function AdminServicesPage() {
                   <th className="py-3 px-4 w-12 text-center">Order</th>
                   <th className="py-3 px-4">Service Details</th>
                   <th className="py-3 px-4">Category</th>
-                  <th className="py-3 px-4">Sector</th>
                   <th className="py-3 px-4 text-center">Active Status</th>
                   <th className="py-3 px-4 text-right">Actions</th>
                 </tr>
@@ -279,11 +279,6 @@ export default function AdminServicesPage() {
                     <td className="py-3 px-4">
                       <span className="capitalize px-2 py-0.5 rounded text-[11px] font-semibold bg-gray-100 text-gray-700">
                         {s.category.replace("_", " & ")}
-                      </span>
-                    </td>
-                    <td className="py-3 px-4">
-                      <span className="capitalize px-2 py-0.5 rounded text-[11px] font-semibold bg-blue-50 text-blue-700">
-                        {s.sector}
                       </span>
                     </td>
                     <td className="py-3 px-4 text-center">
@@ -405,46 +400,24 @@ export default function AdminServicesPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-xs font-semibold text-gray-700 uppercase mb-1">
-                  Category *
-                </label>
-                <select
-                  value={currentService.category || "solar_battery"}
-                  onChange={(e) =>
-                    setCurrentService((prev) => ({
-                      ...prev,
-                      category: e.target.value as ServiceCategory,
-                    }))
-                  }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs bg-white"
-                >
-                  <option value="solar_battery">Solar & Battery</option>
-                  <option value="ev_charger">EV Charger</option>
-                  <option value="electrical">Electrical</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-gray-700 uppercase mb-1">
-                  Sector *
-                </label>
-                <select
-                  value={currentService.sector || "domestic"}
-                  onChange={(e) =>
-                    setCurrentService((prev) => ({
-                      ...prev,
-                      sector: e.target.value as ServiceSector,
-                    }))
-                  }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs bg-white"
-                >
-                  <option value="domestic">Domestic</option>
-                  <option value="commercial">Commercial</option>
-                  <option value="industrial">Industrial</option>
-                </select>
-              </div>
+            <div>
+              <label className="block text-xs font-semibold text-gray-700 uppercase mb-1">
+                Category *
+              </label>
+              <select
+                value={currentService.category || "solar_battery"}
+                onChange={(e) =>
+                  setCurrentService((prev) => ({
+                    ...prev,
+                    category: e.target.value as ServiceCategory,
+                  }))
+                }
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs bg-white"
+              >
+                <option value="solar_battery">Solar & Battery</option>
+                <option value="ev_charger">EV Charger</option>
+                <option value="electrical">Electrical</option>
+              </select>
             </div>
 
             <div>

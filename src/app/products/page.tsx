@@ -1,41 +1,38 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, ShieldCheck, Zap, Sparkles, Filter } from "lucide-react";
+import { ArrowRight, ArrowUpRight, ShieldCheck, Sparkles } from "lucide-react";
 import { CATEGORIES, PRODUCTS } from "@/lib/catalogue-data";
-import { BUSINESS } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Product Catalogue | Solar, Batteries, EV Chargers | St George Electrical",
   description:
-    "Explore premium solar panels, home batteries, smart inverters, and EV chargers supplied and installed by licensed Canberra electrician Justin George.",
+    "Explore premium solar panels, home batteries, smart inverters, and EV chargers supplied and installed by St George Electrical Energy Solutions.",
 };
 
 export default function ProductsPage() {
   return (
-    <div className="bg-off-white min-h-screen py-12 lg:py-16">
-      <div className="container-custom">
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-green/10 text-green rounded-full text-xs font-semibold mb-3">
-            <ShieldCheck size={14} />
-            Tier-1 Manufacturers Only · Australian Warranty Backed
-          </div>
-          <h1
-            className="text-3xl sm:text-5xl text-navy mb-4 tracking-tight"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            Clean Energy Product Catalogue
+    <div className="section-light min-h-screen">
+      {/* Dark Header Band */}
+      <section className="section-dark py-16 lg:py-24">
+        <div className="container-custom">
+          <span className="eyebrow mb-4">Tier-1 Manufacturers Only · Australian Warranty Backed</span>
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl mb-4">
+            Clean Energy
+            <br />
+            <span className="text-accent">Product Catalogue</span>
           </h1>
-          <p className="text-gray-600 text-base sm:text-lg">
+          <p className="text-body-muted text-base sm:text-lg max-w-2xl">
             We only supply and install trusted equipment from world-leading manufacturers proven in Australia&apos;s demanding climate.
           </p>
         </div>
+      </section>
 
+      <div className="container-custom py-12 lg:py-16">
         {/* Category Pills Navigation */}
-        <div className="flex items-center justify-center flex-wrap gap-2 mb-12">
+        <div className="flex items-center flex-wrap gap-2 mb-12">
           <Link
             href="/products"
-            className="px-4 py-2 rounded-full text-sm font-semibold bg-green text-white shadow-sm"
+            className="px-4 py-2 rounded-full text-sm font-bold bg-orange-strong text-white shadow-sm"
           >
             All Products ({PRODUCTS.length})
           </Link>
@@ -45,7 +42,7 @@ export default function ProductsPage() {
               <Link
                 key={cat.slug}
                 href={`/products/${cat.slug}`}
-                className="px-4 py-2 rounded-full text-sm font-medium bg-white text-gray-700 hover:border-green/40 hover:text-green border border-gray-200 transition-colors"
+                className="px-4 py-2 rounded-full text-sm font-semibold bg-white text-gray-700 hover:border-orange-strong/40 hover:text-orange-strong border border-gray-200 transition-colors"
               >
                 {cat.name} ({count})
               </Link>
@@ -58,74 +55,70 @@ export default function ProductsPage() {
           {PRODUCTS.map((product) => (
             <div
               key={product.id}
-              className="card group hover:border-green/40 hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden"
+              className="card card-hover group flex flex-col justify-between overflow-hidden"
             >
               <div>
-                {/* Product Image */}
                 {product.images?.[0] && (
-                  <div className="relative h-44 -mx-6 -mt-6 mb-4 overflow-hidden bg-gray-100">
+                  <div className="relative h-48 -mx-6 -mt-6 mb-5 overflow-hidden bg-gray-100">
                     <img
                       src={product.images[0]}
                       alt={product.name}
+                      width={600}
+                      height={400}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy/40 via-transparent to-transparent opacity-60" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy-950/50 via-transparent to-transparent" />
                   </div>
                 )}
 
-                {/* Badges */}
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                  <span className="text-xs font-extrabold text-orange-strong uppercase tracking-[0.14em]">
                     {product.categoryName}
                   </span>
                   {product.badge && (
-                    <span className="inline-flex items-center gap-1 text-xs font-bold text-green bg-green/10 px-2.5 py-0.5 rounded-full">
+                    <span className="inline-flex items-center gap-1 text-xs font-bold text-orange-strong bg-orange/10 px-2.5 py-0.5 rounded-full">
                       <Sparkles size={12} /> {product.badge}
                     </span>
                   )}
                 </div>
 
-                <h3
-                  className="text-xl font-bold text-navy mb-2 group-hover:text-green transition-colors"
-                  style={{ fontFamily: "var(--font-heading)" }}
-                >
+                <h3 className="text-xl text-ink mb-2 group-hover:text-orange-strong transition-colors">
                   {product.name}
                 </h3>
 
-                <p className="text-gray-600 text-xs sm:text-sm leading-relaxed mb-4">
+                <p className="text-body-muted text-xs sm:text-sm leading-relaxed mb-4">
                   {product.shortDesc}
                 </p>
 
-                {/* Key Specs Preview */}
-                <div className="bg-off-white rounded-lg p-3 space-y-1.5 text-xs text-gray-700 mb-4 border border-gray-100">
+                <div className="bg-off-white rounded-xl p-3.5 space-y-1.5 text-xs text-gray-700 mb-4 border border-gray-100">
                   {Object.entries(product.specs).slice(0, 3).map(([k, v]) => (
-                    <div key={k} className="flex justify-between">
-                      <span className="text-gray-400">{k}:</span>
-                      <span className="font-semibold text-navy text-right">{v}</span>
+                    <div key={k} className="flex justify-between gap-2">
+                      <span className="text-gray-500">{k}:</span>
+                      <span className="font-semibold text-ink text-right">{v}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
               <div>
-                <p className="text-[11px] text-gray-400 mb-4 flex items-center gap-1">
-                  <ShieldCheck size={13} className="text-green flex-shrink-0" />
+                <p className="text-[11px] text-gray-500 mb-4 flex items-center gap-1.5">
+                  <ShieldCheck size={13} className="text-orange-strong shrink-0" />
                   <span className="truncate">{product.warranty}</span>
                 </p>
 
-                <div className="grid grid-cols-2 gap-2 pt-3 border-t border-gray-100">
+                <div className="grid grid-cols-2 gap-2.5 pt-3 border-t border-gray-100">
                   <Link
                     href={`/products/${product.categorySlug}/${product.slug}`}
-                    className="text-center py-2 px-3 rounded-lg border border-gray-200 text-xs font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
+                    className="btn-outline-dark !py-2.5 !px-3 !text-xs"
                   >
                     View Specs
                   </Link>
                   <Link
                     href={`/quote?service=${product.categorySlug}&product=${product.slug}`}
-                    className="text-center py-2 px-3 rounded-lg bg-green text-white text-xs font-semibold hover:bg-green-dark transition-colors flex items-center justify-center gap-1"
+                    className="btn-primary !py-2.5 !px-3 !text-xs"
                   >
-                    Get Quote <ArrowRight size={13} />
+                    Get Quote <ArrowUpRight size={13} />
                   </Link>
                 </div>
               </div>
@@ -134,22 +127,17 @@ export default function ProductsPage() {
         </div>
 
         {/* Packages Teaser Banner */}
-        <div className="bg-navy rounded-2xl p-8 sm:p-10 text-white flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="section-dark rounded-3xl p-8 sm:p-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="max-w-xl">
-            <span className="inline-block text-xs font-bold text-green-light bg-white/10 px-3 py-1 rounded-full mb-3">
-              Bundled Value Packages
-            </span>
-            <h3
-              className="text-2xl sm:text-3xl text-white mb-2"
-              style={{ fontFamily: "var(--font-heading)" }}
-            >
-              Looking for Complete Solar &amp; Battery Bundles?
+            <span className="eyebrow mb-3">Bundled Value Packages</span>
+            <h3 className="text-2xl sm:text-3xl text-white mb-2">
+              Looking for Complete Solar &amp; Battery <span className="text-accent">Bundles?</span>
             </h3>
-            <p className="text-white/70 text-sm">
+            <p className="text-body-muted text-sm">
               Explore our turnkey packages engineered specifically for Canberra homes, with all panels, inverters, batteries, and installation included.
             </p>
           </div>
-          <Link href="/packages" className="btn-primary !py-3.5 !px-7 flex-shrink-0">
+          <Link href="/packages" className="btn-primary !py-3.5 !px-7 shrink-0">
             View All Packages <ArrowRight size={16} />
           </Link>
         </div>

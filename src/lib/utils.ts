@@ -18,3 +18,16 @@ export function formatPhone(phone: string): string {
 export function phoneHref(phone: string): string {
   return `tel:+61${phone.slice(1)}`;
 }
+
+/**
+ * Extract human-readable error message from unknown error
+ */
+export function errorMessage(err: unknown): string {
+  if (err instanceof Error) return err.message;
+  if (typeof err === "string") return err;
+  if (err && typeof err === "object" && "message" in err) {
+    return String((err as { message: unknown }).message);
+  }
+  return "An unexpected error occurred";
+}
+

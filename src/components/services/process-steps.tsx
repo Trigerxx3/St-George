@@ -1,4 +1,6 @@
 import { PhoneCall, ClipboardCheck, Wrench, Zap } from "lucide-react";
+import SectionHeading from "@/components/ui/section-heading";
+import Reveal from "@/components/ui/reveal";
 
 interface StepItem {
   number: string;
@@ -38,62 +40,62 @@ interface ProcessStepsProps {
   title?: string;
   subtitle?: string;
   steps?: StepItem[];
+  eyebrow?: string;
 }
 
+/** Dark process timeline: numbered circles joined by a glowing curved line. */
 export default function ProcessSteps({
   title = "Our Streamlined 4-Step Process",
   subtitle = "From first phone call to final sign-off, experience a seamless, hassle-free electrical service.",
   steps = DEFAULT_STEPS,
+  eyebrow = "How It Works",
 }: ProcessStepsProps) {
   return (
-    <section className="section-padding bg-white">
+    <section className="section-dark section-padding border-t border-white/5 overflow-hidden">
       <div className="container-custom">
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="badge-primary mb-3">How It Works</span>
-          <h2
-            className="text-3xl sm:text-4xl lg:text-5xl text-navy mb-4"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            {title}
-          </h2>
-          <p className="text-gray-500 text-base sm:text-lg">{subtitle}</p>
-        </div>
+        <SectionHeading eyebrow={eyebrow} line1={title} intro={subtitle} />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
-          {steps.map((step, idx) => {
-            const Icon = step.icon;
-            return (
-              <div
-                key={idx}
-                className="relative bg-off-white p-6 rounded-xl border border-gray-100 hover:border-green/40 hover:shadow-md transition-all flex flex-col justify-between"
-              >
-                {/* Step indicator */}
-                <div className="flex items-center justify-between mb-5">
-                  <span
-                    className="text-3xl font-extrabold text-navy/20"
-                    style={{ fontFamily: "var(--font-heading)" }}
-                  >
+        <div className="relative">
+          {/* Curved glowing line behind the circles (desktop) */}
+          <svg
+            aria-hidden="true"
+            className="hidden lg:block absolute left-0 right-0 top-0 w-full h-24 pointer-events-none"
+            viewBox="0 0 1000 96"
+            preserveAspectRatio="none"
+            fill="none"
+          >
+            <path
+              d="M60 48 C 200 -6, 300 102, 440 48 S 700 -6, 940 48"
+              strokeWidth="1.5"
+              className="wire-orange"
+              opacity="0.7"
+            />
+            <path
+              d="M60 48 C 200 102, 300 -6, 440 48 S 700 102, 940 48"
+              strokeWidth="1"
+              className="wire-orange"
+              opacity="0.35"
+            />
+          </svg>
+
+          {/* Mobile vertical line */}
+          <div className="lg:hidden absolute left-6 top-6 bottom-6 w-px bg-gradient-to-b from-orange/60 via-orange/30 to-transparent" />
+
+          <ol className="relative grid grid-cols-1 lg:grid-cols-4 gap-10 lg:gap-6">
+            {steps.map((step, idx) => (
+              <li key={idx}>
+                <Reveal delay={idx * 90} className="flex lg:flex-col lg:items-center lg:text-center gap-5">
+                  <span className="relative z-10 w-12 h-12 lg:w-24 lg:h-24 shrink-0 rounded-full border border-orange/60 bg-navy-950 text-orange-light font-extrabold text-base lg:text-2xl flex items-center justify-center shadow-[0_0_28px_rgba(232,117,26,0.28)]">
                     {step.number}
                   </span>
-                  <div className="w-10 h-10 rounded-lg bg-green/10 text-green flex items-center justify-center">
-                    <Icon size={20} />
+                  <div className="lg:pt-2">
+                    <h3 className="text-lg text-white mb-2">{step.title}</h3>
+                    <p className="text-sm leading-relaxed text-body-muted">{step.description}</p>
                   </div>
-                </div>
-
-                <div>
-                  <h3
-                    className="text-lg font-bold text-navy mb-2"
-                    style={{ fontFamily: "var(--font-heading)" }}
-                  >
-                    {step.title}
-                  </h3>
-                  <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
+                </Reveal>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>

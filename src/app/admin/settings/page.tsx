@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { errorMessage } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 import {
   Sliders,
@@ -75,8 +76,8 @@ export default function AdminSettingsPage() {
         setSettings(dict);
         setCustomSettings(customs);
       }
-    } catch (e: any) {
-      setErrorMsg(e.message);
+    } catch (e) {
+      setErrorMsg(errorMessage(e));
     } finally {
       setIsLoading(false);
     }
@@ -117,8 +118,8 @@ export default function AdminSettingsPage() {
       setSaveSuccess(true);
       setTimeout(() => setSaveSuccess(false), 3000);
       await fetchSettings();
-    } catch (err: any) {
-      alert(`Error saving settings: ${err.message}`);
+    } catch (err) {
+      alert(`Error saving settings: ${errorMessage(err)}`);
     } finally {
       setIsSaving(false);
     }

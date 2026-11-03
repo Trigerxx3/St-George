@@ -49,7 +49,7 @@ const PROJECTS: Project[] = [
       "Financed via the ACT Sustainable Household Scheme 0% loan",
     ],
     image: "/images/hero/hero-solar-home.jpg",
-    clientQuote: "Justin was fantastic from the first measure to the final app handover. Our power bill dropped by over 85% in the first quarter.",
+    clientQuote: "St George Electrical was fantastic from the first measure to the final app handover. Our power bill dropped by over 85% in the first quarter.",
     clientName: "Mark & Sandra T.",
   },
   {
@@ -103,7 +103,7 @@ const PROJECTS: Project[] = [
       "Payback period calculated at under 3.8 years",
     ],
     image: "/images/services/battery-storage.jpg",
-    clientQuote: "Justin provided an honest quote without any pushy sales tactics. Highly recommend St George Electrical.",
+    clientQuote: "St George Electrical provided an honest quote without any pushy sales tactics. Highly recommend.",
     clientName: "Peter K.",
   },
   {
@@ -173,19 +173,19 @@ export default function GalleryPage() {
     filter === "all" ? PROJECTS : PROJECTS.filter((p) => p.category === filter);
 
   return (
-    <div className="bg-off-white min-h-screen py-12 lg:py-16">
+    <div className="section-light min-h-screen py-16 lg:py-24">
       <div className="container-custom">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-green/10 text-green rounded-full text-xs font-semibold mb-3">
-            <ShieldCheck size={14} />
+          <span className="eyebrow justify-center mb-3">
             ACT Licence #{BUSINESS.licence} · Proven Workmanship
-          </div>
+          </span>
           <h1
-            className="text-3xl sm:text-5xl text-navy mb-4 font-bold tracking-tight"
+            className="text-3xl sm:text-5xl text-ink mb-4 font-extrabold tracking-tight"
             style={{ fontFamily: "var(--font-heading)" }}
           >
-            Project Gallery &amp; Case Studies
+            <span className="block">Project Gallery &amp;</span>
+            <span className="block text-orange-strong">Case Studies</span>
           </h1>
           <p className="text-gray-600 text-base sm:text-lg">
             Real installations across Canberra homes, commercial facilities, and industrial premises. Quality workmanship backed by warranties.
@@ -206,8 +206,8 @@ export default function GalleryPage() {
               onClick={() => setFilter(f.id)}
               className={`px-4 py-2 rounded-full text-sm font-semibold transition-all cursor-pointer ${
                 filter === f.id
-                  ? "bg-green text-white shadow-sm"
-                  : "bg-white text-gray-700 hover:border-green/40 hover:text-green border border-gray-200"
+                  ? "bg-orange-strong text-white shadow-sm"
+                  : "bg-white text-gray-700 hover:border-orange/40 hover:text-orange-strong border border-gray-200"
               }`}
             >
               {f.label}
@@ -220,16 +220,16 @@ export default function GalleryPage() {
           {filteredProjects.map((proj) => (
             <div
               key={proj.id}
-              className="card bg-white hover:border-green/40 hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden p-0"
+              className="card bg-white hover:border-orange/40 hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden p-0"
             >
               {/* Image banner */}
-              <div className="relative aspect-[16/10] w-full overflow-hidden bg-navy/5">
+              <div className="relative aspect-[16/10] w-full overflow-hidden bg-navy-950/5">
                 <img
                   src={proj.image}
                   alt={proj.title}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 />
-                <span className="absolute top-3 left-3 bg-navy/85 backdrop-blur-md text-white text-[11px] font-semibold px-3 py-1 rounded-full border border-white/20">
+                <span className="absolute top-3 left-3 bg-navy-950/85 backdrop-blur-md text-white text-[11px] font-semibold px-3 py-1 rounded-full border border-white/20">
                   {proj.categoryLabel}
                 </span>
               </div>
@@ -238,18 +238,18 @@ export default function GalleryPage() {
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-xs text-gray-400 flex items-center gap-1 font-medium">
-                      <MapPin size={13} className="text-green" /> {proj.suburb}
+                      <MapPin size={13} className="text-orange-strong" /> {proj.suburb}
                     </span>
                   </div>
 
                   <h3
-                    className="text-xl font-bold text-navy mb-2"
+                    className="text-xl font-bold text-ink mb-2"
                     style={{ fontFamily: "var(--font-heading)" }}
                   >
                     {proj.title}
                   </h3>
 
-                  <div className="inline-block px-2.5 py-1 bg-off-white text-navy font-mono text-xs rounded-md mb-3 border border-gray-100 font-semibold">
+                  <div className="inline-block px-2.5 py-1 bg-off-white text-ink font-mono text-xs rounded-md mb-3 border border-gray-100 font-semibold">
                     {proj.system}
                   </div>
 
@@ -259,13 +259,13 @@ export default function GalleryPage() {
 
                   {/* Outcomes list */}
                   <div className="mb-4 space-y-1.5">
-                    <span className="text-[11px] font-bold text-navy uppercase tracking-wider block">
+                    <span className="text-[11px] font-bold text-ink uppercase tracking-wider block">
                       Key Outcomes:
                     </span>
                     <ul className="space-y-1 text-xs text-gray-700">
                       {proj.results.map((r, rIdx) => (
                         <li key={rIdx} className="flex items-start gap-1.5">
-                          <CheckCircle2 size={13} className="text-green flex-shrink-0 mt-0.5" />
+                          <CheckCircle2 size={13} className="text-orange-strong flex-shrink-0 mt-0.5" />
                           <span>{r}</span>
                         </li>
                       ))}
@@ -284,7 +284,7 @@ export default function GalleryPage() {
                     <p className="text-[11px] text-gray-600 italic mb-1">
                       &ldquo;{proj.clientQuote}&rdquo;
                     </p>
-                    <span className="text-[10px] font-bold text-navy block">
+                    <span className="text-[10px] font-bold text-ink block">
                       — {proj.clientName}
                     </span>
                   </div>
@@ -298,11 +298,11 @@ export default function GalleryPage() {
         {uploadedPhotos.length > 0 && (
           <div className="mb-16 bg-white p-8 sm:p-10 rounded-2xl border border-gray-200 shadow-sm">
             <div className="text-center max-w-2xl mx-auto mb-8">
-              <span className="text-xs font-bold uppercase tracking-wider text-green block mb-1">
+              <span className="eyebrow justify-center mb-2">
                 Verified Field Work
               </span>
               <h2
-                className="text-2xl sm:text-3xl font-bold text-navy"
+                className="text-2xl sm:text-3xl font-bold text-ink"
                 style={{ fontFamily: "var(--font-heading)" }}
               >
                 Recent On-Site Installation Gallery
@@ -326,14 +326,14 @@ export default function GalleryPage() {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <span className="px-3 py-1 rounded-full bg-navy/80 text-white text-[11px] font-semibold backdrop-blur-xs flex items-center gap-1.5 shadow">
+                      <span className="px-3 py-1 rounded-full bg-navy-950/80 text-white text-[11px] font-semibold backdrop-blur-xs flex items-center gap-1.5 shadow">
                         <Eye size={12} /> View Photo
                       </span>
                     </div>
                   </div>
                   {photo.caption && (
                     <div className="p-3 bg-white">
-                      <p className="text-xs font-semibold text-navy line-clamp-2">
+                      <p className="text-xs font-semibold text-ink line-clamp-2">
                         {photo.caption}
                       </p>
                     </div>
@@ -348,7 +348,7 @@ export default function GalleryPage() {
         {lightboxUrl && (
           <div
             onClick={() => setLightboxUrl(null)}
-            className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 cursor-zoom-out"
+            className="fixed inset-0 z-50 bg-navy-950/85 backdrop-blur-md flex items-center justify-center p-4 cursor-zoom-out"
           >
             <div className="relative max-w-4xl max-h-[90vh]">
               <img
@@ -358,7 +358,7 @@ export default function GalleryPage() {
               />
               <button
                 onClick={() => setLightboxUrl(null)}
-                className="absolute -top-10 right-0 text-white hover:text-green p-1 text-sm font-bold flex items-center gap-1 cursor-pointer"
+                className="absolute -top-10 right-0 text-white hover:text-orange-light p-1 text-sm font-bold flex items-center gap-1 cursor-pointer"
               >
                 <X size={18} />
                 <span>Close</span>
@@ -368,20 +368,22 @@ export default function GalleryPage() {
         )}
 
         {/* CTA Bar */}
-        <div className="bg-navy rounded-2xl p-8 sm:p-10 text-white text-center max-w-3xl mx-auto shadow-xl">
-          <h3
-            className="text-2xl sm:text-3xl text-white mb-3 font-bold"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            Ready for a High-Quality Electrical Installation?
-          </h3>
-          <p className="text-white/70 text-sm mb-6 max-w-xl mx-auto">
-            Discuss your home or business requirements directly with Justin George. Get a transparent, obligation-free quote.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href="/quote" className="btn-primary !py-3 !px-7">
-              Request Your Free Quote <ArrowRight size={16} />
-            </Link>
+        <div className="section-dark rounded-2xl p-8 sm:p-10 text-white text-center max-w-3xl mx-auto shadow-xl border border-white/10">
+          <div className="relative z-10">
+            <h3
+              className="text-2xl sm:text-3xl text-white mb-3 font-extrabold tracking-tight"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
+              Ready for a High-Quality <span className="text-orange-light">Electrical Installation?</span>
+            </h3>
+            <p className="text-white/70 text-sm mb-6 max-w-xl mx-auto">
+              Discuss your home or business requirements directly with St George Electrical. Get a transparent, obligation-free quote.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link href="/quote" className="btn-primary !py-3 !px-7">
+                Request Your Free Quote <span aria-hidden="true">↗</span>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

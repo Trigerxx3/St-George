@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, ShieldCheck, Sparkles, ChevronLeft } from "lucide-react";
+import { ArrowUpRight, ShieldCheck, Sparkles, ChevronLeft } from "lucide-react";
 import { CATEGORIES, PRODUCTS } from "@/lib/catalogue-data";
 
 interface Props {
@@ -36,38 +36,30 @@ export default async function CategoryPage({ params }: Props) {
   const filteredProducts = PRODUCTS.filter((p) => p.categorySlug === category);
 
   return (
-    <div className="bg-off-white min-h-screen py-12 lg:py-16">
-      <div className="container-custom">
-        {/* Back Link */}
-        <Link
-          href="/products"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-500 hover:text-green mb-8 transition-colors"
-        >
-          <ChevronLeft size={16} /> Back to All Products
-        </Link>
-
-        {/* Header */}
-        <div className="max-w-3xl mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-green/10 text-green rounded-full text-xs font-semibold mb-3">
-            <ShieldCheck size={14} />
-            Clean Energy Council Approved Standards
-          </div>
-          <h1
-            className="text-3xl sm:text-5xl text-navy mb-4"
-            style={{ fontFamily: "var(--font-heading)" }}
+    <div className="section-light min-h-screen">
+      <section className="section-dark py-14 lg:py-20">
+        <div className="container-custom">
+          <Link
+            href="/products"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#9fb2c8] hover:text-white mb-6 transition-colors"
           >
-            {currentCat.name}
-          </h1>
-          <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
-            {currentCat.description}
-          </p>
+            <ChevronLeft size={16} /> Back to All Products
+          </Link>
+          <div>
+            <span className="eyebrow mb-3">Clean Energy Council Approved Standards</span>
+            <h1 className="text-3xl sm:text-5xl text-white mb-3">{currentCat.name}</h1>
+            <p className="text-body-muted text-base sm:text-lg max-w-2xl leading-relaxed">
+              {currentCat.description}
+            </p>
+          </div>
         </div>
+      </section>
 
-        {/* Category Pills Navigation */}
+      <div className="container-custom py-12 lg:py-16">
         <div className="flex items-center flex-wrap gap-2 mb-10">
           <Link
             href="/products"
-            className="px-4 py-2 rounded-full text-sm font-medium bg-white text-gray-700 hover:border-green/40 hover:text-green border border-gray-200 transition-colors"
+            className="px-4 py-2 rounded-full text-sm font-semibold bg-white text-gray-700 hover:border-orange-strong/40 hover:text-orange-strong border border-gray-200 transition-colors"
           >
             All Products
           </Link>
@@ -78,10 +70,10 @@ export default async function CategoryPage({ params }: Props) {
               <Link
                 key={cat.slug}
                 href={`/products/${cat.slug}`}
-                className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${
+                className={`px-4 py-2 rounded-full text-sm font-bold transition-colors ${
                   isActive
-                    ? "bg-green text-white shadow-sm"
-                    : "bg-white text-gray-700 hover:border-green/40 hover:text-green border border-gray-200"
+                    ? "bg-orange-strong text-white shadow-sm"
+                    : "bg-white text-gray-700 hover:border-orange-strong/40 hover:text-orange-strong border border-gray-200"
                 }`}
               >
                 {cat.name} ({count})
@@ -90,7 +82,6 @@ export default async function CategoryPage({ params }: Props) {
           })}
         </div>
 
-        {/* Product Grid */}
         {filteredProducts.length === 0 ? (
           <div className="bg-white rounded-2xl p-12 text-center border border-gray-200 max-w-lg mx-auto">
             <p className="text-gray-500 mb-4">No products currently listed in this category.</p>
@@ -103,72 +94,70 @@ export default async function CategoryPage({ params }: Props) {
             {filteredProducts.map((product) => (
               <div
                 key={product.id}
-                className="card group hover:border-green/40 hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden"
+                className="card card-hover group flex flex-col justify-between overflow-hidden"
               >
                 <div>
-                  {/* Product Image */}
                   {product.images?.[0] && (
-                    <div className="relative h-44 -mx-6 -mt-6 mb-4 overflow-hidden bg-gray-100">
+                    <div className="relative h-48 -mx-6 -mt-6 mb-5 overflow-hidden bg-gray-100">
                       <img
                         src={product.images[0]}
                         alt={product.name}
+                        width={600}
+                        height={400}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         loading="lazy"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-navy/40 via-transparent to-transparent opacity-60" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-navy-950/50 via-transparent to-transparent" />
                     </div>
                   )}
 
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    <span className="text-xs font-extrabold text-orange-strong uppercase tracking-[0.14em]">
                       {product.categoryName}
                     </span>
                     {product.badge && (
-                      <span className="inline-flex items-center gap-1 text-xs font-bold text-green bg-green/10 px-2.5 py-0.5 rounded-full">
+                      <span className="inline-flex items-center gap-1 text-xs font-bold text-orange-strong bg-orange/10 px-2.5 py-0.5 rounded-full">
                         <Sparkles size={12} /> {product.badge}
                       </span>
                     )}
                   </div>
 
-                  <h3
-                    className="text-xl font-bold text-navy mb-2 group-hover:text-green transition-colors"
-                    style={{ fontFamily: "var(--font-heading)" }}
-                  >
+                  <h3 className="text-xl text-ink mb-2 group-hover:text-orange-strong transition-colors">
                     {product.name}
                   </h3>
 
-                  <p className="text-gray-600 text-xs sm:text-sm leading-relaxed mb-4">
+                  <p className="text-body-muted text-xs sm:text-sm leading-relaxed mb-4">
                     {product.shortDesc}
                   </p>
 
-                  <div className="bg-off-white rounded-lg p-3 space-y-1.5 text-xs text-gray-700 mb-4 border border-gray-100">
+                  <div className="bg-off-white rounded-xl p-3.5 space-y-1.5 text-xs text-gray-700 mb-4 border border-gray-100">
                     {Object.entries(product.specs).slice(0, 3).map(([k, v]) => (
-                      <div key={k} className="flex justify-between">
-                        <span className="text-gray-400">{k}:</span>
-                        <span className="font-semibold text-navy text-right">{v}</span>
+                      <div key={k} className="flex justify-between gap-2">
+                        <span className="text-gray-500">{k}:</span>
+                        <span className="font-semibold text-ink text-right">{v}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
                 <div>
-                  <p className="text-[11px] text-gray-400 mb-4 flex items-center gap-1">
-                    <ShieldCheck size={13} className="text-green flex-shrink-0" />
+                  <p className="text-[11px] text-gray-500 mb-4 flex items-center gap-1.5">
+                    <ShieldCheck size={13} className="text-orange-strong shrink-0" />
                     <span className="truncate">{product.warranty}</span>
                   </p>
 
-                  <div className="grid grid-cols-2 gap-2 pt-3 border-t border-gray-100">
+                  <div className="grid grid-cols-2 gap-2.5 pt-3 border-t border-gray-100">
                     <Link
                       href={`/products/${product.categorySlug}/${product.slug}`}
-                      className="text-center py-2 px-3 rounded-lg border border-gray-200 text-xs font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
+                      className="btn-outline-dark !py-2.5 !px-3 !text-xs"
                     >
                       View Specs
                     </Link>
                     <Link
                       href={`/quote?service=${product.categorySlug}&product=${product.slug}`}
-                      className="text-center py-2 px-3 rounded-lg bg-green text-white text-xs font-semibold hover:bg-green-dark transition-colors flex items-center justify-center gap-1"
+                      className="btn-primary !py-2.5 !px-3 !text-xs"
                     >
-                      Get Quote <ArrowRight size={13} />
+                      Get Quote <ArrowUpRight size={13} />
                     </Link>
                   </div>
                 </div>

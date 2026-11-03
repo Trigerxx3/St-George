@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
+import { Manrope } from "next/font/google";
 import "./globals.css";
 import PublicShell from "@/components/layout/public-shell";
 import { BUSINESS } from "@/lib/constants";
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+  variable: "--font-manrope-next",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://stgeorgeelectrical.com.au"),
@@ -19,9 +27,9 @@ export const metadata: Metadata = {
     "switchboard upgrade Canberra",
     "licensed electrician ACT",
     "St George Electrical Energy Solutions",
-    "Justin George electrician",
+    "Canberra electrical contractor",
   ],
-  authors: [{ name: "Justin George", url: "https://stgeorgeelectrical.com.au" }],
+  authors: [{ name: "St George Electrical Energy Solutions", url: "https://stgeorgeelectrical.com.au" }],
   openGraph: {
     type: "website",
     locale: "en_AU",
@@ -83,14 +91,8 @@ const localBusinessSchema = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="h-full">
+    <html lang="en" className={`h-full ${manrope.variable}`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Dancing+Script:wght@400;700&family=Inter:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
