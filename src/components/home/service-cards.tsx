@@ -26,11 +26,11 @@ const IMAGES: Record<string, { src: string; alt: string }> = {
     alt: "Electrical switchboard upgrade and general electrical services",
   },
   "heating-cooling": {
-    src: "/images/hero/hero-solar-home.jpg",
+    src: "/images/services/heating-cooling.jpg",
     alt: "Air conditioning and climate control installation",
   },
   "security-cctv": {
-    src: "/images/services/commercial-solar.jpg",
+    src: "/images/services/security-cctv.jpg",
     alt: "Security and CCTV camera installation",
   },
 };

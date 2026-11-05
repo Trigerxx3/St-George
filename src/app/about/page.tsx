@@ -113,7 +113,7 @@ export default function AboutPage() {
             <div className="lg:col-span-5 space-y-6">
               <div className="relative rounded-2xl overflow-hidden shadow-xl aspect-video bg-navy group">
                 <img
-                  src="/images/services/battery-storage.jpg"
+                  src="/images/products/package-10kw-28kwh.jpg"
                   alt="St George Electrical installation quality"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />

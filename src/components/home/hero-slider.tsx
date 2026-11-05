@@ -46,7 +46,7 @@ const SLIDES: Slide[] = [
   },
   {
     id: "ev-charger",
-    image: "/images/services/ev-charger.jpg",
+    image: "/images/gallery/gallery-commercial-ev.jpg",
     alt: "Smart electric vehicle fast charger installation for home and business",
     badgeIcon: Zap,
     badgeText: "Smart EV Charger Installation",
@@ -56,7 +56,7 @@ const SLIDES: Slide[] = [
   },
   {
     id: "switchboard-safety",
-    image: "/images/services/switchboard.jpg",
+    image: "/images/gallery/gallery-switchboard.jpg",
     alt: "Compliant switchboard upgrade with modern RCBO safety switches",
     badgeIcon: ShieldCheck,
     badgeText: "Switchboards & Safety Upgrades",

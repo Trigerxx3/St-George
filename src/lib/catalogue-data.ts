@@ -358,7 +358,7 @@ export const PRODUCTS: ProductItem[] = [
     shortDesc: "High-efficiency N-Type panel with industry-leading low temperature coefficient and superior low-light performance.",
     description:
       "The Jinko Solar Tiger Neo 440W utilizes advanced SMBB (Super Multi Busbar) and N-Type TOPCon technology. It offers outstanding resistance to PID (Potential Induced Degradation) and delivers superior output in low light conditions such as Canberra's overcast winter mornings.",
-    images: ["/images/hero/hero-solar-home.jpg"],
+    images: ["/images/products/solar-panel-module.jpg"],
     specs: {
       "Rated Power": "440W",
       "Cell Type": "N-Type Monocrystalline",
@@ -382,7 +382,7 @@ export const PRODUCTS: ProductItem[] = [
     shortDesc: "Ultra-durable dual-glass N-Type solar panel engineered for 30+ year lifespan and superior fire rating.",
     description:
       "Trina Solar Vertex S+ delivers premium 435W performance with robust 1.6+1.6mm dual-glass structure. Dual-glass construction provides superior mechanical load capacity and chemical resistance against harsh environmental factors.",
-    images: ["/images/hero/hero-solar-home.jpg"],
+    images: ["/images/products/solar-panel-module.jpg"],
     specs: {
       "Rated Power": "435W",
       "Cell Type": "N-Type i-TOPCon",
@@ -429,7 +429,7 @@ export const PRODUCTS: ProductItem[] = [
     shortDesc: "Intelligent solar EV charger that lets you charge 100% on self-generated free solar power.",
     description:
       "Myenergi Zappi is the leading eco-smart EV charger. Featuring Eco and Eco+ modes that constantly match charging amperage to your solar panel export surplus, ensuring zero peak grid power is drawn while charging your EV.",
-    images: ["/images/services/ev-charger.jpg"],
+    images: ["/images/gallery/gallery-zappi-solar-ev.jpg"],
     specs: {
       Output: "7.4 kW (1-Phase) or 22 kW (3-Phase)",
       Modes: "Fast, Eco (Mix Solar/Grid), Eco+ (100% Solar Only)",
@@ -474,7 +474,7 @@ export const PRODUCTS: ProductItem[] = [
     shortDesc: "Energy-efficient 10W dimmable LED downlights with selectable warm, cool, and daylight colour temperatures.",
     description:
       "Durable, flicker-free LED downlights engineered for residential and commercial ceilings. With IC-4 insulation abutment rating, these downlights can be safely covered by roof insulation with zero fire risk.",
-    images: ["/images/services/commercial-solar.jpg"],
+    images: ["/images/products/sal-led-downlight.jpg"],
     specs: {
       Wattage: "10W (replaces 75W halogen)",
       "Colour Temperature": "Tri-Colour selectable (3000K / 4000K / 5700K)",
@@ -521,7 +521,7 @@ export const PACKAGES: PackageItem[] = [
     rebateEligible: true,
     warrantySummary: "25-Year Panel Performance · 10-Year Battery Warranty · 10-Year Inverter Warranty · 10-Year Workmanship",
     featured: true,
-    image: "/images/services/battery-storage.jpg",
+    image: "/images/products/package-6kw-14kwh.jpg",
   },
   {
     id: "pkg-1045kw-28kwh-battery",
@@ -556,7 +556,7 @@ export const PACKAGES: PackageItem[] = [
     rebateEligible: true,
     warrantySummary: "25-Year Panel Warranty · 10-Year Battery Warranty · 10-Year Inverter Warranty · 10-Year Workmanship",
     featured: true,
-    image: "/images/hero/hero-solar-home.jpg",
+    image: "/images/products/package-10kw-28kwh.jpg",
   },
   {
     id: "pkg-133kw-42kwh-battery",
@@ -591,6 +591,6 @@ export const PACKAGES: PackageItem[] = [
     rebateEligible: true,
     warrantySummary: "25-Year Panel Warranty · 10-Year Battery Warranty · 10-Year Inverter Warranty · 10-Year Workmanship",
     featured: true,
-    image: "/images/services/commercial-solar.jpg",
+    image: "/images/products/package-13kw-42kwh.jpg",
   },
 ];

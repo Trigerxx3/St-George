@@ -127,7 +127,7 @@ export default function SecurityCctvPage() {
         description="Professional CCTV camera installation, residential security systems, commercial surveillance, IP camera networks, and remote monitoring across Canberra & surrounding regions."
         primaryCtaText="Get a Free Quote"
         primaryCtaHref="/quote?service=security-cctv"
-        imageSrc="/images/services/commercial-solar.jpg"
+        imageSrc="/images/services/security-cctv.jpg"
         imageAlt="Commercial and residential CCTV security surveillance installation Canberra"
       />
 

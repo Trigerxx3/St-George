@@ -13,7 +13,7 @@ const CASE_STUDIES = [
     service: "Solar & Battery",
     description: "23x Jinko N-Type panels paired with Tesla Powerwall 3 for full whole-home blackout resilience.",
     slug: "canberra-solar-battery",
-    image: "/images/hero/hero-solar-home.jpg",
+    image: "/images/gallery/gallery-residential-solar.jpg",
   },
   {
     title: "Commercial 30kW Solar Array",
@@ -29,7 +29,7 @@ const CASE_STUDIES = [
     service: "Electrical Safety",
     description: "Replaced 1970s rewirable ceramic fuses with individual life-saving RCBO safety switches.",
     slug: "belconnen-switchboard",
-    image: "/images/services/switchboard.jpg",
+    image: "/images/gallery/gallery-switchboard.jpg",
   },
 ];
 

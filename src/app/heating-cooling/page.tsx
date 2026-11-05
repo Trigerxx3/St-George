@@ -127,7 +127,7 @@ export default function HeatingCoolingPage() {
         description="Complete split system and ducted air conditioning, heating and cooling installations, system upgrades, and energy-efficient climate solutions across Canberra & surrounding regions."
         primaryCtaText="Get a Free Quote"
         primaryCtaHref="/quote?service=heating-cooling"
-        imageSrc="/images/hero/hero-solar-home.jpg"
+        imageSrc="/images/services/heating-cooling.jpg"
         imageAlt="Energy-efficient air conditioning and climate control for Canberra homes"
       />
 

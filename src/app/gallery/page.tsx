@@ -22,7 +22,7 @@ import { createClient } from "@/lib/supabase/client";
 interface Project {
   id: string;
   title: string;
-  category: "solar" | "ev" | "electrical" | "commercial";
+  category: "solar" | "ev" | "electrical" | "commercial" | "hvac" | "security";
   categoryLabel: string;
   suburb: string;
   system: string;
@@ -48,13 +48,13 @@ const PROJECTS: Project[] = [
       "Full whole-home EPS backup powering ducted heating during storms",
       "Financed via the ACT Sustainable Household Scheme 0% loan",
     ],
-    image: "/images/hero/hero-solar-home.jpg",
+    image: "/images/gallery/gallery-residential-solar.jpg",
     clientQuote: "St George Electrical was fantastic from the first measure to the final app handover. Our power bill dropped by over 85% in the first quarter.",
     clientName: "Mark & Sandra T.",
   },
   {
     id: "proj-2",
-    title: "Dual 22kW EV Charging Station & Sub-Panel",
+    title: "Dual 22kW Commercial EV Charging Station & Sub-Panel",
     category: "ev",
     categoryLabel: "EV Chargers",
     suburb: "Fyshwick, ACT",
@@ -66,7 +66,7 @@ const PROJECTS: Project[] = [
       "Dynamic load balancing prevents exceeding commercial maximum demand",
       "Full EvoEnergy network approval handled seamlessly",
     ],
-    image: "/images/services/ev-charger.jpg",
+    image: "/images/gallery/gallery-commercial-ev.jpg",
     clientQuote: "Professional electrical engineering from start to finish. Zero disruption to our business operations.",
     clientName: "David L., Fleet Operations",
   },
@@ -84,17 +84,17 @@ const PROJECTS: Project[] = [
       "Sub-millisecond trip protection against electric shocks",
       "Official ACT Certificate of Compliance lodged with Access Canberra",
     ],
-    image: "/images/services/switchboard.jpg",
+    image: "/images/gallery/gallery-switchboard.jpg",
     clientQuote: "Peace of mind knowing our older home is now completely safe for our children. Neat and tidy work.",
     clientName: "Elena R.",
   },
   {
     id: "proj-4",
-    title: "6.6kW Essential Solar Array & Storage",
+    title: "6.6kW Essential Solar Array & 14kWh Battery Setup",
     category: "solar",
     categoryLabel: "Solar & Battery",
     suburb: "Tuggeranong, ACT",
-    system: "15x Trina Dual-Glass 435W Panels + SolaX Hybrid Inverter",
+    system: "15x Trina Dual-Glass 435W Panels + 14kWh Hybrid Storage",
     description:
       "Clean rooftop solar and battery installation optimized for winter morning sun angles in south Canberra. Real-time smartphone monitoring configured.",
     results: [
@@ -102,7 +102,7 @@ const PROJECTS: Project[] = [
       "Upfront Federal STC discount applied directly at point of sale",
       "Payback period calculated at under 3.8 years",
     ],
-    image: "/images/services/battery-storage.jpg",
+    image: "/images/products/package-6kw-14kwh.jpg",
     clientQuote: "St George Electrical provided an honest quote without any pushy sales tactics. Highly recommend.",
     clientName: "Peter K.",
   },
@@ -138,9 +138,45 @@ const PROJECTS: Project[] = [
       "Weatherproof outdoor installation with neat concealed conduit",
       "Integrated CT clamps prevent home main switch overload",
     ],
-    image: "/images/services/ev-charger.jpg",
+    image: "/images/gallery/gallery-zappi-solar-ev.jpg",
     clientQuote: "Charging my car on pure solar feels incredible. Great advice and meticulous electrical installation.",
     clientName: "Simon G.",
+  },
+  {
+    id: "proj-7",
+    title: "Multi-Head Inverter Heating & Cooling Fitout",
+    category: "hvac",
+    categoryLabel: "Heating & Cooling",
+    suburb: "Kingston, ACT",
+    system: "High-Efficiency Reverse Cycle Split System Heat Pump",
+    description:
+      "Installed whisper-quiet split system heating and cooling providing independent zone control across living and bedroom areas with sleek indoor wall heads.",
+    results: [
+      "Rapid winter heating performance down to sub-zero temperatures",
+      "Over 40% reduction in heating running costs versus old resistive heaters",
+      "ACT Energy Efficiency Improvement Scheme rebate applied",
+    ],
+    image: "/images/services/heating-cooling.jpg",
+    clientQuote: "The warmth in winter and cooling in summer is instant and super quiet. Installation was tidy and on time.",
+    clientName: "Marcus T.",
+  },
+  {
+    id: "proj-8",
+    title: "4K Commercial & Residential CCTV Surveillance Network",
+    category: "security",
+    categoryLabel: "Security & CCTV",
+    suburb: "Deakin, ACT",
+    system: "Smart 4K Ultra-HD Turret IP Cameras & NVR Network",
+    description:
+      "Perimeter security overhaul featuring 8x ultra-HD smart turret cameras with AI person and vehicle detection, infrared night vision, and instant mobile alerts.",
+    results: [
+      "Zero false alarms with AI vehicle/human classification",
+      "24/7 continuous local recording with remote phone app monitoring",
+      "Concealed weatherproof cabling with tamper-proof mounting",
+    ],
+    image: "/images/services/security-cctv.jpg",
+    clientQuote: "Crystal clear night vision and the phone notifications give us complete peace of mind when we travel.",
+    clientName: "Julian & Sarah M.",
   },
 ];
 
@@ -200,6 +236,8 @@ export default function GalleryPage() {
             { id: "ev", label: "EV Chargers" },
             { id: "electrical", label: "Switchboards & Electrical" },
             { id: "commercial", label: "Commercial" },
+            { id: "hvac", label: "Heating & Cooling" },
+            { id: "security", label: "Security & CCTV" },
           ].map((f) => (
             <button
               key={f.id}
