@@ -4,9 +4,9 @@ import { ArrowUpRight, CheckCircle2, Zap, Sparkles } from "lucide-react";
 import { PACKAGES } from "@/lib/catalogue-data";
 
 export const metadata: Metadata = {
-  title: "Solar & Battery Packages Canberra | Turnkey Clean Energy Bundles",
+  title: "Special Solar + Battery Packages & Prices Canberra | St George Electrical",
   description:
-    "Complete residential and commercial solar packages with Tier-1 panels, smart inverters, and battery storage. Licensed installation across Canberra & ACT.",
+    "Lock in our special solar and battery prices for Canberra & ACT homes. 6.6kW + 14kWh ($6,799), 10.45kW + 28kWh ($10,999), and 13.3kW + 42kWh ($15,499).",
 };
 
 export default function PackagesPage() {
@@ -14,30 +14,30 @@ export default function PackagesPage() {
     <div className="section-light min-h-screen">
       <section className="section-dark py-16 lg:py-24">
         <div className="container-custom">
-          <span className="eyebrow mb-4">ACT Sustainable Household Scheme Eligible Bundles</span>
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl mb-4">
-            Solar &amp; Energy
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-600/20 border border-red-500/30 text-red-400 text-xs font-bold uppercase tracking-wider mb-4">
+            <Sparkles size={13} className="text-red-400" /> Lock In Our Special Prices
+          </div>
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl mb-4 text-white">
+            Special Solar + Battery
             <br />
-            <span className="text-accent">Packages</span>
+            <span className="text-accent">Package Prices</span>
           </h1>
           <p className="text-body-muted text-base sm:text-lg max-w-2xl">
-            Turnkey energy solutions designed for Canberra homes and businesses. Fully installed with zero hidden fees.
+            Turnkey clean energy bundles engineered for Canberra homes and businesses. High-yield solar arrays paired with modular high-voltage home battery storage.
           </p>
         </div>
       </section>
 
       <div className="container-custom py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {PACKAGES.map((pkg) => (
             <div
               key={pkg.id}
-              className={`card card-hover flex flex-col justify-between relative overflow-hidden ${
-                pkg.featured ? "!border-orange-strong/50 shadow-xl" : ""
-              }`}
+              className="card card-hover flex flex-col justify-between relative overflow-hidden !border-orange-strong/30 shadow-xl"
             >
-              {pkg.featured && (
-                <div className="absolute top-4 right-4 z-10 inline-flex items-center gap-1.5 px-3 py-1 bg-orange-strong text-white text-xs font-bold rounded-full shadow-md">
-                  <Sparkles size={12} /> Canberra Top Pick
+              {pkg.badge && (
+                <div className="absolute top-4 right-4 z-10 inline-flex items-center gap-1.5 px-3 py-1 bg-navy-950/90 text-white text-xs font-bold rounded-full shadow-md backdrop-blur">
+                  <Sparkles size={12} className="text-orange" /> {pkg.badge}
                 </div>
               )}
 
@@ -51,16 +51,23 @@ export default function PackagesPage() {
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy-950/60 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-950/70 via-transparent to-transparent" />
                 </div>
               )}
 
               <div>
                 <span className="eyebrow mb-2 !text-orange-strong">{pkg.systemSize}</span>
 
-                <h3 className="text-2xl sm:text-3xl text-ink mb-3">
+                <h3 className="text-2xl sm:text-3xl text-ink font-bold mb-3">
                   {pkg.name}
                 </h3>
+
+                {pkg.price && (
+                  <div className="mb-5 flex items-center justify-between bg-red-600 text-white px-4 py-2.5 rounded-xl shadow-md">
+                    <span className="text-[11px] uppercase font-extrabold tracking-wider">Special Installed Price</span>
+                    <span className="text-2xl sm:text-3xl font-black tracking-tight">{pkg.price}</span>
+                  </div>
+                )}
 
                 <p className="text-body-muted text-sm leading-relaxed mb-6">
                   {pkg.shortDesc}
@@ -69,11 +76,11 @@ export default function PackagesPage() {
                 <div className="bg-off-white rounded-xl p-4 mb-6 border border-gray-100 space-y-2 text-xs">
                   <div className="flex justify-between gap-2">
                     <span className="text-gray-500">Estimated Output:</span>
-                    <span className="font-semibold text-ink">{pkg.estimatedOutput}</span>
+                    <span className="font-semibold text-ink text-right">{pkg.estimatedOutput}</span>
                   </div>
                   <div className="flex justify-between gap-2">
                     <span className="text-gray-500">Best Suited For:</span>
-                    <span className="font-semibold text-ink text-right max-w-[220px]">{pkg.idealFor}</span>
+                    <span className="font-semibold text-ink text-right max-w-[200px]">{pkg.idealFor}</span>
                   </div>
                 </div>
 
@@ -82,7 +89,7 @@ export default function PackagesPage() {
                     What&apos;s Included In This Package:
                   </h4>
                   <ul className="space-y-2 text-xs text-gray-700">
-                    {pkg.includedItems.slice(0, 4).map((item, idx) => (
+                    {pkg.includedItems.slice(0, 5).map((item, idx) => (
                       <li key={idx} className="flex items-start gap-2">
                         <CheckCircle2 size={15} className="text-orange-strong shrink-0 mt-0.5" />
                         <span>{item}</span>

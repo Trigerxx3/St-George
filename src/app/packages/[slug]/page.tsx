@@ -63,9 +63,17 @@ export default async function PackageDetailPage({ params }: Props) {
               <span className="eyebrow mb-3 !text-orange-strong">
                 {pkg.systemSize} · ACT Scheme Eligible
               </span>
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl text-ink mb-4">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl text-ink font-bold mb-4">
                 {pkg.name}
               </h1>
+
+              {pkg.price && (
+                <div className="mb-6 inline-flex items-center gap-3 bg-red-600 text-white px-5 py-2.5 rounded-xl shadow-md">
+                  <span className="text-xs uppercase font-extrabold tracking-wider">Special Installed Price:</span>
+                  <span className="text-3xl sm:text-4xl font-black tracking-tight">{pkg.price}</span>
+                </div>
+              )}
+
               <p className="text-body-muted text-base sm:text-lg leading-relaxed mb-6">
                 {pkg.description}
               </p>

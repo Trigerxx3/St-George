@@ -29,7 +29,7 @@ export default function AdminPackagesPage() {
             <div>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-bold text-green uppercase tracking-wider">{pkg.systemSize}</span>
-                <span className="text-[10px] font-bold bg-green/10 text-green px-2 py-0.5 rounded-full">Active</span>
+                <span className="text-xs font-extrabold text-red-600 bg-red-50 border border-red-200 px-2 py-0.5 rounded-full">{pkg.price}</span>
               </div>
               <h3 className="text-xl font-bold text-navy mb-2">{pkg.name}</h3>
               <p className="text-gray-500 text-xs mb-4">{pkg.shortDesc}</p>

@@ -23,6 +23,8 @@ export interface PackageItem {
   name: string;
   slug: string;
   systemSize: string;
+  price?: string;
+  badge?: string;
   shortDesc: string;
   description: string;
   includedItems: string[];
