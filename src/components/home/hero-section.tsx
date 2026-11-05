@@ -39,17 +39,13 @@ export default function HeroSection() {
               ACT Licence #{BUSINESS.licence} · Licensed &amp; Insured
             </span>
 
-            <h1 className="animate-fade-in-up animate-delay-100 text-4xl sm:text-5xl lg:text-7xl mb-5">
+            <h1 className="animate-fade-in-up animate-delay-100 text-4xl sm:text-5xl lg:text-7xl mb-6">
               Powering Your Home
               <br />
               <span className="text-accent">&amp; Business with Confidence</span>
             </h1>
 
-            <p className="animate-fade-in-up animate-delay-200 text-lg sm:text-xl font-semibold italic text-orange-light mb-5">
-              {BUSINESS.tagline}
-            </p>
-
-            <p className="animate-fade-in-up animate-delay-300 text-base sm:text-lg text-body-muted max-w-xl mb-9 leading-relaxed">
+            <p className="animate-fade-in-up animate-delay-200 text-base sm:text-lg text-body-muted max-w-xl mb-9 leading-relaxed">
               Solar panels, battery storage, EV chargers &amp; complete electrical services. Serving Canberra, ACT
               &amp; surrounding regions with quality workmanship and zero shortcuts.
             </p>
