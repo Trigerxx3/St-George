@@ -49,10 +49,12 @@ const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": ["Electrician", "LocalBusiness"],
   name: BUSINESS.name,
-  image: "https://stgeorgeelectrical.com.au/brand/logo.svg",
+  image: "https://stgeorgeelectrical.com.au/brand/logo.png",
+  logo: "https://stgeorgeelectrical.com.au/brand/logo.png",
   telephone: BUSINESS.phoneDisplay,
   email: BUSINESS.email,
   priceRange: "$$",
+  sameAs: [BUSINESS.social.facebook, BUSINESS.social.instagram].filter(Boolean),
   address: {
     "@type": "PostalAddress",
     addressLocality: "Canberra",
@@ -91,14 +93,14 @@ const localBusinessSchema = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`h-full ${manrope.variable}`}>
+    <html lang="en" className={`h-full ${manrope.variable}`} suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
         />
       </head>
-      <body className="min-h-full flex flex-col antialiased">
+      <body className="min-h-full flex flex-col antialiased" suppressHydrationWarning>
         <PublicShell>{children}</PublicShell>
       </body>
     </html>

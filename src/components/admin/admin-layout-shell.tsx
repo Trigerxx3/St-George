@@ -111,39 +111,49 @@ export function AdminLayoutShell({ children }: { children: React.ReactNode }) {
   const navItems = [
     { label: "Overview", href: "/admin", icon: LayoutDashboard },
     { label: "Enquiries", href: "/admin/enquiries", icon: Inbox, highlight: true },
+    { label: "Packages", href: "/admin/packages", icon: Boxes },
     { label: "Services", href: "/admin/services", icon: Wrench },
-    { label: "Products", href: "/admin/products", icon: Boxes },
+    { label: "Products", href: "/admin/products", icon: Sliders },
     { label: "Bookings", href: "/admin/bookings", icon: Calendar },
     { label: "Testimonials", href: "/admin/testimonials", icon: MessageSquareQuote },
     { label: "Gallery", href: "/admin/gallery", icon: Images },
-    { label: "Site Settings", href: "/admin/settings", icon: Sliders },
+    { label: "Site Settings", href: "/admin/settings", icon: Shield },
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col md:flex-row antialiased">
-      {/* Sidebar */}
-      <aside className="w-full md:w-64 bg-navy text-white flex-shrink-0 flex flex-col justify-between border-r border-slate-800 md:sticky md:top-0 md:h-screen md:overflow-y-auto z-30 shadow-md">
+    <div className="min-h-screen bg-[#f8fafc] text-[#071522] flex flex-col md:flex-row antialiased">
+      {/* Sidebar - Rich Deep Navy */}
+      <aside className="w-full md:w-64 bg-[#071522] text-white flex-shrink-0 flex flex-col justify-between border-r border-[#0d2238] md:sticky md:top-0 md:h-screen md:overflow-y-auto z-30 shadow-xl">
         <div>
           {/* Logo / Brand Header */}
           <div className="p-5 border-b border-white/10">
+            <Link href="/" target="_blank" title="View live site" className="block mb-3.5 group">
+              <img
+                src="/brand/logo.png"
+                alt="St George Electrical Logo"
+                className="w-auto h-12 object-contain filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] group-hover:scale-105 transition-transform duration-300"
+              />
+            </Link>
             <div className="flex items-center gap-2 mb-1">
-              <span className="w-2.5 h-2.5 bg-green rounded-full animate-pulse" />
-              <span className="font-bold text-[11px] tracking-wider uppercase text-green">
+              <span className="w-2.5 h-2.5 bg-orange-strong rounded-full animate-pulse" />
+              <span className="font-extrabold text-[11px] tracking-wider uppercase text-orange-strong">
                 Admin Console
               </span>
             </div>
-            <h1 className="text-base font-bold text-white truncate">{BUSINESS.shortName}</h1>
-            <span className="text-[11px] text-white/50">{BUSINESS.licence}</span>
+            <h1 className="text-base font-extrabold text-white truncate" style={{ fontFamily: "var(--font-heading)" }}>
+              {BUSINESS.shortName}
+            </h1>
+            <span className="text-[11px] text-white/60">ACT Licence #{BUSINESS.licence}</span>
           </div>
 
-          {/* User Email Pill (with proper min-w-0 for ellipsis truncation) */}
+          {/* User Email Pill */}
           {userEmail && (
             <div className="px-5 py-3 bg-white/5 border-b border-white/10 flex items-center gap-2.5">
-              <div className="p-1 rounded bg-green/10 text-green flex-shrink-0">
+              <div className="p-1.5 rounded-lg bg-orange-strong/20 text-orange-light flex-shrink-0">
                 <Shield size={14} />
               </div>
               <div className="min-w-0 flex-1 overflow-hidden">
-                <p className="text-[9px] uppercase font-bold text-white/40 tracking-wider leading-none mb-1">
+                <p className="text-[9px] uppercase font-bold text-white/50 tracking-wider leading-none mb-1">
                   Signed In
                 </p>
                 <p className="text-xs font-mono text-white/90 truncate block" title={userEmail}>
@@ -162,18 +172,18 @@ export function AdminLayoutShell({ children }: { children: React.ReactNode }) {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-semibold transition-all ${
+                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
                     isActive
-                      ? "bg-green text-navy font-bold shadow-sm"
-                      : "text-white/80 hover:bg-white/10 hover:text-white"
+                      ? "bg-orange-strong text-white shadow-md shadow-orange-strong/30"
+                      : "text-white/70 hover:bg-white/10 hover:text-white"
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <Icon size={16} className={isActive ? "text-navy" : "text-green-light"} />
+                    <Icon size={16} className={isActive ? "text-white" : "text-white/60"} />
                     <span>{item.label}</span>
                   </div>
                   {item.highlight && !isActive && (
-                    <span className="w-2 h-2 rounded-full bg-green" />
+                    <span className="w-2 h-2 rounded-full bg-orange-strong" />
                   )}
                 </Link>
               );
@@ -182,10 +192,10 @@ export function AdminLayoutShell({ children }: { children: React.ReactNode }) {
         </div>
 
         {/* Sidebar Footer: Return to site & Logout */}
-        <div className="p-4 border-t border-white/10 space-y-1.5 bg-navy/90">
+        <div className="p-4 border-t border-white/10 space-y-1.5 bg-[#050f1a]">
           <Link
             href="/"
-            className="flex items-center gap-2 px-3 py-2 rounded text-xs font-medium text-white/70 hover:bg-white/5 hover:text-white transition-colors"
+            className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-white/70 hover:bg-white/10 hover:text-white transition-colors"
           >
             <ArrowLeft size={14} />
             <span>Return to Live Website</span>
@@ -194,10 +204,10 @@ export function AdminLayoutShell({ children }: { children: React.ReactNode }) {
           <button
             onClick={handleLogout}
             disabled={isLoggingOut}
-            className="w-full flex items-center gap-2 px-3 py-2 rounded text-xs font-medium text-red-300 hover:bg-red-950/40 hover:text-red-200 transition-colors cursor-pointer"
+            className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors cursor-pointer"
           >
             {isLoggingOut ? (
-              <Loader2 size={14} className="animate-spin text-red-300" />
+              <Loader2 size={14} className="animate-spin text-red-400" />
             ) : (
               <LogOut size={14} />
             )}
@@ -207,7 +217,7 @@ export function AdminLayoutShell({ children }: { children: React.ReactNode }) {
       </aside>
 
       {/* Main Admin Area */}
-      <main className="flex-1 p-6 md:p-8 lg:p-10 overflow-y-auto bg-slate-50 min-h-screen">
+      <main className="flex-1 p-6 md:p-8 lg:p-10 overflow-y-auto bg-[#f8fafc] min-h-screen text-[#071522]">
         {children}
       </main>
     </div>

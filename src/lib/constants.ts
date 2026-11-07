@@ -33,8 +33,8 @@ export const BUSINESS = {
     country: "Australia",
   },
   social: {
-    facebook: "", // TODO_OWNER: Add Facebook URL
-    instagram: "", // TODO_OWNER: Add Instagram URL
+    facebook: "https://www.facebook.com/share/1EVvEon26h/?mibextid=wwXIfr",
+    instagram: "https://www.instagram.com/st_george_electrical?mdxt=YTRhdGI2Nzd2ZnZh",
     google: "", // TODO_OWNER: Add Google Business Profile URL
     whatsapp: "https://wa.me/61450598628",
   },

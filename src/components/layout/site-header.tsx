@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown, ArrowUpRight } from "lucide-react";
 import { NAV_ITEMS, type NavItem } from "@/lib/constants";
+import { SocialLinks } from "@/components/ui/social-icons";
 
 /** Routes whose first section is a dark hero, so the header can sit transparently on top of it. */
 const DARK_HERO_ROUTES = ["/solar-battery", "/ev-chargers", "/electrical", "/heating-cooling", "/security-cctv", "/quote", "/about", "/areas"];
@@ -59,17 +60,18 @@ export default function SiteHeader() {
         }`}
       >
         <div className="container-custom flex items-center justify-between gap-4 h-16 lg:h-[76px]">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 shrink-0" aria-label="St George Electrical Energy Solutions home">
-            {/* TODO_OWNER: Replace with actual logo from /public/brand/logo.svg */}
-            <div className="w-10 h-10 lg:w-11 lg:h-11 rounded-xl border border-orange/40 bg-white/5 flex items-center justify-center">
-              <span className="text-orange-light font-extrabold text-base lg:text-lg">SG</span>
-            </div>
-            <div className="hidden sm:block">
-              <div className="text-white font-extrabold text-sm lg:text-[15px] leading-tight tracking-tight">
-                St George Electrical
-              </div>
-              <div className="text-[#9fb2c8] text-xs leading-tight">Energy Solutions</div>
+          {/* Logo - Themed to dark navy & electric orange */}
+          <Link
+            href="/"
+            className="flex items-center gap-3 shrink-0 group transition-all duration-300 active:scale-95 py-1"
+            aria-label="St George Electrical Energy Solutions home"
+          >
+            <div className="relative h-12 lg:h-[58px] w-auto flex items-center justify-center transition-all duration-300 group-hover:scale-105">
+              <img
+                src="/brand/logo.png"
+                alt="St George Electrical Energy Solutions"
+                className="h-full w-auto object-contain max-w-[170px] sm:max-w-[210px] filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] group-hover:drop-shadow-[0_0_16px_rgba(232,117,26,0.5)] transition-all duration-300"
+              />
             </div>
           </Link>
 
@@ -134,8 +136,12 @@ export default function SiteHeader() {
             })}
           </nav>
 
-          {/* Right Side: CTA + Hamburger */}
+          {/* Right Side: Social + CTA + Hamburger */}
           <div className="flex items-center gap-3 shrink-0">
+            <div className="hidden 2xl:flex items-center mr-1">
+              <SocialLinks size="sm" />
+            </div>
+
             <Link href="/quote" className="btn-primary !py-2.5 !px-4 sm:!px-5">
               Get a Free Quote
               <ArrowUpRight size={16} />
@@ -179,6 +185,11 @@ export default function SiteHeader() {
                   Get a Free Quote
                   <ArrowUpRight size={16} />
                 </Link>
+
+                <div className="mt-6 pt-5 border-t border-white/10 flex flex-col items-center">
+                  <span className="text-xs text-[#9fb2c8] mb-3">Connect With Us</span>
+                  <SocialLinks />
+                </div>
               </div>
             </div>
           </div>

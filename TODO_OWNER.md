@@ -7,7 +7,7 @@ Welcome Justin! This checklist outlines the final operational items and verifica
 ## 1. Business & Registration Information
 - [ ] **ABN Verification**: Insert your Australian Business Number (ABN) in `src/lib/constants.ts` under `BUSINESS.abn`.
 - [ ] **Street Address**: Update your registered physical or workshop address in `src/lib/constants.ts` (currently defaulted to Canberra, ACT 2600).
-- [ ] **Social Profiles**: Add your official Facebook, Instagram, or LinkedIn page URLs to `BUSINESS.social` in `src/lib/constants.ts`.
+- [x] **Social Profiles**: Added official Facebook & Instagram page URLs to `BUSINESS.social` in `src/lib/constants.ts`.
 - [ ] **Google Business Profile**: Add your Google Business review link in `src/lib/constants.ts` so clients can leave Google reviews directly.
 
 ---

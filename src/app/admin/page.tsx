@@ -81,8 +81,8 @@ export default function AdminDashboardPage() {
       value: stats.newEnquiries.toString(),
       subtext: "Awaiting review",
       icon: Inbox,
-      color: "text-green",
-      bg: "bg-green/10",
+      color: "text-orange-strong",
+      bg: "bg-orange-strong/15",
       href: "/admin/enquiries",
     },
     {
@@ -90,8 +90,8 @@ export default function AdminDashboardPage() {
       value: stats.totalServices.toString(),
       subtext: "Solar, EV & Electrical",
       icon: Wrench,
-      color: "text-blue-500",
-      bg: "bg-blue-500/10",
+      color: "text-blue-400",
+      bg: "bg-blue-400/15",
       href: "/admin/services",
     },
     {
@@ -99,8 +99,8 @@ export default function AdminDashboardPage() {
       value: stats.testimonials.toString(),
       subtext: "Verified customer ratings",
       icon: MessageSquareQuote,
-      color: "text-amber-500",
-      bg: "bg-amber-500/10",
+      color: "text-amber-400",
+      bg: "bg-amber-400/15",
       href: "/admin/testimonials",
     },
     {
@@ -108,8 +108,8 @@ export default function AdminDashboardPage() {
       value: stats.galleryItems.toString(),
       subtext: "Installed photos in cloud",
       icon: Images,
-      color: "text-purple-500",
-      bg: "bg-purple-500/10",
+      color: "text-purple-400",
+      bg: "bg-purple-400/15",
       href: "/admin/gallery",
     },
   ];
@@ -119,26 +119,26 @@ export default function AdminDashboardPage() {
       {/* Top Welcome */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-navy tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#071522] tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
             Administrator Control Center
           </h1>
-          <p className="text-gray-500 text-sm mt-1">
+          <p className="text-slate-500 text-sm mt-1">
             Real-time management for St George Electrical customer leads, services, and web content.
           </p>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2.5">
           <button
             onClick={fetchDashboardData}
             disabled={isLoading}
-            className="inline-flex items-center gap-1.5 px-3 py-2 bg-white border border-gray-300 rounded-lg text-xs font-semibold text-gray-700 hover:bg-gray-50 transition-colors shadow-sm cursor-pointer disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors shadow-sm cursor-pointer disabled:opacity-50"
           >
-            <RefreshCw size={14} className={isLoading ? "animate-spin" : ""} />
+            <RefreshCw size={14} className={isLoading ? "animate-spin text-orange-strong" : "text-slate-500"} />
             <span>Refresh</span>
           </button>
           <Link
             href="/admin/enquiries"
-            className="px-4 py-2 bg-green hover:bg-green-light text-navy text-xs font-bold rounded-lg shadow-sm transition-colors flex items-center gap-1.5"
+            className="btn-primary !py-2 !px-4 text-xs font-bold rounded-xl shadow-md flex items-center gap-1.5"
           >
             <span>Review Enquiries</span>
             <ArrowRight size={14} />
@@ -154,20 +154,20 @@ export default function AdminDashboardPage() {
             <Link
               key={idx}
               href={card.href}
-              className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-all hover:border-green group"
+              className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm hover:shadow-md hover:border-orange-strong/50 transition-all group"
             >
               <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                   {card.title}
                 </span>
-                <div className={`p-2 rounded-lg ${card.bg}`}>
+                <div className={`p-2.5 rounded-xl ${card.bg}`}>
                   <Icon size={18} className={card.color} />
                 </div>
               </div>
-              <div className="text-3xl font-extrabold text-navy font-mono mb-1">
+              <div className="text-3xl font-black text-[#071522] font-mono mb-1">
                 {isLoading ? "..." : card.value}
               </div>
-              <div className="flex items-center justify-between text-xs text-gray-400 group-hover:text-green transition-colors">
+              <div className="flex items-center justify-between text-xs text-slate-500 group-hover:text-orange-strong transition-colors">
                 <span>{card.subtext}</span>
                 <ArrowRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
@@ -177,15 +177,15 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* Recent Enquiries Box */}
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-        <div className="p-5 border-b border-gray-100 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Inbox className="text-green" size={20} />
-            <h2 className="text-base font-bold text-navy">Recent Customer Inquiries</h2>
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div className="p-5 border-b border-slate-100 flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <Inbox className="text-orange-strong" size={20} />
+            <h2 className="text-base font-bold text-[#071522]">Recent Customer Inquiries</h2>
           </div>
           <Link
             href="/admin/enquiries"
-            className="text-xs font-semibold text-green hover:text-green-dark flex items-center gap-1"
+            className="text-xs font-bold text-orange-strong hover:text-orange-light flex items-center gap-1 transition-colors"
           >
             <span>View All</span>
             <ArrowRight size={12} />
@@ -193,40 +193,40 @@ export default function AdminDashboardPage() {
         </div>
 
         {isLoading ? (
-          <div className="p-8 text-center text-gray-400 text-xs flex items-center justify-center gap-2">
-            <RefreshCw size={16} className="animate-spin text-green" />
+          <div className="p-8 text-center text-slate-400 text-xs flex items-center justify-center gap-2">
+            <RefreshCw size={16} className="animate-spin text-orange-strong" />
             <span>Loading recent activity...</span>
           </div>
         ) : recentEnquiries.length === 0 ? (
-          <div className="p-8 text-center text-gray-400 text-xs">
+          <div className="p-8 text-center text-slate-400 text-xs">
             No customer enquiries recorded yet.
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-gray-50 text-gray-500 font-semibold border-b border-gray-100">
+              <thead className="bg-slate-50 text-slate-600 font-bold border-b border-slate-200">
                 <tr>
-                  <th className="py-3 px-4">Customer Name</th>
-                  <th className="py-3 px-4">Contact</th>
-                  <th className="py-3 px-4">Service</th>
-                  <th className="py-3 px-4">Date</th>
-                  <th className="py-3 px-4">Status</th>
-                  <th className="py-3 px-4 text-right">Action</th>
+                  <th className="py-3.5 px-4">Customer Name</th>
+                  <th className="py-3.5 px-4">Contact</th>
+                  <th className="py-3.5 px-4">Service</th>
+                  <th className="py-3.5 px-4">Date</th>
+                  <th className="py-3.5 px-4">Status</th>
+                  <th className="py-3.5 px-4 text-right">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-slate-100 text-slate-700">
                 {recentEnquiries.map((enq) => (
-                  <tr key={enq.id} className="hover:bg-slate-50 transition-colors">
-                    <td className="py-3 px-4 font-bold text-navy">{enq.name}</td>
-                    <td className="py-3 px-4 text-gray-600">
+                  <tr key={enq.id} className="hover:bg-slate-50/70 transition-colors">
+                    <td className="py-3.5 px-4 font-bold text-[#071522]">{enq.name}</td>
+                    <td className="py-3.5 px-4 text-slate-600">
                       <div>{enq.email}</div>
-                      <div className="text-[11px] font-mono text-gray-400">{enq.phone}</div>
+                      <div className="text-[11px] font-mono text-slate-400">{enq.phone}</div>
                     </td>
-                    <td className="py-3 px-4">
-                      <span className="font-medium text-navy">{enq.service_type || "General"}</span>
-                      {enq.suburb && <div className="text-[11px] text-gray-400">{enq.suburb}</div>}
+                    <td className="py-3.5 px-4">
+                      <span className="font-medium text-[#071522]">{enq.service_type || "General"}</span>
+                      {enq.suburb && <div className="text-[11px] text-slate-400">{enq.suburb}</div>}
                     </td>
-                    <td className="py-3 px-4 font-mono text-[11px] text-gray-400">
+                    <td className="py-3.5 px-4 font-mono text-[11px] text-slate-400">
                       {new Date(enq.created_at).toLocaleDateString("en-AU", {
                         day: "numeric",
                         month: "short",
@@ -234,23 +234,23 @@ export default function AdminDashboardPage() {
                         minute: "2-digit",
                       })}
                     </td>
-                    <td className="py-3 px-4">
-                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold capitalize ${
+                    <td className="py-3.5 px-4">
+                      <span className={`px-2.5 py-1 rounded-full text-[10px] font-extrabold capitalize ${
                         enq.status === "new"
-                          ? "bg-emerald-100 text-emerald-800"
+                          ? "bg-orange-50 text-orange-700 border border-orange-200"
                           : enq.status === "contacted"
-                          ? "bg-blue-100 text-blue-800"
+                          ? "bg-blue-50 text-blue-700 border border-blue-200"
                           : enq.status === "quoted"
-                          ? "bg-amber-100 text-amber-800"
-                          : "bg-gray-100 text-gray-600"
+                          ? "bg-amber-50 text-amber-700 border border-amber-200"
+                          : "bg-slate-100 text-slate-600 border border-slate-200"
                       }`}>
                         {enq.status}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-right">
+                    <td className="py-3.5 px-4 text-right">
                       <Link
                         href="/admin/enquiries"
-                        className="text-xs font-semibold text-navy hover:text-green"
+                        className="text-xs font-bold text-orange-strong hover:text-orange-light transition-colors"
                       >
                         Manage →
                       </Link>
@@ -267,16 +267,16 @@ export default function AdminDashboardPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Link
           href="/admin/services"
-          className="p-5 bg-white rounded-xl border border-gray-200 shadow-sm hover:border-green hover:shadow-md transition-all flex items-start gap-3.5 group"
+          className="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm hover:border-orange-strong/50 hover:shadow-md transition-all flex items-start gap-3.5 group"
         >
-          <div className="p-2.5 bg-blue-50 text-blue-600 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-colors">
+          <div className="p-3 bg-blue-50 text-blue-600 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-colors">
             <Wrench size={20} />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-navy group-hover:text-green transition-colors">
+            <h3 className="text-sm font-bold text-[#071522] group-hover:text-orange-strong transition-colors">
               Manage Services
             </h3>
-            <p className="text-xs text-gray-500 mt-0.5">
+            <p className="text-xs text-slate-500 mt-0.5">
               Edit services, categories, and sort orders.
             </p>
           </div>
@@ -284,16 +284,16 @@ export default function AdminDashboardPage() {
 
         <Link
           href="/admin/gallery"
-          className="p-5 bg-white rounded-xl border border-gray-200 shadow-sm hover:border-green hover:shadow-md transition-all flex items-start gap-3.5 group"
+          className="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm hover:border-orange-strong/50 hover:shadow-md transition-all flex items-start gap-3.5 group"
         >
-          <div className="p-2.5 bg-purple-50 text-purple-600 rounded-lg group-hover:bg-purple-600 group-hover:text-white transition-colors">
+          <div className="p-3 bg-purple-50 text-purple-600 rounded-xl group-hover:bg-purple-600 group-hover:text-white transition-colors">
             <Images size={20} />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-navy group-hover:text-green transition-colors">
+            <h3 className="text-sm font-bold text-[#071522] group-hover:text-orange-strong transition-colors">
               Cloud Photo Gallery
             </h3>
-            <p className="text-xs text-gray-500 mt-0.5">
+            <p className="text-xs text-slate-500 mt-0.5">
               Upload job photos to Supabase Storage and manage public showcase.
             </p>
           </div>
@@ -301,16 +301,16 @@ export default function AdminDashboardPage() {
 
         <Link
           href="/admin/settings"
-          className="p-5 bg-white rounded-xl border border-gray-200 shadow-sm hover:border-green hover:shadow-md transition-all flex items-start gap-3.5 group"
+          className="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm hover:border-orange-strong/50 hover:shadow-md transition-all flex items-start gap-3.5 group"
         >
-          <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-lg group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+          <div className="p-3 bg-orange-50 text-orange-strong rounded-xl group-hover:bg-orange-strong group-hover:text-white transition-colors">
             <Sliders size={20} />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-navy group-hover:text-green transition-colors">
+            <h3 className="text-sm font-bold text-[#071522] group-hover:text-orange-strong transition-colors">
               Site Settings &amp; Contact
             </h3>
-            <p className="text-xs text-gray-500 mt-0.5">
+            <p className="text-xs text-slate-500 mt-0.5">
               Update phone numbers, email, hours, and licence numbers.
             </p>
           </div>

@@ -111,40 +111,40 @@ export default function AdminQuotesPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1
-            className="text-3xl font-bold text-navy"
+            className="text-2xl sm:text-3xl font-extrabold text-[#071522] tracking-tight"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             Quote Requests &amp; Leads
           </h1>
-          <p className="text-gray-500 text-sm">
+          <p className="text-slate-500 text-sm mt-1">
             Manage incoming customer inquiries, update pipeline status, and access customer contact details.
           </p>
         </div>
       </div>
 
       {/* Filter Bar */}
-      <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex flex-col sm:flex-row gap-3 items-center justify-between">
+      <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row gap-3 items-center justify-between">
         <div className="relative w-full sm:w-72">
-          <Search size={16} className="absolute left-3 top-3 text-gray-400" />
+          <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
             type="text"
             placeholder="Search customer, suburb, ref..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="input-field !pl-9 !py-2 text-xs"
+            className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-[#071522] placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-orange-strong"
           />
         </div>
 
         <div className="flex items-center gap-2 w-full sm:w-auto">
-          <span className="text-xs text-gray-400">Status:</span>
+          <span className="text-xs text-slate-500">Status:</span>
           {["all", "new", "contacted", "quoted", "won"].map((st) => (
             <button
               key={st}
               onClick={() => setStatusFilter(st)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold capitalize transition-colors ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold capitalize transition-all cursor-pointer ${
                 statusFilter === st
-                  ? "bg-navy text-white"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  ? "bg-orange-strong text-white shadow-md shadow-orange-strong/20"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-[#071522]"
               }`}
             >
               {st}
@@ -154,50 +154,50 @@ export default function AdminQuotesPage() {
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-gray-50 text-gray-500 uppercase font-semibold border-b border-gray-100">
+            <thead className="bg-slate-50 text-slate-600 uppercase font-bold border-b border-slate-200">
               <tr>
-                <th className="p-4">Reference</th>
-                <th className="p-4">Customer Details</th>
-                <th className="p-4">Service &amp; Property</th>
-                <th className="p-4">Quarterly Bill</th>
-                <th className="p-4">Status</th>
-                <th className="p-4">Date</th>
-                <th className="p-4 text-right">Actions</th>
+                <th className="py-3.5 px-4">Reference</th>
+                <th className="py-3.5 px-4">Customer Details</th>
+                <th className="py-3.5 px-4">Service &amp; Property</th>
+                <th className="py-3.5 px-4">Quarterly Bill</th>
+                <th className="py-3.5 px-4">Status</th>
+                <th className="py-3.5 px-4">Date</th>
+                <th className="py-3.5 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100 text-gray-700">
+            <tbody className="divide-y divide-slate-100 text-slate-700">
               {filtered.map((item) => (
-                <tr key={item.id} className="hover:bg-gray-50/80">
-                  <td className="p-4 font-mono font-bold text-navy">{item.id}</td>
-                  <td className="p-4">
-                    <div className="font-bold text-navy">{item.name}</div>
-                    <div className="text-[11px] text-gray-500 mt-0.5">{item.email}</div>
-                    <div className="text-[11px] text-gray-500">{item.phone}</div>
+                <tr key={item.id} className="hover:bg-slate-50/70 transition-colors">
+                  <td className="py-3.5 px-4 font-mono font-bold text-orange-strong">{item.id}</td>
+                  <td className="py-3.5 px-4">
+                    <div className="font-bold text-[#071522]">{item.name}</div>
+                    <div className="text-[11px] text-slate-500 mt-0.5">{item.email}</div>
+                    <div className="text-[11px] text-slate-400 font-mono">{item.phone}</div>
                   </td>
-                  <td className="p-4">
-                    <span className="font-semibold text-navy block">{item.service}</span>
-                    <span className="text-[11px] text-gray-500">
+                  <td className="py-3.5 px-4">
+                    <span className="font-semibold text-[#071522] block">{item.service}</span>
+                    <span className="text-[11px] text-slate-500">
                       {item.property} · {item.suburb}, {item.postcode}
                     </span>
                   </td>
-                  <td className="p-4 text-gray-600">{item.bill}</td>
-                  <td className="p-4">
+                  <td className="py-3.5 px-4 text-slate-700">{item.bill}</td>
+                  <td className="py-3.5 px-4">
                     <select
                       value={item.status}
                       onChange={(e) => updateStatus(item.id, e.target.value as any)}
-                      className={`text-[11px] font-bold px-2.5 py-1 rounded-md border cursor-pointer ${
+                      className={`text-[11px] font-bold px-2.5 py-1 rounded-lg border cursor-pointer ${
                         item.status === "new"
-                          ? "bg-green/10 text-green border-green/30"
+                          ? "bg-orange-50 text-orange-700 border-orange-200"
                           : item.status === "contacted"
-                          ? "bg-blue-50 text-blue-600 border-blue-200"
+                          ? "bg-blue-50 text-blue-700 border-blue-200"
                           : item.status === "quoted"
                           ? "bg-amber-50 text-amber-700 border-amber-200"
                           : item.status === "won"
                           ? "bg-purple-50 text-purple-700 border-purple-200"
-                          : "bg-gray-100 text-gray-600 border-gray-200"
+                          : "bg-slate-100 text-slate-700 border-slate-200"
                       }`}
                     >
                       <option value="new">New</option>
@@ -207,19 +207,19 @@ export default function AdminQuotesPage() {
                       <option value="lost">Lost</option>
                     </select>
                   </td>
-                  <td className="p-4 text-gray-400">{item.date}</td>
-                  <td className="p-4 text-right">
+                  <td className="py-3.5 px-4 text-slate-400">{item.date}</td>
+                  <td className="py-3.5 px-4 text-right">
                     <div className="flex items-center justify-end gap-1.5">
                       <a
                         href={`tel:${item.phone.replace(/\s+/g, "")}`}
-                        className="p-1.5 rounded bg-gray-100 text-gray-700 hover:bg-green hover:text-white transition-colors"
+                        className="p-2 rounded-lg bg-orange-50 text-orange-strong hover:bg-orange-strong hover:text-white transition-colors border border-orange-200"
                         title="Call Customer"
                       >
                         <Phone size={14} />
                       </a>
                       <a
                         href={`mailto:${item.email}`}
-                        className="p-1.5 rounded bg-gray-100 text-gray-700 hover:bg-navy hover:text-white transition-colors"
+                        className="p-2 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-[#071522] transition-colors border border-slate-200"
                         title="Email Customer"
                       >
                         <Mail size={14} />

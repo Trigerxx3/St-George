@@ -3,6 +3,7 @@ import { Phone, Mail, MapPin, Clock, ShieldCheck, CheckCircle } from "lucide-rea
 import ContactForm from "@/components/forms/contact-form";
 import { BUSINESS, SERVICE_AREAS } from "@/lib/constants";
 import { phoneHref } from "@/lib/utils";
+import { SocialLinks } from "@/components/ui/social-icons";
 
 export const metadata: Metadata = {
   title: "Contact Us | St George Electrical Energy Solutions",
@@ -83,6 +84,11 @@ export default function ContactPage() {
                     <span className="text-[#9fb2c8] block text-xs">Service Radius</span>
                     <p className="text-white font-medium">Canberra, ACT &amp; Surrounding Regions</p>
                   </div>
+                </div>
+
+                <div className="pt-2">
+                  <span className="text-[#9fb2c8] block text-xs mb-3">Connect on Social Media</span>
+                  <SocialLinks variant="pill" />
                 </div>
               </div>
 

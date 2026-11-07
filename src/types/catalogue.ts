@@ -16,6 +16,8 @@ export interface ProductItem {
   featured?: boolean;
   efficiency?: string;
   badge?: string;
+  price?: string;
+  isActive?: boolean;
 }
 
 export interface PackageItem {
@@ -35,4 +37,5 @@ export interface PackageItem {
   warrantySummary: string;
   featured?: boolean;
   image?: string;
+  isActive?: boolean;
 }

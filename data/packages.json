@@ -1,0 +1,107 @@
+[
+  {
+    "id": "pkg-66kw-14kwh-battery",
+    "name": "6.6kW Solar + 14kWh Battery Package",
+    "slug": "6-6kw-solar-14kwh-battery-package",
+    "systemSize": "6.6kW Solar + 14kWh Battery",
+    "price": "$6,799",
+    "badge": "Special Offer · Most Popular",
+    "shortDesc": "Lock in our special solar + battery price. High-efficiency 6.6kW N-Type solar panels paired with a 14kWh home battery storage system.",
+    "description": "Our most popular turnkey residential package engineered for Canberra and ACT homes. Combines 15x premium Tier-1 N-Type solar panels with a high-capacity 14kWh lithium battery storage system and smart hybrid inverter. Eliminates peak evening electricity bills and keeps critical home circuits running during grid outages.",
+    "includedItems": [
+      "15x Tier-1 N-Type TOPCon 440W Solar Panels (6.6kW total)",
+      "14kWh High-Voltage Lithium Battery Storage System",
+      "1x 5kW Smart Hybrid Solar Inverter with EPS Blackout Protection",
+      "Smart Wi-Fi Monitoring App with 24/7 generation & consumption tracking",
+      "Custom anodized aluminium cyclone-rated roof racking system",
+      "Complete licensed electrical installation by St George Electrical",
+      "EvoEnergy connection application & ACT compliance paperwork",
+      "New Energy Tech Approved Seller installation standard"
+    ],
+    "features": [
+      "Special lock-in price: $6,799 fully supplied & installed",
+      "14kWh storage covers peak evening family energy usage and overnight appliances",
+      "Instantaneous blackout backup protection for essential home circuits",
+      "Point-of-sale Federal STC Rebate discount included",
+      "ACT Sustainable Household Scheme 0% interest loan eligible",
+      "25-year panel performance guarantee & 10-year battery warranty"
+    ],
+    "idealFor": "Canberra 3-4 bedroom homes with quarterly electricity bills between $600 – $1,200 looking for daytime savings and overnight blackout backup.",
+    "estimatedOutput": "Approx. 26.5 kWh per day solar generation + 14kWh stored evening energy",
+    "rebateEligible": true,
+    "warrantySummary": "25-Year Panel Performance · 10-Year Battery Warranty · 10-Year Inverter Warranty · 10-Year Workmanship",
+    "featured": true,
+    "image": "/images/products/package-6kw-14kwh.jpg",
+    "isActive": true
+  },
+  {
+    "id": "pkg-1045kw-28kwh-battery",
+    "name": "10.45kW Solar + 28kWh Battery Package",
+    "slug": "10-45kw-solar-28kwh-battery-package",
+    "systemSize": "10.45kW Solar + 28kWh Battery",
+    "price": "$10,999",
+    "badge": "High-Capacity Home Standard",
+    "shortDesc": "Massive 28kWh energy storage with a high-yield 10.45kW solar array. Ultimate power independence for ducted heating and EV homes.",
+    "description": "Designed for larger Canberra properties, ducted reverse-cycle air conditioning, and multi-appliance households. Featuring 24x Tier-1 440W solar panels generating 10.45kW of power coupled with dual-stack 28kWh lithium storage. Powers whole-home heavy loads day and night with minimal reliance on the grid.",
+    "includedItems": [
+      "24x Tier-1 N-Type TOPCon 440W Solar Panels (10.45kW total)",
+      "28kWh Modular High-Capacity Lithium Iron Phosphate (LFP) Battery Tower",
+      "1x 8kW-10kW Smart Three-Phase/Single-Phase Hybrid Inverter",
+      "Whole-Home EPS Blackout Backup switchover isolation unit",
+      "Smart Energy Management & App Monitoring with dynamic tariff optimisation",
+      "Heavy-duty mounting system & complete electrical switchboard upgrade",
+      "Full EvoEnergy grid approval & ACT compliance sign-off",
+      "New Energy Tech Approved Seller installation standard"
+    ],
+    "features": [
+      "Special lock-in price: $10,999 fully installed",
+      "28kWh capacity easily handles ducted heating/cooling and electric vehicle charging",
+      "Whole-home blackout protection keeps lights, fridges, aircon, and computers on",
+      "Eligible for ACT Sustainable Household Scheme $15k zero-interest loans",
+      "Point-of-sale Federal STC Rebate discount included",
+      "25-year panel performance guarantee & 10-year battery warranty"
+    ],
+    "idealFor": "4-5 bedroom homes, properties with ducted heat pumps, pool heaters, home offices, or electric vehicle owners.",
+    "estimatedOutput": "Approx. 42 kWh per day solar generation + 28kWh stored clean energy",
+    "rebateEligible": true,
+    "warrantySummary": "25-Year Panel Warranty · 10-Year Battery Warranty · 10-Year Inverter Warranty · 10-Year Workmanship",
+    "featured": true,
+    "image": "/images/products/package-10kw-28kwh.jpg",
+    "isActive": true
+  },
+  {
+    "id": "pkg-133kw-42kwh-battery",
+    "name": "13.3kW Solar + 42kWh Battery Package",
+    "slug": "13-3kw-solar-42kwh-battery-package",
+    "systemSize": "13.3kW Solar + 42kWh Battery",
+    "price": "$15,499",
+    "badge": "Maximum Independence & Microgrid",
+    "shortDesc": "Commercial-grade residential powerhouse. 13.3kW solar paired with colossal 42kWh battery storage for near-total grid independence.",
+    "description": "The pinnacle of clean energy independence. A colossal 13.3kW solar array delivering up to 55+ kWh of clean energy daily, backed by an enormous 42kWh battery bank. Engineered for luxury estates, large families, home businesses, and properties with heavy year-round climate control and multiple EVs.",
+    "includedItems": [
+      "30x Tier-1 N-Type TOPCon 440W Solar Panels (13.3kW total)",
+      "42kWh High-Voltage Lithium Battery Storage (Expandable Modular Architecture)",
+      "1x 10kW-12kW High-Output Smart Hybrid Inverter with Dual MPPTs",
+      "Advanced Whole-Home Automatic Transfer Switch (ATS) for seamless backup",
+      "Smart Energy Hub with live app monitoring & predictive weather charge",
+      "Comprehensive electrical sub-board, surge protection & switchboard compliance",
+      "Full EvoEnergy network approvals and ACT Certificate of Electrical Compliance",
+      "New Energy Tech Approved Seller installation standard"
+    ],
+    "features": [
+      "Special lock-in price: $15,499 fully installed",
+      "Colossal 42kWh storage runs an entire household through multi-day overcast weather and blackouts",
+      "Zero peak grid power draw — maximum self-consumption and solar export returns",
+      "Approved New Energy Tech seller installation standard",
+      "Point-of-sale Federal STC Rebate discount included",
+      "25-year panel performance warranty & 10-year comprehensive equipment warranty"
+    ],
+    "idealFor": "Large homes, rural residential properties, multi-generational households, luxury homes with multi-zone ducted HVAC, pools, and two or more EVs.",
+    "estimatedOutput": "Approx. 54 kWh per day solar generation + 42kWh stored energy bank",
+    "rebateEligible": true,
+    "warrantySummary": "25-Year Panel Warranty · 10-Year Battery Warranty · 10-Year Inverter Warranty · 10-Year Workmanship",
+    "featured": true,
+    "image": "/images/products/package-13kw-42kwh.jpg",
+    "isActive": true
+  }
+]

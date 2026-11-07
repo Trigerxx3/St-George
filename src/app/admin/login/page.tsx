@@ -134,28 +134,34 @@ function LoginForm() {
   const isLockedOut = lockoutRemaining !== null && lockoutRemaining > 0;
 
   return (
-    <div className="min-h-screen bg-slate-900 flex flex-col justify-center items-center p-4">
-      <div className="w-full max-w-md bg-slate-800/90 backdrop-blur border border-slate-700 rounded-2xl shadow-2xl p-8 space-y-6">
+    <div className="min-h-screen bg-[#f8fafc] flex flex-col justify-center items-center p-4">
+      <div className="w-full max-w-md bg-white border border-slate-200 rounded-3xl shadow-xl p-8 space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">
-          <div className="inline-flex p-3 rounded-xl bg-green/10 border border-green/20 text-green mb-1">
-            <ShieldCheck size={32} />
+          <div className="bg-[#071522] rounded-2xl px-4 py-3 border border-[#0d2238] shadow-lg inline-block max-w-[220px] mx-auto mb-1">
+            <img
+              src="/brand/logo.png"
+              alt="St George Electrical"
+              className="w-full h-auto object-contain filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"
+            />
           </div>
-          <h1 className="text-2xl font-bold text-white tracking-tight">Admin Portal</h1>
-          <p className="text-xs text-slate-400">
+          <h1 className="text-2xl font-black text-[#071522] tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
+            Admin Portal
+          </h1>
+          <p className="text-xs text-slate-500">
             {BUSINESS.name} • Restricted Access
           </p>
         </div>
 
         {/* Lockout Warning */}
         {isLockedOut && (
-          <div className="p-4 rounded-xl bg-red-950/60 border border-red-800 text-red-200 text-sm flex items-start gap-3">
-            <AlertTriangle className="flex-shrink-0 text-red-400 mt-0.5" size={18} />
+          <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-800 text-sm flex items-start gap-3">
+            <AlertTriangle className="flex-shrink-0 text-red-600 mt-0.5" size={18} />
             <div>
               <p className="font-semibold">Security Lockout Active</p>
-              <p className="text-xs mt-1 text-red-300">
+              <p className="text-xs mt-1 text-red-700">
                 Too many incorrect login attempts. Please wait{" "}
-                <span className="font-mono font-bold text-white">
+                <span className="font-mono font-bold text-[#071522]">
                   {Math.floor(lockoutRemaining / 60)}m {lockoutRemaining % 60}s
                 </span>{" "}
                 before attempting to sign in again.
@@ -166,8 +172,8 @@ function LoginForm() {
 
         {/* Error Notice */}
         {errorMessage && !isLockedOut && (
-          <div className="p-3.5 rounded-xl bg-red-900/40 border border-red-700/60 text-red-200 text-xs flex items-center gap-2.5">
-            <AlertTriangle className="flex-shrink-0 text-red-400" size={16} />
+          <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-2.5">
+            <AlertTriangle className="flex-shrink-0 text-red-600" size={16} />
             <span>{errorMessage}</span>
           </div>
         )}
@@ -175,7 +181,7 @@ function LoginForm() {
         {/* Form */}
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
               Admin Email
             </label>
             <div className="relative">
@@ -189,13 +195,13 @@ function LoginForm() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="admin@stgeorgeelectrical.com.au"
-                className="w-full pl-10 pr-4 py-2.5 bg-slate-900/80 border border-slate-700 rounded-lg text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent disabled:opacity-50"
+                className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-[#071522] placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-orange-strong focus:border-transparent disabled:opacity-50"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
               Password
             </label>
             <div className="relative">
@@ -209,7 +215,7 @@ function LoginForm() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••••••"
-                className="w-full pl-10 pr-4 py-2.5 bg-slate-900/80 border border-slate-700 rounded-lg text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent disabled:opacity-50"
+                className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-[#071522] placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-orange-strong focus:border-transparent disabled:opacity-50"
               />
             </div>
           </div>
@@ -217,7 +223,7 @@ function LoginForm() {
           <button
             type="submit"
             disabled={isLockedOut || isLoading}
-            className="w-full py-3 px-4 bg-green hover:bg-green-light text-navy font-bold rounded-lg text-sm transition-colors shadow-lg hover:shadow-green/20 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+            className="btn-primary !w-full !py-3.5 text-sm font-black rounded-xl shadow-md flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
           >
             {isLoading ? (
               <>
@@ -231,11 +237,11 @@ function LoginForm() {
         </form>
 
         {/* Security & Return Note */}
-        <div className="pt-4 border-t border-slate-700/60 flex items-center justify-between text-xs text-slate-400">
-          <Link href="/" className="hover:text-slate-200 transition-colors">
+        <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+          <Link href="/" className="hover:text-orange-strong transition-colors">
             ← Return to Website
           </Link>
-          <span className="text-[11px] text-slate-500">Session timeout: 30m</span>
+          <span className="text-[11px] text-slate-400">Session timeout: 30m</span>
         </div>
       </div>
     </div>
@@ -246,8 +252,8 @@ export default function AdminLoginPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-slate-900 flex items-center justify-center">
-          <Loader2 className="animate-spin text-green" size={32} />
+        <div className="min-h-screen bg-[#071522] flex items-center justify-center">
+          <Loader2 className="animate-spin text-orange-strong" size={32} />
         </div>
       }
     >

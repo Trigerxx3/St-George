@@ -130,11 +130,11 @@ export default function AdminSettingsPage() {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-navy flex items-center gap-2">
-            <Sliders className="text-green" size={26} />
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#071522] tracking-tight flex items-center gap-2.5" style={{ fontFamily: "var(--font-heading)" }}>
+            <Sliders className="text-orange-strong" size={28} />
             Business &amp; Website Site Settings
           </h1>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-slate-500 mt-1">
             Centrally manage contact numbers, email addresses, business hours, and accreditation badges.
           </p>
         </div>
@@ -142,9 +142,9 @@ export default function AdminSettingsPage() {
         <button
           onClick={fetchSettings}
           disabled={isLoading}
-          className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-white border border-gray-300 rounded-lg text-xs font-semibold text-gray-700 hover:bg-gray-50 transition-colors shadow-sm cursor-pointer disabled:opacity-50"
+          className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors shadow-sm cursor-pointer disabled:opacity-50"
         >
-          <RefreshCw size={14} className={isLoading ? "animate-spin" : ""} />
+          <RefreshCw size={14} className={isLoading ? "animate-spin text-orange-strong" : "text-slate-400"} />
           Reload
         </button>
       </div>
@@ -164,8 +164,8 @@ export default function AdminSettingsPage() {
 
       <form onSubmit={handleSaveAll} className="space-y-6">
         {/* Core Business Information */}
-        <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm space-y-5">
-          <h2 className="text-base font-bold text-navy border-b border-gray-100 pb-3">
+        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-5">
+          <h2 className="text-base font-bold text-[#071522] border-b border-slate-100 pb-3">
             Primary Contact &amp; Licensing Information
           </h2>
 
@@ -174,8 +174,8 @@ export default function AdminSettingsPage() {
               const Icon = item.icon;
               return (
                 <div key={item.key} className="space-y-1.5">
-                  <label className="text-xs font-semibold text-gray-700 flex items-center gap-2">
-                    <Icon size={14} className="text-green" />
+                  <label className="text-xs font-bold text-slate-700 flex items-center gap-2">
+                    <Icon size={14} className="text-orange-strong" />
                     <span>{item.label}</span>
                   </label>
                   <input
@@ -185,7 +185,7 @@ export default function AdminSettingsPage() {
                       setSettings((prev) => ({ ...prev, [item.key]: e.target.value }))
                     }
                     placeholder={item.placeholder}
-                    className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg text-xs text-gray-800 focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent font-medium"
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-[#071522] placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-orange-strong font-medium"
                   />
                 </div>
               );
@@ -194,11 +194,11 @@ export default function AdminSettingsPage() {
         </div>
 
         {/* Custom Key-Value Settings */}
-        <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm space-y-4">
-          <div className="flex items-center justify-between border-b border-gray-100 pb-3">
+        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <div>
-              <h2 className="text-base font-bold text-navy">Additional Site Variables</h2>
-              <p className="text-xs text-gray-400">
+              <h2 className="text-base font-bold text-[#071522]">Additional Site Variables</h2>
+              <p className="text-xs text-slate-500 mt-0.5">
                 Custom keys read by website banners, footer, or dynamic components.
               </p>
             </div>
@@ -207,7 +207,7 @@ export default function AdminSettingsPage() {
               onClick={() =>
                 setCustomSettings((prev) => [...prev, { key: "", value: "" }])
               }
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-semibold rounded-lg transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-colors cursor-pointer border border-slate-200"
             >
               <Plus size={14} />
               Add Key
@@ -215,7 +215,7 @@ export default function AdminSettingsPage() {
           </div>
 
           {customSettings.length === 0 ? (
-            <p className="text-xs text-gray-400 italic">No custom variables configured.</p>
+            <p className="text-xs text-slate-400 italic">No custom variables configured.</p>
           ) : (
             <div className="space-y-3">
               {customSettings.map((item, idx) => (
@@ -229,7 +229,7 @@ export default function AdminSettingsPage() {
                       updated[idx].key = e.target.value;
                       setCustomSettings(updated);
                     }}
-                    className="w-1/3 px-3 py-2 border border-gray-300 rounded-lg text-xs font-mono"
+                    className="w-1/3 px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono text-[#071522] placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-orange-strong"
                   />
                   <input
                     type="text"
@@ -240,14 +240,14 @@ export default function AdminSettingsPage() {
                       updated[idx].value = e.target.value;
                       setCustomSettings(updated);
                     }}
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-xs"
+                    className="flex-1 px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-[#071522] placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-orange-strong"
                   />
                   <button
                     type="button"
                     onClick={() =>
                       setCustomSettings((prev) => prev.filter((_, i) => i !== idx))
                     }
-                    className="p-2 text-red-500 hover:bg-red-50 rounded cursor-pointer"
+                    className="p-2 text-red-500 hover:bg-red-50 rounded-lg cursor-pointer transition-colors"
                   >
                     <Trash2 size={16} />
                   </button>
@@ -262,14 +262,14 @@ export default function AdminSettingsPage() {
           <button
             type="submit"
             disabled={isSaving}
-            className="px-6 py-3 bg-green hover:bg-green-light text-navy text-xs font-bold rounded-lg shadow-md transition-colors flex items-center gap-2 cursor-pointer disabled:opacity-50"
+            className="btn-primary !py-3 !px-6 text-xs font-bold rounded-xl shadow-md flex items-center gap-2 cursor-pointer disabled:opacity-50"
           >
             {isSaving ? (
               <Loader2 size={16} className="animate-spin" />
             ) : (
               <Save size={16} />
             )}
-            <span>{isSaving ? "Saving Settings..." : "Save All Site Settings"}</span>
+            <span>Save All Settings</span>
           </button>
         </div>
       </form>

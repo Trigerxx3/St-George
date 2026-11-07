@@ -19,6 +19,7 @@ import {
   ShieldCheck,
   AlertCircle,
   Loader2,
+  Send,
 } from "lucide-react";
 import { BUSINESS } from "@/lib/constants";
 import { phoneHref } from "@/lib/utils";
@@ -116,6 +117,20 @@ export default function MultiStepQuoteForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submissionId, setSubmissionId] = useState("");
+  const [isArmedForSend, setIsArmedForSend] = useState(false);
+
+  // When transitioning to step 4, delay arming so any double-click or touch-through from Step 3 cannot trigger Send
+  useEffect(() => {
+    if (step === 4) {
+      setIsArmedForSend(false);
+      const timer = setTimeout(() => {
+        setIsArmedForSend(true);
+      }, 500);
+      return () => clearTimeout(timer);
+    } else {
+      setIsArmedForSend(false);
+    }
+  }, [step]);
 
   useEffect(() => {
     const serviceParam = searchParams.get("service");
@@ -197,9 +212,27 @@ export default function MultiStepQuoteForm() {
     setStep((s) => Math.max(s - 1, 1));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validateStep(3)) return;
+  // On Enter in text inputs, only advance to the next step—never submit
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && (e.target as HTMLElement).tagName !== "TEXTAREA") {
+      e.preventDefault();
+      if (step < 4) {
+        handleNext();
+      }
+    }
+  };
+
+  // Only ever called via manual, intentional click on the "Send Quote" button on Step 4
+  const handleSendQuote = async () => {
+    // Under no circumstances send unless the user is on Step 4 and armed
+    if (step !== 4) return;
+    if (!isArmedForSend) return;
+
+    // Validate that required fields in steps 1, 2, and 3 are present
+    if (!validateStep(1) || !validateStep(2) || !validateStep(3)) {
+      setErrors({ form: "Please review previous steps to ensure required contact details are provided." });
+      return;
+    }
 
     if (formData.honeypot) {
       setIsSubmitted(true);
@@ -350,7 +383,7 @@ export default function MultiStepQuoteForm() {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="p-6 sm:p-10">
+      <div onKeyDown={handleKeyDown} className="p-6 sm:p-10">
         {/* Honeypot */}
         <div className="hidden" aria-hidden="true">
           <input
@@ -679,23 +712,25 @@ export default function MultiStepQuoteForm() {
             </button>
           ) : (
             <button
-              type="submit"
-              disabled={isSubmitting}
-              className="btn-primary !py-3.5 !px-8 text-sm sm:text-base shadow-lg disabled:opacity-50 cursor-pointer ml-auto"
+              type="button"
+              disabled={isSubmitting || !isArmedForSend}
+              onClick={handleSendQuote}
+              className="btn-primary !py-3.5 !px-8 text-sm sm:text-base shadow-lg disabled:opacity-50 cursor-pointer ml-auto flex items-center gap-2"
             >
               {isSubmitting ? (
                 <>
-                  <Loader2 size={18} className="animate-spin" /> Submitting...
+                  <Loader2 size={18} className="animate-spin" /> Sending Quote...
                 </>
               ) : (
                 <>
-                  Submit Quote Request <CheckCircle2 size={18} />
+                  <span>Send Quote</span>
+                  <Send size={16} />
                 </>
               )}
             </button>
           )}
         </div>
-      </form>
+      </div>
     </div>
   );
 }

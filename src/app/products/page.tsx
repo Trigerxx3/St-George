@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { CATEGORIES, PRODUCTS } from "@/lib/catalogue-data";
+import { PublicProductGrid } from "@/components/products/public-product-grid";
 
 export const metadata: Metadata = {
   title: "Product Catalogue | Solar, Batteries, EV Chargers | St George Electrical",
@@ -34,97 +35,21 @@ export default function ProductsPage() {
             href="/products"
             className="px-4 py-2 rounded-full text-sm font-bold bg-orange-strong text-white shadow-sm"
           >
-            All Products ({PRODUCTS.length})
+            All Products
           </Link>
-          {CATEGORIES.map((cat) => {
-            const count = PRODUCTS.filter((p) => p.categorySlug === cat.slug).length;
-            return (
-              <Link
-                key={cat.slug}
-                href={`/products/${cat.slug}`}
-                className="px-4 py-2 rounded-full text-sm font-semibold bg-white text-gray-700 hover:border-orange-strong/40 hover:text-orange-strong border border-gray-200 transition-colors"
-              >
-                {cat.name} ({count})
-              </Link>
-            );
-          })}
-        </div>
-
-        {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {PRODUCTS.map((product) => (
-            <div
-              key={product.id}
-              className="card card-hover group flex flex-col justify-between overflow-hidden"
+          {CATEGORIES.map((cat) => (
+            <Link
+              key={cat.slug}
+              href={`/products/${cat.slug}`}
+              className="px-4 py-2 rounded-full text-sm font-semibold bg-white text-gray-700 hover:border-orange-strong/40 hover:text-orange-strong border border-gray-200 transition-colors"
             >
-              <div>
-                {product.images?.[0] && (
-                  <div className="relative h-48 -mx-6 -mt-6 mb-5 overflow-hidden bg-gray-100">
-                    <img
-                      src={product.images[0]}
-                      alt={product.name}
-                      width={600}
-                      height={400}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy-950/50 via-transparent to-transparent" />
-                  </div>
-                )}
-
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-extrabold text-orange-strong uppercase tracking-[0.14em]">
-                    {product.categoryName}
-                  </span>
-                  {product.badge && (
-                    <span className="inline-flex items-center gap-1 text-xs font-bold text-orange-strong bg-orange/10 px-2.5 py-0.5 rounded-full">
-                      <Sparkles size={12} /> {product.badge}
-                    </span>
-                  )}
-                </div>
-
-                <h3 className="text-xl text-ink mb-2 group-hover:text-orange-strong transition-colors">
-                  {product.name}
-                </h3>
-
-                <p className="text-body-muted text-xs sm:text-sm leading-relaxed mb-4">
-                  {product.shortDesc}
-                </p>
-
-                <div className="bg-off-white rounded-xl p-3.5 space-y-1.5 text-xs text-gray-700 mb-4 border border-gray-100">
-                  {Object.entries(product.specs).slice(0, 3).map(([k, v]) => (
-                    <div key={k} className="flex justify-between gap-2">
-                      <span className="text-gray-500">{k}:</span>
-                      <span className="font-semibold text-ink text-right">{v}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <p className="text-[11px] text-gray-500 mb-4 flex items-center gap-1.5">
-                  <ShieldCheck size={13} className="text-orange-strong shrink-0" />
-                  <span className="truncate">{product.warranty}</span>
-                </p>
-
-                <div className="grid grid-cols-2 gap-2.5 pt-3 border-t border-gray-100">
-                  <Link
-                    href={`/products/${product.categorySlug}/${product.slug}`}
-                    className="btn-outline-dark !py-2.5 !px-3 !text-xs"
-                  >
-                    View Specs
-                  </Link>
-                  <Link
-                    href={`/quote?service=${product.categorySlug}&product=${product.slug}`}
-                    className="btn-primary !py-2.5 !px-3 !text-xs"
-                  >
-                    Get Quote <ArrowUpRight size={13} />
-                  </Link>
-                </div>
-              </div>
-            </div>
+              {cat.name}
+            </Link>
           ))}
         </div>
+
+        {/* Products Grid (Client-hydrated for live admin enable/disable & add) */}
+        <PublicProductGrid initialProducts={PRODUCTS} />
 
         {/* Packages Teaser Banner */}
         <div className="section-dark rounded-3xl p-8 sm:p-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">

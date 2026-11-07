@@ -6,7 +6,7 @@ import HeroSlider from "@/components/home/hero-slider";
 
 export default function HeroSection() {
   return (
-    <section className="section-dark relative overflow-hidden bg-navy-950">
+    <section className="section-dark relative overflow-hidden bg-navy-950 min-h-screen min-h-[100dvh] flex flex-col justify-center">
       {/* ─── Hero Background Image + Atmospheric Overlay ─── */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <img
@@ -31,26 +31,26 @@ export default function HeroSection() {
 
       <WireLine className="left-0 right-0 bottom-0 w-full h-40 opacity-70 z-0" variant="sweep" />
 
-      <div className="container-custom relative z-10 pt-24 pb-16 lg:pt-32 lg:pb-28">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-12 items-center">
+      <div className="container-custom relative z-10 w-full pt-20 pb-14 lg:pt-28 lg:pb-16 flex-1 flex flex-col justify-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           {/* Left: copy & actions */}
           <div className="lg:col-span-7">
-            <span className="animate-fade-in-up eyebrow mb-6">
+            <span className="animate-fade-in-up eyebrow mb-4 sm:mb-6">
               ACT Licence #{BUSINESS.licence} · Licensed &amp; Insured
             </span>
 
-            <h1 className="animate-fade-in-up animate-delay-100 text-4xl sm:text-5xl lg:text-7xl mb-6">
+            <h1 className="animate-fade-in-up animate-delay-100 text-4xl sm:text-5xl lg:text-7xl mb-5 sm:mb-6 leading-[1.08]">
               Powering Your Home
               <br />
               <span className="text-accent">&amp; Business with Confidence</span>
             </h1>
 
-            <p className="animate-fade-in-up animate-delay-200 text-base sm:text-lg text-body-muted max-w-xl mb-9 leading-relaxed">
+            <p className="animate-fade-in-up animate-delay-200 text-base sm:text-lg text-body-muted max-w-xl mb-7 sm:mb-9 leading-relaxed">
               Solar panels, battery storage, EV chargers &amp; complete electrical services. Serving Canberra, ACT
               &amp; surrounding regions with quality workmanship and zero shortcuts.
             </p>
 
-            <div className="animate-fade-in-up animate-delay-400 flex flex-col sm:flex-row gap-3 sm:gap-4 mb-10">
+            <div className="animate-fade-in-up animate-delay-400 flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-10">
               <Link href="/quote" className="btn-primary !py-3.5 !px-8 text-base">
                 Get a Free Quote
                 <ArrowUpRight size={18} />

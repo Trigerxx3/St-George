@@ -181,22 +181,22 @@ export default function AdminServicesPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-navy flex items-center gap-2">
-            <Wrench className="text-green" size={26} />
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#071522] tracking-tight flex items-center gap-2.5" style={{ fontFamily: "var(--font-heading)" }}>
+            <Wrench className="text-orange-strong" size={28} />
             Service Management
           </h1>
-          <p className="text-sm text-gray-500">
-            Manage services across Solar & Battery, EV Chargers, and Electrical categories.
+          <p className="text-sm text-slate-500 mt-1">
+            Manage services across Solar & Battery, EV Chargers, Electrical, Heating & Cooling, and Security.
           </p>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2.5">
           <button
             onClick={fetchServices}
             disabled={isLoading}
-            className="inline-flex items-center gap-2 px-3.5 py-2 bg-white border border-gray-300 rounded-lg text-xs font-semibold text-gray-700 hover:bg-gray-50 shadow-sm transition-colors cursor-pointer disabled:opacity-50"
+            className="inline-flex items-center gap-2 px-3.5 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-50 shadow-sm transition-colors cursor-pointer disabled:opacity-50"
           >
-            <RefreshCw size={14} className={isLoading ? "animate-spin" : ""} />
+            <RefreshCw size={14} className={isLoading ? "animate-spin text-orange-strong" : "text-slate-400"} />
             Refresh
           </button>
           <button
@@ -212,7 +212,7 @@ export default function AdminServicesPage() {
               });
               setIsEditing(true);
             }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-green hover:bg-green-light text-navy text-xs font-bold rounded-lg shadow-sm transition-colors cursor-pointer"
+            className="btn-primary !py-2 !px-4 text-xs font-bold rounded-xl shadow-md flex items-center gap-2"
           >
             <Plus size={16} />
             Add New Service
@@ -227,87 +227,87 @@ export default function AdminServicesPage() {
       )}
 
       {/* Services List Table */}
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
         {isLoading ? (
-          <div className="p-12 text-center text-gray-500 flex flex-col items-center gap-3">
-            <RefreshCw size={24} className="animate-spin text-green" />
+          <div className="p-12 text-center text-slate-400 flex flex-col items-center gap-3">
+            <RefreshCw size={24} className="animate-spin text-orange-strong" />
             <span className="text-sm">Loading services...</span>
           </div>
         ) : services.length === 0 ? (
-          <div className="p-12 text-center text-gray-500">
-            <Wrench size={40} className="mx-auto text-gray-300 mb-3" />
-            <h3 className="text-base font-bold text-gray-700">No services in database</h3>
-            <p className="text-xs text-gray-400 mt-1">Click &ldquo;Add New Service&rdquo; above to create one.</p>
+          <div className="p-12 text-center text-slate-400">
+            <Wrench size={40} className="mx-auto text-slate-300 mb-3" />
+            <h3 className="text-base font-bold text-[#071522]">No services in database</h3>
+            <p className="text-xs text-slate-500 mt-1">Click &ldquo;Add New Service&rdquo; above to create one.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-gray-50 border-b border-gray-200 text-gray-500 uppercase tracking-wider font-semibold">
+              <thead className="bg-slate-50 border-b border-slate-200 text-slate-600 uppercase tracking-wider font-bold">
                 <tr>
-                  <th className="py-3 px-4 w-12 text-center">Order</th>
-                  <th className="py-3 px-4">Service Details</th>
-                  <th className="py-3 px-4">Category</th>
-                  <th className="py-3 px-4 text-center">Active Status</th>
-                  <th className="py-3 px-4 text-right">Actions</th>
+                  <th className="py-3.5 px-4 w-12 text-center">Order</th>
+                  <th className="py-3.5 px-4">Service Details</th>
+                  <th className="py-3.5 px-4">Category</th>
+                  <th className="py-3.5 px-4 text-center">Active Status</th>
+                  <th className="py-3.5 px-4 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-slate-100 text-slate-700">
                 {services.map((s) => (
-                  <tr key={s.id} className="hover:bg-slate-50 transition-colors">
-                    <td className="py-3 px-4 text-center font-mono font-bold text-gray-400">
+                  <tr key={s.id} className="hover:bg-slate-50/70 transition-colors">
+                    <td className="py-3.5 px-4 text-center font-mono font-bold text-slate-400">
                       {s.sort_order}
                     </td>
-                    <td className="py-3 px-4">
+                    <td className="py-3.5 px-4">
                       <div className="flex items-center gap-3">
                         {s.image_url ? (
                           <img
                             src={s.image_url}
                             alt=""
-                            className="w-10 h-10 object-cover rounded-lg border border-gray-200"
+                            className="w-10 h-10 object-cover rounded-xl border border-slate-200"
                           />
                         ) : (
-                          <div className="w-10 h-10 rounded-lg bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-400">
+                          <div className="w-10 h-10 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-400">
                             <ImageIcon size={16} />
                           </div>
                         )}
                         <div>
-                          <p className="font-bold text-navy text-sm">{s.title}</p>
-                          <p className="text-[11px] font-mono text-gray-400">/{s.slug}</p>
+                          <p className="font-bold text-[#071522] text-sm">{s.title}</p>
+                          <p className="text-[11px] font-mono text-slate-400">/{s.slug}</p>
                         </div>
                       </div>
                     </td>
-                    <td className="py-3 px-4">
-                      <span className="capitalize px-2 py-0.5 rounded text-[11px] font-semibold bg-gray-100 text-gray-700">
+                    <td className="py-3.5 px-4">
+                      <span className="capitalize px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-100 text-slate-700 border border-slate-200">
                         {s.category.replace("_", " & ")}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-center">
+                    <td className="py-3.5 px-4 text-center">
                       <button
                         onClick={() => handleToggleActive(s)}
-                        className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold cursor-pointer transition-colors ${
+                        className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold cursor-pointer transition-colors ${
                           s.is_active
-                            ? "bg-emerald-100 text-emerald-800 hover:bg-emerald-200"
-                            : "bg-gray-100 text-gray-500 hover:bg-gray-200"
+                            ? "bg-emerald-50 text-emerald-700 border border-emerald-300 hover:bg-emerald-100"
+                            : "bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200"
                         }`}
                       >
                         {s.is_active ? <CheckCircle size={12} /> : <XCircle size={12} />}
                         {s.is_active ? "Active" : "Disabled"}
                       </button>
                     </td>
-                    <td className="py-3 px-4 text-right space-x-2">
+                    <td className="py-3.5 px-4 text-right space-x-2">
                       <button
                         onClick={() => {
                           setCurrentService(s);
                           setIsEditing(true);
                         }}
-                        className="p-1.5 text-navy hover:bg-gray-100 rounded transition-colors cursor-pointer"
+                        className="p-2 text-slate-600 hover:text-[#071522] hover:bg-slate-100 rounded-lg transition-colors cursor-pointer"
                         title="Edit"
                       >
                         <Edit size={16} />
                       </button>
                       <button
                         onClick={() => handleDeleteService(s.id)}
-                        className="p-1.5 text-red-600 hover:bg-red-50 rounded transition-colors cursor-pointer"
+                        className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
                         title="Delete"
                       >
                         <Trash2 size={16} />
@@ -323,13 +323,13 @@ export default function AdminServicesPage() {
 
       {/* Edit / Create Modal */}
       {isEditing && currentService && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-[#071522]/60 backdrop-blur-sm flex items-center justify-center p-4">
           <form
             onSubmit={handleSaveService}
-            className="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl border border-gray-200 space-y-4 max-h-[90vh] overflow-y-auto"
+            className="bg-white text-slate-800 rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-4 max-h-[90vh] overflow-y-auto"
           >
-            <div className="flex items-center justify-between border-b border-gray-100 pb-3">
-              <h3 className="text-lg font-bold text-navy">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <h3 className="text-lg font-bold text-[#071522]">
                 {currentService.id ? "Edit Service" : "Add New Service"}
               </h3>
               <button
@@ -338,14 +338,14 @@ export default function AdminServicesPage() {
                   setIsEditing(false);
                   setCurrentService(null);
                 }}
-                className="text-gray-400 hover:text-gray-600 p-1 cursor-pointer"
+                className="text-slate-400 hover:text-slate-700 p-1 rounded-full hover:bg-slate-100 cursor-pointer transition-colors"
               >
                 ✕
               </button>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-gray-700 uppercase mb-1">
+              <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
                 Service Title *
               </label>
               <input
@@ -360,14 +360,14 @@ export default function AdminServicesPage() {
                     slug: prev?.slug || val.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
                   }));
                 }}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs"
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-[#071522] placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-orange-strong"
                 placeholder="Residential Solar & Battery"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-semibold text-gray-700 uppercase mb-1">
+                <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
                   Slug (URL) *
                 </label>
                 <input
@@ -377,13 +377,13 @@ export default function AdminServicesPage() {
                   onChange={(e) =>
                     setCurrentService((prev) => ({ ...prev, slug: e.target.value }))
                   }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs font-mono"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono text-[#071522] placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-orange-strong"
                   placeholder="residential-solar"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-gray-700 uppercase mb-1">
+                <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
                   Sort Order
                 </label>
                 <input
@@ -395,13 +395,13 @@ export default function AdminServicesPage() {
                       sort_order: parseInt(e.target.value, 10),
                     }))
                   }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs font-mono"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono text-[#071522] focus:outline-none focus:bg-white focus:ring-2 focus:ring-orange-strong"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-gray-700 uppercase mb-1">
+              <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
                 Category *
               </label>
               <select
@@ -412,7 +412,7 @@ export default function AdminServicesPage() {
                     category: e.target.value as ServiceCategory,
                   }))
                 }
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs bg-white"
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-[#071522] focus:outline-none focus:bg-white focus:ring-2 focus:ring-orange-strong cursor-pointer font-semibold"
               >
                 <option value="solar_battery">Solar & Battery</option>
                 <option value="ev_charger">EV Charger</option>
@@ -421,7 +421,7 @@ export default function AdminServicesPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-gray-700 uppercase mb-1">
+              <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
                 Description
               </label>
               <textarea
@@ -430,14 +430,14 @@ export default function AdminServicesPage() {
                 onChange={(e) =>
                   setCurrentService((prev) => ({ ...prev, description: e.target.value }))
                 }
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs"
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-[#071522] placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-orange-strong"
                 placeholder="Comprehensive description of the service and capabilities..."
               />
             </div>
 
             {/* Image Upload */}
             <div>
-              <label className="block text-xs font-semibold text-gray-700 uppercase mb-1">
+              <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
                 Service Photo (Supabase Storage)
               </label>
               <div className="flex items-center gap-3">
@@ -445,12 +445,12 @@ export default function AdminServicesPage() {
                   <img
                     src={currentService.image_url}
                     alt="Preview"
-                    className="w-14 h-14 object-cover rounded-lg border border-gray-200"
+                    className="w-14 h-14 object-cover rounded-xl border border-slate-200"
                   />
                 )}
-                <label className="flex items-center gap-2 px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-semibold rounded-lg cursor-pointer border border-gray-300 transition-colors">
+                <label className="flex items-center gap-2 px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl cursor-pointer border border-slate-200 transition-colors">
                   {uploadingImage ? (
-                    <Loader2 size={14} className="animate-spin text-green" />
+                    <Loader2 size={14} className="animate-spin text-orange-strong" />
                   ) : (
                     <Upload size={14} />
                   )}
@@ -471,7 +471,7 @@ export default function AdminServicesPage() {
                   onChange={(e) =>
                     setCurrentService((prev) => ({ ...prev, image_url: e.target.value }))
                   }
-                  className="w-full mt-2 px-2 py-1 border border-gray-200 rounded text-[11px] font-mono text-gray-500"
+                  className="w-full mt-2 px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-[11px] font-mono text-[#071522]"
                   placeholder="Or enter direct image URL"
                 />
               )}
@@ -485,28 +485,28 @@ export default function AdminServicesPage() {
                 onChange={(e) =>
                   setCurrentService((prev) => ({ ...prev, is_active: e.target.checked }))
                 }
-                className="w-4 h-4 text-green focus:ring-green rounded"
+                className="w-4 h-4 text-orange-strong focus:ring-orange-strong rounded cursor-pointer"
               />
-              <label htmlFor="is_active" className="text-xs font-medium text-gray-700">
+              <label htmlFor="is_active" className="text-xs font-medium text-slate-700 cursor-pointer">
                 Active and visible on public website
               </label>
             </div>
 
-            <div className="flex justify-end gap-2 pt-4 border-t border-gray-100">
+            <div className="flex justify-end gap-2.5 pt-4 border-t border-slate-100">
               <button
                 type="button"
                 onClick={() => {
                   setIsEditing(false);
                   setCurrentService(null);
                 }}
-                className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-semibold rounded-lg transition-colors cursor-pointer"
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-colors cursor-pointer border border-slate-200"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={isSaving}
-                className="px-4 py-2 bg-green hover:bg-green-light text-navy text-xs font-bold rounded-lg transition-colors flex items-center gap-2 cursor-pointer disabled:opacity-50"
+                className="btn-primary !py-2 !px-5 text-xs font-bold rounded-xl shadow-md flex items-center gap-2 cursor-pointer disabled:opacity-50"
               >
                 {isSaving && <Loader2 size={14} className="animate-spin" />}
                 <span>Save Service</span>

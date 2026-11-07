@@ -10,6 +10,7 @@ import {
   Zap,
 } from "lucide-react";
 import { PACKAGES } from "@/lib/catalogue-data";
+import { getStoredPackages } from "@/lib/packages-store";
 import { BUSINESS } from "@/lib/constants";
 import { phoneHref } from "@/lib/utils";
 
@@ -18,14 +19,16 @@ interface Props {
 }
 
 export function generateStaticParams() {
-  return PACKAGES.map((pkg) => ({
+  const packages = getStoredPackages();
+  return packages.map((pkg) => ({
     slug: pkg.slug,
   }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const pkg = PACKAGES.find((p) => p.slug === slug);
+  const packages = getStoredPackages();
+  const pkg = packages.find((p) => p.slug === slug);
   if (!pkg) return { title: "Package Not Found" };
 
   return {
@@ -36,13 +39,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function PackageDetailPage({ params }: Props) {
   const { slug } = await params;
-  const pkg = PACKAGES.find((p) => p.slug === slug);
+  const packages = getStoredPackages();
+  const pkg = packages.find((p) => p.slug === slug);
 
-  if (!pkg) {
+  if (!pkg || pkg.isActive === false) {
     notFound();
   }
 
-  const otherPackages = PACKAGES.filter((p) => p.slug !== slug).slice(0, 2);
+  const otherPackages = packages.filter((p) => p.slug !== slug && p.isActive !== false).slice(0, 2);
 
   return (
     <div className="section-light min-h-screen py-10 lg:py-16">

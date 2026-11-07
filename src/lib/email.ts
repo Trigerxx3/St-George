@@ -18,9 +18,11 @@ export async function sendNotificationEmail({
   html,
 }: SendEmailParams): Promise<{ success: boolean; id?: string }> {
   const apiKey = process.env.RESEND_API_KEY;
+  const recipient = process.env.NOTIFICATION_EMAIL || to || BUSINESS.email;
+  const fromAddress = process.env.EMAIL_FROM || "St George Electrical <onboarding@resend.dev>";
 
   if (!apiKey) {
-    console.log(`[Email Mock] To: ${to} | Subject: ${subject}`);
+    console.log(`[Email Mock] To: ${recipient} | Subject: ${subject}`);
     console.log(`[Email Mock Text]:\n${text}`);
     return { success: true, id: "mock-" + Date.now() };
   }
@@ -33,8 +35,8 @@ export async function sendNotificationEmail({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: process.env.EMAIL_FROM || "St George Electrical <notifications@stgeorgeelectrical.com.au>",
-        to: [to],
+        from: fromAddress,
+        to: [recipient],
         subject,
         text,
         html,
@@ -48,6 +50,7 @@ export async function sendNotificationEmail({
     }
 
     const data = await res.json();
+    console.log(`[Email Dispatched] To: ${recipient} | Resend ID: ${data.id}`);
     return { success: true, id: data.id };
   } catch (error) {
     console.error("[Email Dispatch Exception]", error);

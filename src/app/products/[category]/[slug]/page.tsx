@@ -9,6 +9,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { PRODUCTS } from "@/lib/catalogue-data";
+import { getStoredProducts } from "@/lib/products-store";
 import { BUSINESS } from "@/lib/constants";
 import { phoneHref } from "@/lib/utils";
 
@@ -25,7 +26,8 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const product = PRODUCTS.find((p) => p.slug === slug);
+  const allProducts = getStoredProducts();
+  const product = allProducts.find((p) => p.slug === slug);
   if (!product) return { title: "Product Not Found" };
 
   return {
@@ -36,14 +38,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProductDetailPage({ params }: Props) {
   const { category, slug } = await params;
-  const product = PRODUCTS.find((p) => p.slug === slug && p.categorySlug === category);
+  const allProducts = getStoredProducts();
+  const product = allProducts.find((p) => p.slug === slug && p.categorySlug === category);
 
   if (!product) {
     notFound();
   }
 
-  const related = PRODUCTS.filter(
-    (p) => p.categorySlug === category && p.slug !== slug
+  const related = allProducts.filter(
+    (p) => p.categorySlug === category && p.slug !== slug && p.isActive !== false
   ).slice(0, 3);
 
   const productSchema = {

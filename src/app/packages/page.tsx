@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight, CheckCircle2, Zap, Sparkles } from "lucide-react";
-import { PACKAGES } from "@/lib/catalogue-data";
+import { getStoredPackages } from "@/lib/packages-store";
 
 export const metadata: Metadata = {
   title: "Special Solar + Battery Packages & Prices Canberra | St George Electrical",
@@ -10,6 +10,8 @@ export const metadata: Metadata = {
 };
 
 export default function PackagesPage() {
+  const packages = getStoredPackages().filter((pkg) => pkg.isActive !== false);
+
   return (
     <div className="section-light min-h-screen">
       <section className="section-dark py-16 lg:py-24">
@@ -30,7 +32,7 @@ export default function PackagesPage() {
 
       <div className="container-custom py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {PACKAGES.map((pkg) => (
+          {packages.map((pkg) => (
             <div
               key={pkg.id}
               className="card card-hover flex flex-col justify-between relative overflow-hidden !border-orange-strong/30 shadow-xl"

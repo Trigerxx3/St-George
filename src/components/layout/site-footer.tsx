@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Phone, Mail, MapPin, Shield, Award, ArrowRight, ArrowUp } from "lucide-react";
 import { BUSINESS, SERVICES, SERVICE_AREAS } from "@/lib/constants";
 import { phoneHref } from "@/lib/utils";
+import { SocialLinks } from "@/components/ui/social-icons";
 
 const linkClass = "text-[#9fb2c8] hover:text-white transition-colors";
 const headingClass = "text-white font-extrabold text-sm uppercase tracking-[0.14em] mb-5";
@@ -36,14 +37,14 @@ export default function SiteFooter() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
           {/* Column 1: Brand & Contact */}
           <div className="lg:col-span-4">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-11 h-11 rounded-xl border border-orange/40 bg-white/5 flex items-center justify-center">
-                <span className="text-orange-light font-extrabold text-lg">SG</span>
-              </div>
-              <div>
-                <div className="text-white font-extrabold text-[15px] tracking-tight">St George Electrical</div>
-                <div className="text-xs">Energy Solutions</div>
-              </div>
+            <div className="mb-4">
+              <Link href="/" className="inline-block group py-1" aria-label="St George Electrical Home">
+                <img
+                  src="/brand/logo.png"
+                  alt="St George Electrical Energy Solutions"
+                  className="w-auto h-16 sm:h-20 object-contain filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)] group-hover:drop-shadow-[0_0_18px_rgba(232,117,26,0.4)] transition-all duration-300 group-hover:scale-105"
+                />
+              </Link>
             </div>
             <p className="text-sm mb-5 max-w-xs">{BUSINESS.tagline}</p>
 
@@ -67,6 +68,14 @@ export default function SiteFooter() {
                   {BUSINESS.address.suburb}, {BUSINESS.address.state} {BUSINESS.address.postcode}
                 </span>
               </div>
+            </div>
+
+            {/* Social Media Links */}
+            <div className="mt-6 pt-5 border-t border-white/10">
+              <span className="block text-xs font-semibold uppercase tracking-wider text-white/70 mb-3">
+                Connect With Us
+              </span>
+              <SocialLinks />
             </div>
           </div>
 

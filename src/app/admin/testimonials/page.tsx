@@ -133,23 +133,23 @@ export default function AdminTestimonialsPage() {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-navy flex items-center gap-2">
-            <MessageSquareQuote className="text-green" size={26} />
-            Testimonials & Customer Reviews
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#071522] tracking-tight flex items-center gap-2.5" style={{ fontFamily: "var(--font-heading)" }}>
+            <MessageSquareQuote className="text-orange-strong" size={28} />
+            Testimonials &amp; Customer Reviews
           </h1>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-slate-500 mt-1">
             Publish, edit and manage customer reviews shown across the website.
           </p>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2.5">
           <Link
             href="/testimonials"
             target="_blank"
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-white border border-gray-300 rounded-lg text-xs font-semibold text-gray-700 hover:bg-gray-50 transition-colors shadow-sm"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors shadow-sm"
           >
             <span>View Public Page</span>
-            <ExternalLink size={14} />
+            <ExternalLink size={14} className="text-slate-400" />
           </Link>
 
           <button
@@ -157,7 +157,7 @@ export default function AdminTestimonialsPage() {
               setCurrentTestimonial({ name: "", text: "", rating: 5, is_published: true });
               setIsEditing(true);
             }}
-            className="inline-flex items-center gap-1.5 px-4 py-2 bg-green hover:bg-green-light text-navy text-xs font-bold rounded-lg shadow-sm transition-colors cursor-pointer"
+            className="btn-primary !py-2 !px-4 text-xs font-bold rounded-xl shadow-md flex items-center gap-1.5"
           >
             <Plus size={16} />
             Add Testimonial
@@ -173,23 +173,23 @@ export default function AdminTestimonialsPage() {
 
       {/* Grid of Testimonials */}
       {isLoading ? (
-        <div className="p-12 text-center text-gray-500 flex flex-col items-center gap-3">
-          <RefreshCw size={24} className="animate-spin text-green" />
+        <div className="p-12 text-center text-slate-400 flex flex-col items-center gap-3">
+          <RefreshCw size={24} className="animate-spin text-orange-strong" />
           <span className="text-sm">Loading testimonials...</span>
         </div>
       ) : testimonials.length === 0 ? (
-        <div className="bg-white rounded-xl border border-gray-200 p-12 text-center text-gray-500">
-          <MessageSquareQuote size={40} className="mx-auto text-gray-300 mb-3" />
-          <h3 className="text-base font-bold text-gray-700">No testimonials published</h3>
-          <p className="text-xs text-gray-400 mt-1">Click &ldquo;Add Testimonial&rdquo; to add your first customer review.</p>
+        <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center text-slate-400 shadow-sm">
+          <MessageSquareQuote size={40} className="mx-auto text-slate-300 mb-3" />
+          <h3 className="text-base font-bold text-[#071522]">No testimonials published</h3>
+          <p className="text-xs text-slate-500 mt-1">Click &ldquo;Add Testimonial&rdquo; to add your first customer review.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {testimonials.map((t) => (
             <div
               key={t.id}
-              className={`bg-white rounded-xl border p-5 shadow-sm flex flex-col justify-between transition-all ${
-                t.is_published ? "border-gray-200" : "border-gray-200 opacity-60 bg-gray-50"
+              className={`bg-white rounded-2xl border p-5 shadow-sm flex flex-col justify-between transition-all hover:border-orange-strong/50 hover:shadow-md ${
+                t.is_published ? "border-slate-200" : "border-slate-200 opacity-60 bg-slate-50"
               }`}
             >
               <div className="space-y-3">
@@ -200,17 +200,17 @@ export default function AdminTestimonialsPage() {
                         key={i}
                         size={14}
                         fill={i < t.rating ? "currentColor" : "none"}
-                        className={i < t.rating ? "text-amber-400" : "text-gray-300"}
+                        className={i < t.rating ? "text-amber-400" : "text-slate-200"}
                       />
                     ))}
                   </div>
 
                   <button
                     onClick={() => handleTogglePublished(t)}
-                    className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold cursor-pointer ${
+                    className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold cursor-pointer ${
                       t.is_published
-                        ? "bg-emerald-100 text-emerald-800"
-                        : "bg-gray-200 text-gray-600"
+                        ? "bg-emerald-50 text-emerald-700 border border-emerald-300"
+                        : "bg-slate-100 text-slate-600 border border-slate-200"
                     }`}
                   >
                     {t.is_published ? <CheckCircle2 size={10} /> : <XCircle size={10} />}
@@ -218,15 +218,15 @@ export default function AdminTestimonialsPage() {
                   </button>
                 </div>
 
-                <p className="text-xs text-gray-700 italic leading-relaxed">
+                <p className="text-xs text-slate-700 italic leading-relaxed">
                   &ldquo;{t.text}&rdquo;
                 </p>
               </div>
 
-              <div className="pt-4 mt-4 border-t border-gray-100 flex items-center justify-between">
+              <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between">
                 <div>
-                  <h4 className="font-bold text-navy text-xs">{t.name}</h4>
-                  <span className="text-[10px] text-gray-400">
+                  <h4 className="font-bold text-[#071522] text-xs">{t.name}</h4>
+                  <span className="text-[10px] text-slate-400">
                     {new Date(t.created_at).toLocaleDateString("en-AU")}
                   </span>
                 </div>
@@ -237,14 +237,14 @@ export default function AdminTestimonialsPage() {
                       setCurrentTestimonial(t);
                       setIsEditing(true);
                     }}
-                    className="p-1.5 text-navy hover:bg-gray-100 rounded transition-colors cursor-pointer"
+                    className="p-1.5 text-slate-600 hover:text-[#071522] hover:bg-slate-100 rounded-lg transition-colors cursor-pointer"
                     title="Edit"
                   >
                     <Edit size={14} />
                   </button>
                   <button
                     onClick={() => handleDelete(t.id)}
-                    className="p-1.5 text-red-600 hover:bg-red-50 rounded transition-colors cursor-pointer"
+                    className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
                     title="Delete"
                   >
                     <Trash2 size={14} />
@@ -258,13 +258,13 @@ export default function AdminTestimonialsPage() {
 
       {/* Edit / Create Modal */}
       {isEditing && currentTestimonial && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-[#071522]/60 backdrop-blur-sm flex items-center justify-center p-4">
           <form
             onSubmit={handleSave}
-            className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-gray-200 space-y-4"
+            className="bg-white text-slate-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-4"
           >
-            <div className="flex items-center justify-between border-b border-gray-100 pb-3">
-              <h3 className="text-lg font-bold text-navy">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <h3 className="text-lg font-bold text-[#071522]">
                 {currentTestimonial.id ? "Edit Testimonial" : "Add Testimonial"}
               </h3>
               <button
@@ -273,15 +273,15 @@ export default function AdminTestimonialsPage() {
                   setIsEditing(false);
                   setCurrentTestimonial(null);
                 }}
-                className="text-gray-400 hover:text-gray-600 p-1 cursor-pointer"
+                className="text-slate-400 hover:text-slate-700 p-1 rounded-full hover:bg-slate-100 cursor-pointer transition-colors"
               >
                 ✕
               </button>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-gray-700 uppercase mb-1">
-                Customer Name & Suburb *
+              <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+                Customer Name &amp; Suburb *
               </label>
               <input
                 type="text"
@@ -291,12 +291,12 @@ export default function AdminTestimonialsPage() {
                   setCurrentTestimonial((prev) => ({ ...prev, name: e.target.value }))
                 }
                 placeholder="e.g. David M. - Gungahlin, ACT"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs"
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-[#071522] placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-orange-strong"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-gray-700 uppercase mb-1">
+              <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
                 Rating (1 - 5 Stars) *
               </label>
               <select
@@ -307,7 +307,7 @@ export default function AdminTestimonialsPage() {
                     rating: parseInt(e.target.value, 10),
                   }))
                 }
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs bg-white"
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-[#071522] focus:outline-none focus:bg-white focus:ring-2 focus:ring-orange-strong cursor-pointer font-semibold"
               >
                 <option value={5}>⭐⭐⭐⭐⭐ (5 Stars)</option>
                 <option value={4}>⭐⭐⭐⭐ (4 Stars)</option>
@@ -318,7 +318,7 @@ export default function AdminTestimonialsPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-gray-700 uppercase mb-1">
+              <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
                 Review Text *
               </label>
               <textarea
@@ -328,8 +328,8 @@ export default function AdminTestimonialsPage() {
                 onChange={(e) =>
                   setCurrentTestimonial((prev) => ({ ...prev, text: e.target.value }))
                 }
-                placeholder="What the customer said about Justin and St George Electrical..."
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs leading-relaxed"
+                placeholder="What the customer said about St George Electrical..."
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-[#071522] placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-orange-strong leading-relaxed"
               />
             </div>
 
@@ -341,28 +341,28 @@ export default function AdminTestimonialsPage() {
                 onChange={(e) =>
                   setCurrentTestimonial((prev) => ({ ...prev, is_published: e.target.checked }))
                 }
-                className="w-4 h-4 text-green focus:ring-green rounded"
+                className="w-4 h-4 text-orange-strong focus:ring-orange-strong rounded cursor-pointer"
               />
-              <label htmlFor="is_published" className="text-xs font-medium text-gray-700">
+              <label htmlFor="is_published" className="text-xs font-medium text-slate-700 cursor-pointer">
                 Publish immediately to website
               </label>
             </div>
 
-            <div className="flex justify-end gap-2 pt-4 border-t border-gray-100">
+            <div className="flex justify-end gap-2.5 pt-4 border-t border-slate-100">
               <button
                 type="button"
                 onClick={() => {
                   setIsEditing(false);
                   setCurrentTestimonial(null);
                 }}
-                className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-semibold rounded-lg transition-colors cursor-pointer"
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-colors cursor-pointer border border-slate-200"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={isSaving}
-                className="px-4 py-2 bg-green hover:bg-green-light text-navy text-xs font-bold rounded-lg transition-colors flex items-center gap-2 cursor-pointer disabled:opacity-50"
+                className="btn-primary !py-2 !px-5 text-xs font-bold rounded-xl shadow-md flex items-center gap-2 cursor-pointer disabled:opacity-50"
               >
                 {isSaving && <Loader2 size={14} className="animate-spin" />}
                 <span>Save Review</span>

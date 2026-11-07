@@ -111,13 +111,13 @@ export default function AdminEnquiriesPage() {
   const getStatusBadge = (status: EnquiryStatus) => {
     switch (status) {
       case "new":
-        return <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200"><Clock size={12} /> New</span>;
+        return <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-orange-50 text-orange-700 border border-orange-200"><Clock size={12} /> New</span>;
       case "contacted":
-        return <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 border border-blue-200"><PhoneCall size={12} /> Contacted</span>;
+        return <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200"><PhoneCall size={12} /> Contacted</span>;
       case "quoted":
-        return <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 border border-amber-200"><FileCheck size={12} /> Quoted</span>;
+        return <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-700 border border-amber-200"><FileCheck size={12} /> Quoted</span>;
       case "closed":
-        return <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-700 border border-gray-300"><CheckCircle size={12} /> Closed</span>;
+        return <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200"><CheckCircle size={12} /> Closed</span>;
     }
   };
 
@@ -207,16 +207,16 @@ export default function AdminEnquiriesPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-navy flex items-center gap-2">
-            <Inbox className="text-green" size={26} />
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#071522] tracking-tight flex items-center gap-2.5" style={{ fontFamily: "var(--font-heading)" }}>
+            <Inbox className="text-orange-strong" size={28} />
             Customer Enquiries &amp; Leads
           </h1>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-slate-500 mt-1">
             Real-time customer inquiries from website contact, quote, and booking request forms.
           </p>
         </div>
 
-        <div className="flex items-center gap-2 relative">
+        <div className="flex items-center gap-2.5 relative">
           {/* Export to Excel Dropdown Button */}
           <div className="relative">
             <button
@@ -227,7 +227,7 @@ export default function AdminEnquiriesPage() {
                   setShowExportMenu((prev) => !prev);
                 }
               }}
-              className="inline-flex items-center gap-2 px-3.5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg text-xs font-bold shadow-sm transition-colors cursor-pointer"
+              className="inline-flex items-center gap-2 px-3.5 py-2.5 bg-orange-strong hover:bg-orange text-white rounded-xl text-xs font-bold shadow-md transition-colors cursor-pointer border-0"
               title="Export enquiries to Excel spreadsheet"
             >
               <FileSpreadsheet size={15} />
@@ -235,7 +235,7 @@ export default function AdminEnquiriesPage() {
               {isFiltered ? (
                 <ChevronDown size={14} className={showExportMenu ? "rotate-180 transition-transform" : ""} />
               ) : (
-                <span className="bg-emerald-900/60 px-1.5 py-0.5 rounded text-[10px]">
+                <span className="bg-black/20 px-1.5 py-0.5 rounded text-[10px]">
                   {enquiries.length}
                 </span>
               )}
@@ -243,29 +243,29 @@ export default function AdminEnquiriesPage() {
 
             {/* Dropdown for Filtered vs All */}
             {showExportMenu && isFiltered && (
-              <div className="absolute right-0 mt-1.5 w-56 bg-white border border-gray-200 rounded-xl shadow-xl z-30 py-1.5 animate-in fade-in zoom-in-95">
+              <div className="absolute right-0 mt-1.5 w-56 bg-white border border-slate-200 rounded-xl shadow-2xl z-30 py-1.5 animate-in fade-in zoom-in-95">
                 <button
                   onClick={() => exportToExcel(filteredEnquiries, "filtered")}
-                  className="w-full text-left px-4 py-2 text-xs text-gray-700 hover:bg-slate-50 flex items-center justify-between cursor-pointer"
+                  className="w-full text-left px-4 py-2.5 text-xs text-slate-700 hover:bg-slate-50 flex items-center justify-between cursor-pointer"
                 >
                   <div className="flex items-center gap-2">
-                    <Download size={13} className="text-emerald-600" />
-                    <span className="font-semibold">Export Filtered Leads</span>
+                    <Download size={13} className="text-orange-strong" />
+                    <span className="font-semibold text-[#071522]">Export Filtered Leads</span>
                   </div>
-                  <span className="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded text-[10px]">
+                  <span className="bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded text-[10px]">
                     {filteredEnquiries.length}
                   </span>
                 </button>
 
                 <button
                   onClick={() => exportToExcel(enquiries, "all")}
-                  className="w-full text-left px-4 py-2 text-xs text-gray-700 hover:bg-slate-50 flex items-center justify-between border-t border-gray-100 cursor-pointer"
+                  className="w-full text-left px-4 py-2.5 text-xs text-slate-700 hover:bg-slate-50 flex items-center justify-between border-t border-slate-100 cursor-pointer"
                 >
                   <div className="flex items-center gap-2">
-                    <Download size={13} className="text-gray-400" />
-                    <span>Export All Enquiries</span>
+                    <Download size={13} className="text-slate-400" />
+                    <span className="text-slate-600">Export All Enquiries</span>
                   </div>
-                  <span className="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded text-[10px]">
+                  <span className="bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded text-[10px]">
                     {enquiries.length}
                   </span>
                 </button>
@@ -276,9 +276,9 @@ export default function AdminEnquiriesPage() {
           <button
             onClick={fetchEnquiries}
             disabled={isLoading}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-white border border-gray-300 rounded-lg text-xs font-semibold text-gray-700 hover:bg-gray-50 shadow-sm transition-colors cursor-pointer disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-50 shadow-sm transition-colors cursor-pointer disabled:opacity-50"
           >
-            <RefreshCw size={14} className={isLoading ? "animate-spin" : ""} />
+            <RefreshCw size={14} className={isLoading ? "animate-spin text-orange-strong" : "text-slate-400"} />
             <span>Refresh</span>
           </button>
         </div>
@@ -295,21 +295,21 @@ export default function AdminEnquiriesPage() {
       )}
 
       {/* Filters and Search Bar */}
-      <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex flex-col md:flex-row gap-4 justify-between items-stretch md:items-center">
+      <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row gap-4 justify-between items-stretch md:items-center">
         {/* Status Pills */}
         <div className="flex flex-wrap gap-2">
           {(["all", "new", "contacted", "quoted", "closed"] as const).map((st) => (
             <button
               key={st}
               onClick={() => setFilterStatus(st)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors capitalize flex items-center gap-1.5 cursor-pointer ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all capitalize flex items-center gap-1.5 cursor-pointer ${
                 filterStatus === st
-                  ? "bg-navy text-white shadow-sm"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  ? "bg-orange-strong text-white shadow-md shadow-orange-strong/20"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-[#071522]"
               }`}
             >
               <span>{st}</span>
-              <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${filterStatus === st ? "bg-white/20 text-white" : "bg-gray-200 text-gray-700"}`}>
+              <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${filterStatus === st ? "bg-white/20 text-white font-extrabold" : "bg-white/60 text-slate-600"}`}>
                 {statusCounts[st]}
               </span>
             </button>
@@ -318,29 +318,29 @@ export default function AdminEnquiriesPage() {
 
         {/* Search */}
         <div className="relative w-full md:w-72">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+          <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by name, email, suburb..."
-            className="w-full pl-9 pr-4 py-2 border border-gray-300 rounded-lg text-xs text-gray-800 focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-[#071522] placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-orange-strong focus:border-transparent"
           />
         </div>
       </div>
 
       {/* Enquiries List */}
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
         {isLoading ? (
-          <div className="p-12 text-center text-gray-500 flex flex-col items-center gap-3">
-            <RefreshCw size={24} className="animate-spin text-green" />
+          <div className="p-12 text-center text-slate-400 flex flex-col items-center gap-3">
+            <RefreshCw size={24} className="animate-spin text-orange-strong" />
             <span className="text-sm">Loading enquiries...</span>
           </div>
         ) : filteredEnquiries.length === 0 ? (
-          <div className="p-12 text-center text-gray-500">
-            <Inbox size={40} className="mx-auto text-gray-300 mb-3" />
-            <h3 className="text-base font-bold text-gray-700">No enquiries found</h3>
-            <p className="text-xs text-gray-400 mt-1">
+          <div className="p-12 text-center text-slate-400">
+            <Inbox size={40} className="mx-auto text-slate-300 mb-3" />
+            <h3 className="text-base font-bold text-[#071522]">No enquiries found</h3>
+            <p className="text-xs text-slate-500 mt-1">
               {enquiries.length === 0
                 ? "No customer inquiries have been submitted yet."
                 : "No enquiries match your current filter criteria."}
@@ -349,45 +349,45 @@ export default function AdminEnquiriesPage() {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-gray-50 border-b border-gray-200 text-gray-500 uppercase tracking-wider font-semibold">
+              <thead className="bg-slate-50 border-b border-slate-200 text-slate-600 uppercase tracking-wider font-bold">
                 <tr>
-                  <th className="py-3 px-4">Customer</th>
-                  <th className="py-3 px-4">Contact</th>
-                  <th className="py-3 px-4">Service &amp; Suburb</th>
-                  <th className="py-3 px-4">Received</th>
-                  <th className="py-3 px-4">Status</th>
-                  <th className="py-3 px-4 text-right">Actions</th>
+                  <th className="py-3.5 px-4">Customer</th>
+                  <th className="py-3.5 px-4">Contact</th>
+                  <th className="py-3.5 px-4">Service &amp; Suburb</th>
+                  <th className="py-3.5 px-4">Received</th>
+                  <th className="py-3.5 px-4">Status</th>
+                  <th className="py-3.5 px-4 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-slate-100 text-slate-700">
                 {filteredEnquiries.map((enq) => (
-                  <tr key={enq.id} className="hover:bg-slate-50 transition-colors">
-                    <td className="py-3.5 px-4 font-semibold text-navy">
+                  <tr key={enq.id} className="hover:bg-slate-50/70 transition-colors">
+                    <td className="py-3.5 px-4 font-bold text-[#071522]">
                       <div>{enq.name}</div>
                     </td>
-                    <td className="py-3.5 px-4 text-gray-600 space-y-0.5">
+                    <td className="py-3.5 px-4 text-slate-600 space-y-0.5">
                       <div className="flex items-center gap-1.5">
-                        <Mail size={12} className="text-gray-400" />
-                        <a href={`mailto:${enq.email}`} className="hover:text-green hover:underline">
+                        <Mail size={12} className="text-slate-400" />
+                        <a href={`mailto:${enq.email}`} className="hover:text-orange-strong hover:underline">
                           {enq.email}
                         </a>
                       </div>
                       <div className="flex items-center gap-1.5 font-mono">
-                        <Phone size={12} className="text-gray-400" />
-                        <a href={`tel:${enq.phone}`} className="hover:text-green">
+                        <Phone size={12} className="text-slate-400" />
+                        <a href={`tel:${enq.phone}`} className="hover:text-orange-strong">
                           {enq.phone}
                         </a>
                       </div>
                     </td>
-                    <td className="py-3.5 px-4 text-gray-700">
-                      <span className="font-medium text-navy">{enq.service_type || "General Inquiry"}</span>
+                    <td className="py-3.5 px-4 text-slate-600">
+                      <span className="font-medium text-[#071522]">{enq.service_type || "General Inquiry"}</span>
                       {enq.suburb && (
-                        <div className="text-gray-500 text-[11px] flex items-center gap-1 mt-0.5">
+                        <div className="text-slate-400 text-[11px] flex items-center gap-1 mt-0.5">
                           <MapPin size={11} /> {enq.suburb}
                         </div>
                       )}
                     </td>
-                    <td className="py-3.5 px-4 text-gray-500 font-mono text-[11px]">
+                    <td className="py-3.5 px-4 text-slate-400 font-mono text-[11px]">
                       {new Date(enq.created_at).toLocaleDateString("en-AU", {
                         day: "numeric",
                         month: "short",
@@ -403,7 +403,7 @@ export default function AdminEnquiriesPage() {
                         value={enq.status}
                         disabled={updatingId === enq.id}
                         onChange={(e) => handleUpdateStatus(enq.id, e.target.value as EnquiryStatus)}
-                        className="py-1 px-2 border border-gray-300 rounded text-xs bg-white text-gray-700 focus:outline-none focus:ring-1 focus:ring-green disabled:opacity-50 cursor-pointer"
+                        className="py-1 px-2 border border-slate-200 rounded-lg text-xs bg-slate-50 text-slate-800 focus:outline-none focus:ring-1 focus:ring-orange-strong disabled:opacity-50 cursor-pointer"
                       >
                         <option value="new">Mark New</option>
                         <option value="contacted">Mark Contacted</option>
@@ -413,9 +413,9 @@ export default function AdminEnquiriesPage() {
 
                       <button
                         onClick={() => setSelectedEnquiry(enq)}
-                        className="py-1 px-2.5 bg-navy text-white rounded text-xs font-semibold hover:bg-navy/90 transition-colors cursor-pointer"
+                        className="py-1 px-3 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-xs font-bold transition-colors cursor-pointer border border-slate-200"
                       >
-                        View Details
+                        Details
                       </button>
                     </td>
                   </tr>
@@ -428,75 +428,75 @@ export default function AdminEnquiriesPage() {
 
       {/* Modal for full detail view */}
       {selectedEnquiry && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl border border-gray-200 space-y-5 animate-in fade-in zoom-in-95 duration-150">
-            <div className="flex items-center justify-between border-b border-gray-100 pb-4">
+        <div className="fixed inset-0 z-50 bg-[#071522]/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white text-slate-800 rounded-3xl max-w-xl w-full p-6 shadow-2xl border border-slate-200 space-y-5 animate-in fade-in zoom-in-95 duration-150">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-4">
               <div>
-                <h3 className="text-lg font-bold text-navy">{selectedEnquiry.name}</h3>
-                <p className="text-xs text-gray-500">
+                <h3 className="text-lg font-bold text-[#071522]">{selectedEnquiry.name}</h3>
+                <p className="text-xs text-slate-500">
                   Received {new Date(selectedEnquiry.created_at).toLocaleString("en-AU")}
                 </p>
               </div>
               <button
                 onClick={() => setSelectedEnquiry(null)}
-                className="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+                className="text-slate-400 hover:text-slate-700 p-1 rounded-full hover:bg-slate-100 transition-colors cursor-pointer"
               >
                 ✕
               </button>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 text-xs bg-gray-50 p-4 rounded-xl border border-gray-100">
+            <div className="grid grid-cols-2 gap-4 text-xs bg-slate-50 p-4 rounded-2xl border border-slate-200">
               <div>
-                <span className="text-gray-400 uppercase font-semibold text-[10px]">Phone</span>
-                <p className="font-semibold text-navy mt-0.5">
-                  <a href={`tel:${selectedEnquiry.phone}`} className="hover:text-green">
+                <span className="text-slate-400 uppercase font-bold text-[10px]">Phone</span>
+                <p className="font-semibold text-slate-800 mt-0.5">
+                  <a href={`tel:${selectedEnquiry.phone}`} className="hover:text-orange-strong">
                     {selectedEnquiry.phone}
                   </a>
                 </p>
               </div>
               <div>
-                <span className="text-gray-400 uppercase font-semibold text-[10px]">Email</span>
-                <p className="font-semibold text-navy mt-0.5 truncate">
-                  <a href={`mailto:${selectedEnquiry.email}`} className="hover:text-green">
+                <span className="text-slate-400 uppercase font-bold text-[10px]">Email</span>
+                <p className="font-semibold text-slate-800 mt-0.5 truncate">
+                  <a href={`mailto:${selectedEnquiry.email}`} className="hover:text-orange-strong">
                     {selectedEnquiry.email}
                   </a>
                 </p>
               </div>
               <div>
-                <span className="text-gray-400 uppercase font-semibold text-[10px]">Service Requested</span>
-                <p className="font-semibold text-navy mt-0.5">{selectedEnquiry.service_type || "General"}</p>
+                <span className="text-slate-400 uppercase font-bold text-[10px]">Service Requested</span>
+                <p className="font-semibold text-[#071522] mt-0.5">{selectedEnquiry.service_type || "General"}</p>
               </div>
               <div>
-                <span className="text-gray-400 uppercase font-semibold text-[10px]">Suburb</span>
-                <p className="font-semibold text-navy mt-0.5">{selectedEnquiry.suburb || "Not provided"}</p>
+                <span className="text-slate-400 uppercase font-bold text-[10px]">Suburb</span>
+                <p className="font-semibold text-[#071522] mt-0.5">{selectedEnquiry.suburb || "Not provided"}</p>
               </div>
             </div>
 
             <div>
-              <span className="text-gray-500 uppercase font-semibold text-[11px] block mb-1">
+              <span className="text-slate-500 uppercase font-bold text-[11px] block mb-1">
                 Customer Message
               </span>
-              <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl text-sm text-gray-800 whitespace-pre-wrap leading-relaxed max-h-60 overflow-y-auto">
+              <div className="p-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm text-slate-800 whitespace-pre-wrap leading-relaxed max-h-60 overflow-y-auto">
                 {selectedEnquiry.message}
               </div>
             </div>
 
-            <div className="flex items-center justify-between pt-2 border-t border-gray-100">
+            <div className="flex items-center justify-between pt-3 border-t border-slate-100">
               <div className="flex items-center gap-2">
-                <span className="text-xs text-gray-500">Current status:</span>
+                <span className="text-xs text-slate-500">Current status:</span>
                 {getStatusBadge(selectedEnquiry.status)}
               </div>
 
               <div className="flex gap-2">
                 <a
                   href={`mailto:${selectedEnquiry.email}?subject=Regarding your enquiry - St George Electrical`}
-                  className="px-3.5 py-2 bg-green hover:bg-green-light text-navy text-xs font-bold rounded-lg transition-colors"
+                  className="btn-primary !py-2 !px-4 text-xs font-bold rounded-xl"
                 >
                   Reply by Email
                 </a>
                 <button
                   onClick={() => setSelectedEnquiry(null)}
-                  className="px-3.5 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-semibold rounded-lg transition-colors cursor-pointer"
+                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-colors cursor-pointer border border-slate-200"
                 >
                   Close
                 </button>
