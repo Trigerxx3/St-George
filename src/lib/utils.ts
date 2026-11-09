@@ -31,3 +31,26 @@ export function errorMessage(err: unknown): string {
   return "An unexpected error occurred";
 }
 
+/**
+ * Safely escape user input for HTML email bodies and templates to prevent injection
+ */
+export function escapeHtml(str: string | null | undefined): string {
+  if (!str) return "";
+  return String(str).replace(/[&<>"']/g, (m) => {
+    switch (m) {
+      case "&":
+        return "&amp;";
+      case "<":
+        return "&lt;";
+      case ">":
+        return "&gt;";
+      case '"':
+        return "&quot;";
+      case "'":
+        return "&#39;";
+      default:
+        return m;
+    }
+  });
+}
+

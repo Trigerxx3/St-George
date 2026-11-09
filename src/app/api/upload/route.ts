@@ -1,10 +1,36 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
-import { createClient } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/server";
+
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB max
+const VALID_MIME_TYPES = [
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/avif",
+];
 
 export async function POST(req: Request) {
   try {
+    // 1. Authenticate admin user if Supabase is active
+    if (
+      process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      !process.env.NEXT_PUBLIC_SUPABASE_URL.includes("placeholder-project")
+    ) {
+      const supabase = await createClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        return NextResponse.json(
+          { success: false, error: "Unauthorized. Admin session required." },
+          { status: 401 }
+        );
+      }
+    }
+
     const formData = await req.formData();
     const file = formData.get("file") as File | null;
 
@@ -12,18 +38,18 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: false, error: "No file provided" }, { status: 400 });
     }
 
-    // Validate mime type
-    const validMimeTypes = [
-      "image/jpeg",
-      "image/png",
-      "image/webp",
-      "image/avif",
-      "image/svg+xml",
-      "image/gif",
-    ];
-    if (!validMimeTypes.includes(file.type)) {
+    // 2. Enforce File Size Limit (5MB)
+    if (file.size > MAX_FILE_SIZE) {
       return NextResponse.json(
-        { success: false, error: "Only image files (JPG, PNG, WebP, AVIF, SVG) are supported" },
+        { success: false, error: "File exceeds 5MB limit. Please upload a smaller image." },
+        { status: 413 }
+      );
+    }
+
+    // 3. Strict MIME Type Validation (No raw SVGs or scripts)
+    if (!VALID_MIME_TYPES.includes(file.type)) {
+      return NextResponse.json(
+        { success: false, error: "Only standard image formats (JPG, PNG, WebP, AVIF) are supported" },
         { status: 400 }
       );
     }
@@ -31,8 +57,9 @@ export async function POST(req: Request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Clean filename
-    const ext = path.extname(file.name) || ".jpg";
+    // 4. Sanitize extension and filename
+    const rawExt = path.extname(file.name).toLowerCase();
+    const ext = [".jpg", ".jpeg", ".png", ".webp", ".avif"].includes(rawExt) ? rawExt : ".jpg";
     const baseName = path
       .basename(file.name, ext)
       .toLowerCase()
@@ -53,13 +80,13 @@ export async function POST(req: Request) {
 
     // Try Supabase Storage upload in background if available
     try {
-      const supabase = createClient();
+      const supabase = await createClient();
       await supabase.storage.from("site-assets").upload(`products/${fileName}`, buffer, {
         contentType: file.type,
         upsert: true,
       });
     } catch {
-      // Local file is already saved and accessible
+      // Local file is saved and accessible
     }
 
     return NextResponse.json({
@@ -75,4 +102,3 @@ export async function POST(req: Request) {
     );
   }
 }
-

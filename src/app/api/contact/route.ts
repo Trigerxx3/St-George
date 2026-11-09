@@ -3,6 +3,7 @@ import { ContactRequestSchema } from "@/lib/validations";
 import { sendNotificationEmail } from "@/lib/email";
 import { BUSINESS } from "@/lib/constants";
 import { createClient } from "@/lib/supabase/server";
+import { escapeHtml } from "@/lib/utils";
 
 export async function POST(request: Request) {
   try {
@@ -60,16 +61,22 @@ Message:
 ${data.message}
     `.trim();
 
+    const safeName = escapeHtml(data.name);
+    const safeEmail = escapeHtml(data.email);
+    const safePhone = escapeHtml(data.phone);
+    const safeSubject = escapeHtml(data.subject);
+    const safeMessage = escapeHtml(data.message).replace(/\n/g, "<br/>");
+
     await sendNotificationEmail({
       to: BUSINESS.email,
       subject: emailSubject,
       text: emailBody,
       html: `<div style="font-family:sans-serif;line-height:1.5;">
         <h2 style="color:#0F2238;">New Website Contact Message (${contactId})</h2>
-        <p><strong>From:</strong> ${data.name} (<a href="tel:${data.phone}">${data.phone}</a> | <a href="mailto:${data.email}">${data.email}</a>)</p>
-        <p><strong>Subject:</strong> ${data.subject}</p>
+        <p><strong>From:</strong> ${safeName} (<a href="tel:${safePhone}">${safePhone}</a> | <a href="mailto:${safeEmail}">${safeEmail}</a>)</p>
+        <p><strong>Subject:</strong> ${safeSubject}</p>
         <p><strong>Message:</strong></p>
-        <blockquote style="background:#f4f4f4;padding:12px;border-left:4px solid #4C8C2B;">${data.message}</blockquote>
+        <blockquote style="background:#f4f4f4;padding:12px;border-left:4px solid #e8751a;">${safeMessage}</blockquote>
       </div>`,
     });
 

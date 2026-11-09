@@ -3,6 +3,7 @@ import { QuoteRequestSchema } from "@/lib/validations";
 import { sendNotificationEmail } from "@/lib/email";
 import { BUSINESS } from "@/lib/constants";
 import { createClient } from "@/lib/supabase/server";
+import { escapeHtml } from "@/lib/utils";
 
 export async function POST(request: Request) {
   try {
@@ -69,6 +70,15 @@ Timestamp: ${new Date().toISOString()}
 
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
+    const safeName = escapeHtml(data.name);
+    const safePhone = escapeHtml(data.phone);
+    const safeEmail = escapeHtml(data.email);
+    const safeService = escapeHtml(data.serviceType);
+    const safeProperty = escapeHtml(data.propertyType);
+    const safeLocation = `${escapeHtml(data.suburb)}, ${escapeHtml(data.postcode)}`;
+    const safeBill = escapeHtml(data.billAmount) || "Not specified";
+    const safeNotes = data.message ? escapeHtml(data.message).replace(/\n/g, "<br>") : null;
+
     const emailHtml = `
 <!DOCTYPE html>
 <html>
@@ -99,13 +109,13 @@ Timestamp: ${new Date().toISOString()}
           Customer Contact
         </div>
         <div style="font-size:18px;font-weight:800;color:#071522;margin-bottom:12px;">
-          ${data.name}
+          ${safeName}
         </div>
         <div style="margin-bottom:8px;font-size:14px;">
-          <strong>Phone:</strong> <a href="tel:${data.phone}" style="color:#e8751a;text-decoration:none;font-weight:700;">${data.phone}</a>
+          <strong>Phone:</strong> <a href="tel:${safePhone}" style="color:#e8751a;text-decoration:none;font-weight:700;">${safePhone}</a>
         </div>
         <div style="font-size:14px;">
-          <strong>Email:</strong> <a href="mailto:${data.email}" style="color:#e8751a;text-decoration:none;">${data.email}</a>
+          <strong>Email:</strong> <a href="mailto:${safeEmail}" style="color:#e8751a;text-decoration:none;">${safeEmail}</a>
         </div>
       </div>
 
@@ -113,31 +123,31 @@ Timestamp: ${new Date().toISOString()}
       <table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:24px;">
         <tr style="border-bottom:1px solid #f1f5f9;">
           <td style="padding:10px 0;color:#64748b;font-weight:600;width:40%;">Service Division:</td>
-          <td style="padding:10px 0;color:#071522;font-weight:700;text-align:right;">${data.serviceType}</td>
+          <td style="padding:10px 0;color:#071522;font-weight:700;text-align:right;">${safeService}</td>
         </tr>
         <tr style="border-bottom:1px solid #f1f5f9;">
           <td style="padding:10px 0;color:#64748b;font-weight:600;">Property Type:</td>
-          <td style="padding:10px 0;color:#071522;font-weight:700;text-align:right;">${data.propertyType}</td>
+          <td style="padding:10px 0;color:#071522;font-weight:700;text-align:right;">${safeProperty}</td>
         </tr>
         <tr style="border-bottom:1px solid #f1f5f9;">
           <td style="padding:10px 0;color:#64748b;font-weight:600;">Location:</td>
-          <td style="padding:10px 0;color:#071522;font-weight:700;text-align:right;">${data.suburb}, ${data.postcode}</td>
+          <td style="padding:10px 0;color:#071522;font-weight:700;text-align:right;">${safeLocation}</td>
         </tr>
         <tr style="border-bottom:1px solid #f1f5f9;">
           <td style="padding:10px 0;color:#64748b;font-weight:600;">Approx. Power Bill:</td>
-          <td style="padding:10px 0;color:#071522;font-weight:700;text-align:right;">${data.billAmount || "Not specified"}</td>
+          <td style="padding:10px 0;color:#071522;font-weight:700;text-align:right;">${safeBill}</td>
         </tr>
       </table>
 
       ${
-        data.message
+        safeNotes
           ? `
       <div style="margin-bottom:28px;">
         <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#64748b;margin-bottom:6px;">
           Customer Notes / Requirements
         </div>
         <div style="background:#ffffff;border:1px solid #cbd5e1;border-radius:10px;padding:14px;font-size:13px;line-height:1.6;color:#334155;">
-          ${data.message.replace(/\n/g, "<br>")}
+          ${safeNotes}
         </div>
       </div>
       `
@@ -146,10 +156,10 @@ Timestamp: ${new Date().toISOString()}
 
       <!-- Action Buttons -->
       <div style="text-align:center;padding-top:8px;">
-        <a href="tel:${data.phone}" style="display:inline-block;padding:12px 24px;background-color:#e8751a;color:#ffffff;text-decoration:none;font-weight:800;font-size:13px;border-radius:10px;margin-right:8px;box-shadow:0 2px 6px rgba(232,117,26,0.35);">
+        <a href="tel:${safePhone}" style="display:inline-block;padding:12px 24px;background-color:#e8751a;color:#ffffff;text-decoration:none;font-weight:800;font-size:13px;border-radius:10px;margin-right:8px;box-shadow:0 2px 6px rgba(232,117,26,0.35);">
           📞 Call Customer Now
         </a>
-        <a href="mailto:${data.email}?subject=St%20George%20Electrical%20Quote%20Follow-up%20(${refId})" style="display:inline-block;padding:12px 24px;background-color:#071522;color:#ffffff;text-decoration:none;font-weight:800;font-size:13px;border-radius:10px;">
+        <a href="mailto:${safeEmail}?subject=St%20George%20Electrical%20Quote%20Follow-up%20(${refId})" style="display:inline-block;padding:12px 24px;background-color:#071522;color:#ffffff;text-decoration:none;font-weight:800;font-size:13px;border-radius:10px;">
           ✉️ Reply via Email
         </a>
       </div>

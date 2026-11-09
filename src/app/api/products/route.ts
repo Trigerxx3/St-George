@@ -5,6 +5,7 @@ import {
   resetStoredProducts,
 } from "@/lib/products-store";
 import { ProductItem } from "@/types/catalogue";
+import { createClient } from "@/lib/supabase/server";
 
 export async function GET() {
   try {
@@ -20,6 +21,24 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
+    // Authenticate admin session if Supabase is active
+    if (
+      process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      !process.env.NEXT_PUBLIC_SUPABASE_URL.includes("placeholder-project")
+    ) {
+      const supabase = await createClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        return NextResponse.json(
+          { success: false, error: "Unauthorized. Admin session required." },
+          { status: 401 }
+        );
+      }
+    }
+
     const body = await req.json();
     const { action, product, id, isActive } = body;
     let products = [...getStoredProducts()];

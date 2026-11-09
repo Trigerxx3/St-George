@@ -3,6 +3,7 @@ import { BookingRequestSchema } from "@/lib/validations";
 import { sendNotificationEmail } from "@/lib/email";
 import { BUSINESS } from "@/lib/constants";
 import { createClient } from "@/lib/supabase/server";
+import { escapeHtml } from "@/lib/utils";
 
 export async function POST(request: Request) {
   try {
@@ -65,18 +66,28 @@ Description:
 ${data.description}
     `.trim();
 
+    const safeName = escapeHtml(data.name);
+    const safePhone = escapeHtml(data.phone);
+    const safeEmail = escapeHtml(data.email);
+    const safeService = escapeHtml(data.serviceType);
+    const safeUrgency = escapeHtml(data.urgency).toUpperCase();
+    const safeSite = `${escapeHtml(data.address)}, ${escapeHtml(data.suburb)} ${escapeHtml(data.postcode)}`;
+    const safeTiming = `${escapeHtml(data.preferredDate)} (${escapeHtml(data.preferredTime)})`;
+    const safeDesc = escapeHtml(data.description).replace(/\n/g, "<br/>");
+
     await sendNotificationEmail({
       to: BUSINESS.email,
       subject: emailSubject,
       text: emailBody,
       html: `<div style="font-family:sans-serif;line-height:1.5;">
         <h2 style="color:#0F2238;">New Booking Request (${bookingId})</h2>
-        <p><strong>Urgency:</strong> <span style="color:#E8751A;font-weight:bold;">${data.urgency.toUpperCase()}</span></p>
-        <p><strong>Customer:</strong> ${data.name} (<a href="tel:${data.phone}">${data.phone}</a> | <a href="mailto:${data.email}">${data.email}</a>)</p>
-        <p><strong>Service:</strong> ${data.serviceType}</p>
-        <p><strong>Site:</strong> ${data.address}, ${data.suburb} ${data.postcode}</p>
-        <p><strong>Requested Timing:</strong> ${data.preferredDate} (${data.preferredTime})</p>
-        <p><strong>Description:</strong> ${data.description}</p>
+        <p><strong>Urgency:</strong> <span style="color:#E8751A;font-weight:bold;">${safeUrgency}</span></p>
+        <p><strong>Customer:</strong> ${safeName} (<a href="tel:${safePhone}">${safePhone}</a> | <a href="mailto:${safeEmail}">${safeEmail}</a>)</p>
+        <p><strong>Service:</strong> ${safeService}</p>
+        <p><strong>Site:</strong> ${safeSite}</p>
+        <p><strong>Requested Timing:</strong> ${safeTiming}</p>
+        <p><strong>Description:</strong></p>
+        <blockquote style="background:#f4f4f4;padding:12px;border-left:4px solid #e8751a;">${safeDesc}</blockquote>
       </div>`,
     });
 
