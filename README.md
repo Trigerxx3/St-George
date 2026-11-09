@@ -1,6 +1,6 @@
 # St George Electrical Energy Solutions — Production Web Application
 
-Production-ready, mobile-first lead-generation platform and clean energy product catalogue for **St George Electrical Energy Solutions**, a licensed electrical contractor based in Canberra / ACT, Australia (ACT Licence #2028729).
+Production-ready, mobile-first lead-generation platform and clean energy product catalogue for **St George Electrical Energy Solutions**, a licensed electrical contractor based in Canberra / ACT, Australia (ACT Licence #2024729).
 
 ---
 
@@ -83,4 +83,4 @@ Production-ready, mobile-first lead-generation platform and clean energy product
 
 ## 📄 License & Ownership
 Copyright © 2025 St George Electrical Energy Solutions. All rights reserved.
-Owner: Justin George (ACT Licence #2028729).
+Owner: Justin George (ACT Licence #2024729).

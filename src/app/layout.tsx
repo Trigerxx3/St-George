@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     template: "%s | St George Electrical Energy Solutions",
   },
   description:
-    "Licensed electrical contractor in Canberra & ACT. Solar panels, battery storage, EV charger installation, electrical services. Licence #2028729. Call 0450 598 628 for a free quote.",
+    "Licensed electrical contractor in Canberra & ACT. Solar panels, battery storage, EV charger installation, electrical services. Licence #2024729. Call 0450 598 628 for a free quote.",
   keywords: [
     "electrician Canberra",
     "solar panels ACT",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     siteName: "St George Electrical Energy Solutions",
     title: "St George Electrical Energy Solutions | Licensed Electrician Canberra ACT",
     description:
-      "Licensed electrical contractor in Canberra & ACT. Solar, battery, EV chargers & electrical services. Licence #2028729. Call 0450 598 628.",
+      "Licensed electrical contractor in Canberra & ACT. Solar, battery, EV chargers & electrical services. Licence #2024729. Call 0450 598 628.",
     url: "https://stgeorgeelectrical.com.au",
   },
   robots: {

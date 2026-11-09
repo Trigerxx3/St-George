@@ -17,7 +17,7 @@ import ServiceCTA from "@/components/services/service-cta";
 export const metadata: Metadata = {
   title: "About St George Electrical Energy Solutions | Canberra",
   description:
-    "Learn about St George Electrical Energy Solutions. Licensed electrical contractor in Canberra (ACT Licence #2028729). Master Electricians member.",
+    "Learn about St George Electrical Energy Solutions. Licensed electrical contractor in Canberra (ACT Licence #2024729). Master Electricians member.",
 };
 
 export default function AboutPage() {

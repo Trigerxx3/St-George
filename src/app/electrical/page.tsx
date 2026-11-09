@@ -104,7 +104,7 @@ const FAQS: FAQItem[] = [
   {
     question: "Do you supply official ACT compliance certificates?",
     answer:
-      "Yes. As a licensed electrical contractor (ACT Licence #2028729), we test every installation and lodge an ACT Certificate of Electrical Compliance for all notifiable electrical work with Access Canberra.",
+      "Yes. As a licensed electrical contractor (ACT Licence #2024729), we test every installation and lodge an ACT Certificate of Electrical Compliance for all notifiable electrical work with Access Canberra.",
   },
   {
     question: "Can I book a prompt repair or safety inspection?",

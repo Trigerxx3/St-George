@@ -22,7 +22,7 @@ export const BUSINESS = {
   phone: "0450598628",
   phoneDisplay: "0450 598 628",
   email: "justingeorge@zohomail.com.au",
-  licence: "2028729",
+  licence: "2024729",
   tagline: "Powering your Home & Business with Confidence.",
   abn: "", // TODO_OWNER: Add ABN
   address: {

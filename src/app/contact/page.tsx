@@ -8,7 +8,7 @@ import { SocialLinks } from "@/components/ui/social-icons";
 export const metadata: Metadata = {
   title: "Contact Us | St George Electrical Energy Solutions",
   description:
-    "Get in touch with St George Electrical Energy Solutions. Call 0450 598 628 or email justingeorge@zohomail.com.au. Canberra ACT licensed electrician #2028729.",
+    "Get in touch with St George Electrical Energy Solutions. Call 0450 598 628 or email justingeorge@zohomail.com.au. Canberra ACT licensed electrician #2024729.",
 };
 
 export default function ContactPage() {

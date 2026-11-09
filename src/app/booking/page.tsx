@@ -7,7 +7,7 @@ import { phoneHref } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Book an Electrician Canberra | St George Electrical",
   description:
-    "Schedule an electrical repair, switchboard upgrade, or safety inspection in Canberra & ACT. St George Electrical Energy Solutions (ACT Licence #2028729). Prompt & reliable service.",
+    "Schedule an electrical repair, switchboard upgrade, or safety inspection in Canberra & ACT. St George Electrical Energy Solutions (ACT Licence #2024729). Prompt & reliable service.",
 };
 
 export default function BookingPage() {

@@ -45,7 +45,7 @@ const ALL_FAQS: FAQItem[] = [
   {
     question: "Do you supply official ACT Certificates of Electrical Compliance?",
     answer:
-      "Yes. St George Electrical Energy Solutions holds ACT Electrical Contractor Licence #2028729. Every notifiable electrical installation is thoroughly tested to Australian Standards (AS/NZS 3000) and an official Certificate of Electrical Compliance is lodged with Access Canberra.",
+      "Yes. St George Electrical Energy Solutions holds ACT Electrical Contractor Licence #2024729. Every notifiable electrical installation is thoroughly tested to Australian Standards (AS/NZS 3000) and an official Certificate of Electrical Compliance is lodged with Access Canberra.",
   },
   {
     question: "What happens during a power blackout if I have solar and a battery?",
