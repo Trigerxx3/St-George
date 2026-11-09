@@ -136,25 +136,29 @@ export default function PackageDealsPopup() {
       ? "grid-cols-1 max-w-md mx-auto"
       : packages.length === 2
       ? "grid-cols-1 md:grid-cols-2 max-w-3xl mx-auto"
-      : "grid-cols-1 md:grid-cols-3";
+      : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3";
 
   return (
     <>
-      {/* Floating Re-open Badge Trigger (Always accessible at bottom corner) */}
-      <div className="fixed bottom-5 right-5 z-40">
+      {/* Floating Re-open Badge Trigger:
+          - Mobile: floats above the 56px mobile bottom bar at bottom-[72px] right-3
+          - Tablet/Desktop: bottom-6 right-6
+          - High z-index (z-40) and safe area support so it never gets cut off */}
+      <div className="fixed bottom-[72px] md:bottom-6 right-3 sm:right-5 md:right-6 z-40 max-w-[calc(100vw-24px)]">
         <button
           type="button"
           onClick={openPopup}
           aria-label="Open Special Solar and Battery Deals"
-          className="group flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-gradient-to-r from-orange-strong to-[#d4380d] text-white font-bold text-xs sm:text-sm shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 border-0 cursor-pointer"
+          className="group flex items-center gap-2 sm:gap-2.5 px-3 py-2 sm:px-4 sm:py-2.5 rounded-full bg-gradient-to-r from-orange-strong via-[#e8590c] to-[#d4380d] text-white font-bold text-xs sm:text-sm shadow-xl shadow-orange/30 hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 border-0 cursor-pointer"
         >
-          <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center shrink-0 animate-pulse">
-            <Flame size={14} className="text-white fill-white" />
+          <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/25 flex items-center justify-center shrink-0 animate-pulse">
+            <Flame size={13} className="text-white fill-white sm:w-3.5 sm:h-3.5" />
           </span>
-          <span className="tracking-wide">
-            Special Deals <span className="font-extrabold text-yellow-300">from {startingPrice}</span>
+          <span className="tracking-tight sm:tracking-wide whitespace-nowrap">
+            <span>Special Deals </span>
+            <span className="font-extrabold text-yellow-300">from {startingPrice}</span>
           </span>
-          <span className="text-white/80 group-hover:translate-x-0.5 transition-transform text-xs">
+          <span className="text-white/80 group-hover:translate-x-0.5 transition-transform text-xs shrink-0">
             ↗
           </span>
         </button>
@@ -163,43 +167,45 @@ export default function PackageDealsPopup() {
       {/* Modal Backdrop & Dialog */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-[70] flex items-center justify-center p-3 sm:p-5 overflow-y-auto animate-fade-in"
+          className="fixed inset-0 z-[70] flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6 overflow-hidden animate-fade-in"
           role="dialog"
           aria-modal="true"
           aria-label="Lock In Our Special Solar and Battery Prices"
         >
           {/* Dimmed backdrop */}
           <div
-            className="fixed inset-0 bg-navy-950/80 backdrop-blur-md transition-opacity"
+            className="fixed inset-0 bg-navy-950/85 backdrop-blur-md transition-opacity"
             onClick={closePopup}
             aria-hidden="true"
           />
 
-          {/* Dialog Container */}
+          {/* Dialog Container:
+              - Mobile: bottom sheet / full-screen drawer with rounded-t-3xl
+              - Desktop: centered floating card with rounded-3xl */}
           <div
             ref={dialogRef}
-            className="relative w-full max-w-5xl max-h-[92vh] flex flex-col rounded-3xl bg-[#091827] text-white shadow-2xl border-0 overflow-hidden my-auto z-10 animate-scale-in"
+            className="relative w-full max-w-5xl h-[92dvh] sm:h-auto sm:max-h-[90vh] flex flex-col rounded-t-3xl sm:rounded-3xl bg-[#091827] text-white shadow-2xl border-0 overflow-hidden z-10 animate-scale-in"
           >
-            {/* Close Button */}
+            {/* Top Close Button (Sticky & high contrast for easy tapping) */}
             <button
               ref={closeButtonRef}
               type="button"
               onClick={closePopup}
               aria-label="Close deals modal"
-              className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center backdrop-blur-md transition-colors cursor-pointer border-0"
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/10 hover:bg-white/25 active:bg-white/30 text-white flex items-center justify-center backdrop-blur-md transition-colors cursor-pointer border-0"
             >
-              <X size={20} />
+              <X size={18} className="sm:w-5 sm:h-5" />
             </button>
 
             {/* Top Promotional Header */}
-            <div className="relative pt-8 pb-6 px-6 sm:px-10 text-center bg-gradient-to-b from-[#102438] to-[#091827] border-0">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-600/90 text-white text-xs font-black uppercase tracking-wider mb-3 shadow-md">
-                <Flame size={14} className="fill-white" />
+            <div className="relative pt-6 pb-4 sm:pt-8 sm:pb-6 px-4 sm:px-10 text-center bg-gradient-to-b from-[#102438] to-[#091827] border-0 shrink-0">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-600 text-white text-[10px] sm:text-xs font-black uppercase tracking-wider mb-2 sm:mb-3 shadow-md">
+                <Flame size={12} className="fill-white" />
                 <span>Special Promotional Pricing</span>
               </div>
 
               <h2
-                className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight uppercase mb-2"
+                className="text-xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight leading-tight uppercase mb-1.5 sm:mb-2 pr-8 sm:pr-0"
                 style={{ fontFamily: "var(--font-heading)" }}
               >
                 Lock In Our Special{" "}
@@ -209,42 +215,41 @@ export default function PackageDealsPopup() {
                 Prices
               </h2>
 
-              <p className="text-white/80 text-xs sm:text-sm max-w-2xl mx-auto">
+              <p className="text-white/80 text-xs sm:text-sm max-w-2xl mx-auto line-clamp-2 sm:line-clamp-none">
                 Turnkey residential packages installed to Master Electricians standards. Eligible for{" "}
-                <span className="text-white font-semibold">ACT Sustainable Household Scheme 0% loans</span>{" "}
-                with upfront Federal STC rebates applied directly.
+                <span className="text-white font-semibold">ACT 0% loans</span> with Federal STC rebates applied directly.
               </p>
 
               {/* Trust micro-badges */}
-              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 mt-4 text-[11px] sm:text-xs text-white/70">
-                <span className="inline-flex items-center gap-1.5">
-                  <ShieldCheck size={14} className="text-orange-strong" /> New Energy Tech Approved Seller
+              <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-5 mt-2.5 sm:mt-3 text-[10px] sm:text-xs text-white/70">
+                <span className="inline-flex items-center gap-1">
+                  <ShieldCheck size={13} className="text-orange-strong shrink-0" /> NETR Approved
                 </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <Zap size={14} className="text-yellow-400" /> Full EvoEnergy Approval
+                <span className="inline-flex items-center gap-1">
+                  <Zap size={13} className="text-yellow-400 shrink-0" /> Full EvoEnergy Approval
                 </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <CheckCircle2 size={14} className="text-green-400" /> 25-Year Performance Warranty
+                <span className="inline-flex items-center gap-1">
+                  <CheckCircle2 size={13} className="text-green-400 shrink-0" /> 25-Yr Performance Warranty
                 </span>
               </div>
             </div>
 
             {/* Scrollable Deals Grid */}
-            <div className="p-4 sm:p-8 overflow-y-auto max-h-[calc(92vh-220px)]">
-              <div className={`grid ${gridLayoutClass} gap-5`}>
+            <div className="p-3.5 sm:p-6 overflow-y-auto flex-1 overscroll-contain">
+              <div className={`grid ${gridLayoutClass} gap-4 sm:gap-5`}>
                 {packages.map((pkg, idx) => {
                   const isFeatured = idx === 0 || Boolean(pkg.featured);
                   return (
                     <article
                       key={pkg.id}
-                      className={`relative flex flex-col rounded-2xl bg-[#0f243a] overflow-hidden transition-all duration-300 hover:translate-y-[-4px] hover:shadow-xl ${
+                      className={`relative flex flex-col rounded-2xl bg-[#0f243a] border-0 overflow-hidden transition-all duration-300 hover:translate-y-[-2px] hover:shadow-xl ${
                         isFeatured ? "ring-2 ring-orange-strong shadow-orange-strong/20" : ""
                       }`}
                     >
                       {/* Ribbon / Badge */}
-                      <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5">
+                      <div className="absolute top-2.5 left-2.5 z-10 flex items-center gap-1.5">
                         <span
-                          className={`px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider shadow ${
+                          className={`px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-black uppercase tracking-wider shadow ${
                             isFeatured
                               ? "bg-orange-strong text-white"
                               : "bg-navy-950/90 text-white/90 backdrop-blur"
@@ -255,7 +260,7 @@ export default function PackageDealsPopup() {
                       </div>
 
                       {/* Package Visual */}
-                      <div className="relative aspect-[16/10] w-full overflow-hidden bg-navy-950">
+                      <div className="relative h-32 sm:h-44 w-full overflow-hidden bg-navy-950">
                         <img
                           src={pkg.image || "/images/products/turnkey-6kw.jpg"}
                           alt={pkg.name}
@@ -269,21 +274,21 @@ export default function PackageDealsPopup() {
                       </div>
 
                       {/* Package Content */}
-                      <div className="p-5 flex-1 flex flex-col justify-between">
+                      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
                         <div>
                           {/* System Size Heading */}
-                          <h3 className="text-lg font-black text-white leading-tight mb-2">
+                          <h3 className="text-base sm:text-lg font-black text-white leading-tight mb-2">
                             {pkg.systemSize}
                           </h3>
 
                           {/* Price Tag Highlight */}
                           {pkg.price && (
-                            <div className="my-3 py-2 px-3.5 rounded-xl bg-gradient-to-r from-red-600 to-[#c82333] text-white flex items-baseline justify-between shadow-md">
-                              <span className="text-[11px] uppercase tracking-wider font-extrabold text-white/90">
+                            <div className="my-2.5 py-1.5 px-3 rounded-xl bg-gradient-to-r from-red-600 to-[#c82333] text-white flex items-baseline justify-between shadow-md">
+                              <span className="text-[10px] uppercase tracking-wider font-extrabold text-white/90">
                                 Fully Installed
                               </span>
                               <span
-                                className="text-2xl sm:text-3xl font-black text-white tracking-tight"
+                                className="text-xl sm:text-2xl font-black text-white tracking-tight"
                                 style={{ fontFamily: "var(--font-heading)" }}
                               >
                                 {pkg.price}
@@ -291,17 +296,17 @@ export default function PackageDealsPopup() {
                             </div>
                           )}
 
-                          <p className="text-white/70 text-xs leading-relaxed mb-4">
+                          <p className="text-white/70 text-xs leading-relaxed mb-3 line-clamp-2 sm:line-clamp-3">
                             {pkg.shortDesc}
                           </p>
 
                           {/* Included Specs List */}
                           {Array.isArray(pkg.includedItems) && pkg.includedItems.length > 0 && (
-                            <ul className="space-y-2 mb-5 text-xs text-white/85">
-                              {pkg.includedItems.slice(0, 4).map((item, itemIdx) => (
-                                <li key={itemIdx} className="flex items-start gap-2">
+                            <ul className="space-y-1.5 mb-4 text-xs text-white/85">
+                              {pkg.includedItems.slice(0, 3).map((item, itemIdx) => (
+                                <li key={itemIdx} className="flex items-start gap-1.5">
                                   <CheckCircle2 size={13} className="text-orange-strong shrink-0 mt-0.5" />
-                                  <span className="line-clamp-2">{item}</span>
+                                  <span className="line-clamp-1">{item}</span>
                                 </li>
                               ))}
                             </ul>
@@ -313,7 +318,7 @@ export default function PackageDealsPopup() {
                           <Link
                             href={`/quote?package=${pkg.slug}`}
                             onClick={closePopup}
-                            className="btn-primary !w-full !py-2.5 text-xs font-black tracking-wide justify-center shadow-lg"
+                            className="btn-primary !w-full !py-2.5 text-xs font-black tracking-wide justify-center shadow-lg active:scale-95 transition-transform"
                           >
                             Lock In {pkg.price || "Deal"} <ArrowRight size={14} className="ml-1" />
                           </Link>
@@ -321,9 +326,9 @@ export default function PackageDealsPopup() {
                           <Link
                             href={`/packages/${pkg.slug}`}
                             onClick={closePopup}
-                            className="inline-flex w-full items-center justify-center text-xs font-semibold text-white/70 hover:text-white py-1.5 transition-colors"
+                            className="inline-flex w-full items-center justify-center text-xs font-semibold text-white/70 hover:text-white py-1 transition-colors"
                           >
-                            <span>View Full Package Specs</span>
+                            <span>View Full Specs</span>
                           </Link>
                         </div>
                       </div>
@@ -333,15 +338,15 @@ export default function PackageDealsPopup() {
               </div>
             </div>
 
-            {/* Bottom Disclaimer */}
-            <div className="px-6 py-4 bg-[#06121f] flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-white/60 text-center sm:text-left border-0">
-              <p>
-                *Special promotional pricing includes point-of-sale Federal STC rebate discounts and standard single-storey ACT installation. Subject to technical site assessment.
+            {/* Bottom Disclaimer & Dismiss Bar */}
+            <div className="px-4 py-3 sm:px-6 sm:py-3.5 bg-[#06121f] flex flex-col sm:flex-row items-center justify-between gap-2 text-[10px] sm:text-[11px] text-white/60 text-center sm:text-left border-0 shrink-0">
+              <p className="line-clamp-1 sm:line-clamp-none">
+                *Special promotional pricing includes Federal STC rebate discounts and standard single-storey ACT installation.
               </p>
               <button
                 type="button"
                 onClick={closePopup}
-                className="text-white/80 hover:text-white font-semibold text-xs whitespace-nowrap cursor-pointer underline underline-offset-2"
+                className="text-white/80 hover:text-white font-semibold text-xs whitespace-nowrap cursor-pointer underline underline-offset-2 py-1"
               >
                 Close &amp; Continue
               </button>
