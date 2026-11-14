@@ -19,6 +19,7 @@ import {
   FileSpreadsheet,
   Download,
   ChevronDown,
+  Trash2,
 } from "lucide-react";
 
 interface Enquiry {
@@ -92,6 +93,75 @@ export default function AdminEnquiriesPage() {
       alert(`Error updating: ${errorMessage(e)}`);
     } finally {
       setUpdatingId(null);
+    }
+  };
+
+  const handleDeleteEnquiry = async (id: string, customerName: string) => {
+    if (!confirm(`Are you sure you want to permanently delete the enquiry from "${customerName}"?`)) {
+      return;
+    }
+
+    try {
+      // 1. Try deleting via Supabase Client
+      const supabase = createClient();
+      const { error } = await supabase.from("enquiries").delete().eq("id", id);
+
+      if (error) {
+        // Fallback to server API endpoint
+        const res = await fetch("/api/admin/enquiries", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id }),
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+          throw new Error(data.error || error.message);
+        }
+      }
+
+      setEnquiries((prev) => prev.filter((item) => item.id !== id));
+      if (selectedEnquiry && selectedEnquiry.id === id) {
+        setSelectedEnquiry(null);
+      }
+    } catch (err: any) {
+      alert(`Delete failed: ${err.message || err}`);
+    }
+  };
+
+  const handleClearAllEnquiries = async () => {
+    if (enquiries.length === 0) return;
+    const confirmText = prompt(
+      `CAUTION: You are about to permanently delete all ${enquiries.length} customer enquiries before production.\n\nType "DELETE" below to confirm:`
+    );
+    if (confirmText !== "DELETE") {
+      if (confirmText !== null) alert("Action cancelled. You must type 'DELETE' exactly to confirm.");
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const res = await fetch("/api/admin/enquiries", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ all: true }),
+      });
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        // Fallback via Supabase client
+        const supabase = createClient();
+        const { error } = await supabase.from("enquiries").delete().neq("id", "00000000-0000-0000-0000-000000000000");
+        if (error) throw new Error(error.message);
+      }
+
+      setEnquiries([]);
+      setSelectedEnquiry(null);
+      alert("All test enquiries have been successfully cleared.");
+    } catch (err: any) {
+      alert(`Clear all failed: ${err.message || err}`);
+      await fetchEnquiries();
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -273,6 +343,18 @@ export default function AdminEnquiriesPage() {
             )}
           </div>
 
+          {enquiries.length > 0 && (
+            <button
+              onClick={handleClearAllEnquiries}
+              disabled={isLoading}
+              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 rounded-xl text-xs font-bold transition-colors cursor-pointer disabled:opacity-50"
+              title="Delete all customer enquiries before production"
+            >
+              <Trash2 size={14} className="text-red-500" />
+              <span>Clear All</span>
+            </button>
+          )}
+
           <button
             onClick={fetchEnquiries}
             disabled={isLoading}
@@ -417,6 +499,14 @@ export default function AdminEnquiriesPage() {
                       >
                         Details
                       </button>
+
+                      <button
+                        onClick={() => handleDeleteEnquiry(enq.id, enq.name)}
+                        className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer inline-flex items-center align-middle"
+                        title="Delete enquiry"
+                      >
+                        <Trash2 size={14} />
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -488,6 +578,13 @@ export default function AdminEnquiriesPage() {
               </div>
 
               <div className="flex gap-2">
+                <button
+                  onClick={() => handleDeleteEnquiry(selectedEnquiry.id, selectedEnquiry.name)}
+                  className="px-3.5 py-2 bg-red-50 hover:bg-red-100 text-red-700 text-xs font-bold rounded-xl transition-colors cursor-pointer border border-red-200 inline-flex items-center gap-1.5"
+                >
+                  <Trash2 size={13} className="text-red-500" />
+                  <span>Delete</span>
+                </button>
                 <a
                   href={`mailto:${selectedEnquiry.email}?subject=Regarding your enquiry - St George Electrical`}
                   className="btn-primary !py-2 !px-4 text-xs font-bold rounded-xl"

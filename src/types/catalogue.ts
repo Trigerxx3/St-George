@@ -39,3 +39,20 @@ export interface PackageItem {
   image?: string;
   isActive?: boolean;
 }
+
+export interface GalleryItem {
+  id: string;
+  title: string;
+  category: "solar" | "ev" | "electrical" | "commercial" | "hvac" | "security";
+  categoryLabel?: string;
+  suburb: string;
+  system?: string;
+  description: string;
+  results?: string[];
+  image: string;
+  clientQuote?: string;
+  clientName?: string;
+  sort_order: number;
+  isActive: boolean;
+  created_at?: string;
+}

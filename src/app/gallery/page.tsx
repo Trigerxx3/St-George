@@ -182,6 +182,7 @@ const PROJECTS: Project[] = [
 
 export default function GalleryPage() {
   const [filter, setFilter] = useState<string>("all");
+  const [projects, setProjects] = useState<Project[]>(PROJECTS);
   const [uploadedPhotos, setUploadedPhotos] = useState<
     Array<{ id: string; image_url: string; caption: string | null; sort_order: number }>
   >([]);
@@ -189,6 +190,31 @@ export default function GalleryPage() {
 
   useEffect(() => {
     async function loadGallery() {
+      try {
+        const res = await fetch("/api/gallery");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && Array.isArray(data.items) && data.items.length > 0) {
+            const formatted: Project[] = data.items.map((i: any) => ({
+              id: i.id,
+              title: i.title,
+              category: i.category,
+              categoryLabel: i.categoryLabel || "Installation",
+              suburb: i.suburb || "Canberra, ACT",
+              system: i.system || "",
+              description: i.description || "",
+              results: Array.isArray(i.results) ? i.results : [],
+              image: i.image,
+              clientQuote: i.clientQuote,
+              clientName: i.clientName,
+            }));
+            setProjects(formatted);
+          }
+        }
+      } catch (err) {
+        // Fallback silently to static case studies
+      }
+
       try {
         const supabase = createClient();
         const { data } = await supabase
@@ -199,14 +225,14 @@ export default function GalleryPage() {
           setUploadedPhotos(data);
         }
       } catch (err) {
-        // Fallback silently to static case studies
+        // Supabase fallback
       }
     }
     loadGallery();
   }, []);
 
   const filteredProjects =
-    filter === "all" ? PROJECTS : PROJECTS.filter((p) => p.category === filter);
+    filter === "all" ? projects : projects.filter((p) => p.category === filter);
 
   return (
     <div className="section-light min-h-screen py-16 lg:py-24">
